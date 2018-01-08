@@ -1,6 +1,6 @@
 * [Python标准库](#python标准库)  
 	* [2. 内置函数](#2-内置函数)  
-		* [urllib2 — 打开URLs的可扩展库](#urllib2—打开URLs的可扩展库) 
+		* [urllib2 — 打开URLs的可扩展库](#urllib2-打开URLs的可扩展库) 
 
 # Python文档
 Python官方文档不完全翻译。  
