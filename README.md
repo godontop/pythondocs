@@ -1,6 +1,6 @@
 * [Python标准库](#python标准库)  
 	* [2. 内置函数](#2-内置函数)  
-		* [20.6. urllib2](#20.6.-urllib2) 
+		* [20.6. urllib2](#20.6-urllib2) 
 
 # Python文档
 Python官方文档不完全翻译。  
