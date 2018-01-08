@@ -1,9 +1,10 @@
+# Python文档
+Python官方文档不完全翻译。  
+
 * [Python标准库](#python标准库)  
 	* [2. 内置函数](#2-内置函数)  
 		* [20.6. urllib2 — 打开URLs的可扩展库](#206-urllib2--打开urls的可扩展库) 
-
-# Python文档
-Python官方文档不完全翻译。  
+  
 # Python标准库
 Python版本：2.7.4
 ## 2. 内置函数
