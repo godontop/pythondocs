@@ -21,7 +21,7 @@ class **list**([*iterable*])
 这个方法就地对列表进行排序，仅使用 `<` 比较元素。
 
 To remind users that it operates by side effect, 它不返回排序后的序列(使用 sorted() 明确地请求一个新的排序的列表实例).  
-```python3  
+```python
 letters = ['d', 'a', 'e', 'c', 'b']
 print(letters.sort())
 ```
@@ -29,7 +29,7 @@ print(letters.sort())
 None
 
 list.sort()方法的返回值是None，要打印排序后的列表，应使用下面的代码：
-```python3
+```python
 letters = ['d', 'a', 'e', 'c', 'b']
 letters.sort()
 print(letters)
