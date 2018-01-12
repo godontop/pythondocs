@@ -6,6 +6,7 @@ Python官方文档不完全翻译。
 		* [4.6](#46)
 			* [4.6.4. 列表](#464-列表)
 
+[Python 2标准库](https://github.com/godontop/pythondocs/blob/master/python2/README.md)
 # Python 3标准库
 Python版本：3.6.4
 ## 4.
@@ -21,15 +22,17 @@ class **list**([*iterable*])
 
 To remind users that it operates by side effect, 它不返回排序后的序列(使用 sorted() 明确地请求一个新的排序的列表实例).  
 ```python3  
->>> letters = ['d', 'a', 'e', 'c', 'b']
->>> print(letters.sort())
-None 
+letters = ['d', 'a', 'e', 'c', 'b']
+print(letters.sort())
 ```
+**Result:**  
+None
 
 list.sort()方法的返回值是None，要打印排序后的列表，应使用下面的代码：
 ```python3
->>> letters = ['d', 'a', 'e', 'c', 'b']
->>> letters.sort()
->>> print(letters)
-['a', 'b', 'c', 'd', 'e']
+letters = ['d', 'a', 'e', 'c', 'b']
+letters.sort()
+print(letters)
 ```
+**Result:**  
+['a', 'b', 'c', 'd', 'e']
