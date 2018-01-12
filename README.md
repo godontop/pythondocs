@@ -5,6 +5,7 @@ Python官方文档不完全翻译。
 	* [4.](#4)
 		* [4.6](#46)
 			* [4.6.4. 列表](#464-列表)
+		* [4.7. 文本序列类型 — str](#47-文本序列类型--str)
 
 [Python 2标准库](https://github.com/godontop/pythondocs/blob/master/python2/README.md)
 # Python 3标准库
@@ -40,3 +41,22 @@ print(letters)
 ```
 **Result:**  
 ['a', 'b', 'c', 'd', 'e']
+
+### 4.7. 文本序列类型 — str
+在Python中，文本数据是通过 [str](https://docs.python.org/3.6/library/stdtypes.html#str) 对象或 *strings* 来处理的。字符串是不可变的Unicode代码点[序列](https://docs.python.org/3.6/library/stdtypes.html#typesseq)。字符串的写法有多种方式：
+
+* 单引号: `'allows embedded "double" quotes'`
+* 双引号: `"allows embedded 'single' quotes"`.
+* 三引号: `'''Three single quotes'''`, `"""Three double quotes"""`
+
+三引号字符串可能跨越多行 - 所有关联的空白都将被包含在字符串中。
+
+如果一个单一表达式的各个字符串之间仅有空格，那么它们将被含蓄地转换成一个单字符串。即，`("spam " "eggs") == "spam eggs"`。单一字符串等于单一表达式中各个字符串拼接的结果。
+```python
+>>> ("spam" "eggs") == "spameggs"
+True
+>>> ("spam " "eggs") == "spam eggs"
+True
+>>> ("spam "  "eggs") == "spam eggs"
+True
+```
