@@ -20,7 +20,11 @@ class **list**([*iterable*])
 **sort**(_*, key=None, reverse=False_)  
 这个方法就地对列表进行排序，仅使用 `<` 比较元素。
 
-To remind users that it operates by side effect, 它不返回排序后的序列(使用 sorted() 明确地请求一个新的排序的列表实例).  
+[sort()](https://docs.python.org/3.6/library/stdtypes.html#list.sort) 仅接受传递两个关键字参数([仅关键字参数](https://docs.python.org/3.6/glossary.html#keyword-only-parameter)):
+
+*reverse* 是一个布尔值。如果设置为 True，则列表元素将按逆序排列（即从大到小）。
+
+To remind users that it operates by side effect, 它不返回排序后的序列(使用 sorted() 明确地请求一个新的排序后的列表实例).  
 ```python
 letters = ['d', 'a', 'e', 'c', 'b']
 print(letters.sort())
