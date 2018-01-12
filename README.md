@@ -6,8 +6,11 @@ Python官方文档不完全翻译。
 		* [4.6](#46)
 			* [4.6.4. 列表](#464-列表)
 		* [4.7. 文本序列类型 — str](#47-文本序列类型--str)
+		* [4.10. 映射类型 — 字典](#410-映射类型--字典)
+			* [4.10.1. 字典视图对象](#4101-字典视图对象)
 
 [Python 2标准库](https://github.com/godontop/pythondocs/blob/master/python2/README.md)
+
 # Python 3标准库
 Python版本：3.6.4
 ## 4.
@@ -59,4 +62,71 @@ True
 True
 >>> ("spam "  "eggs") == "spam eggs"
 True
+```
+
+### 4.10. 映射类型 — 字典
+一个[映射](https://docs.python.org/3.6/glossary.html#term-mapping) 对象映射 [可哈希的](https://docs.python.org/3.6/glossary.html#term-hashable) 值到任意对象。映射是可变对象。目前仅有一个标准映射类型，*字典*。 (其它容器请参考内置[列表](https://docs.python.org/3.6/library/stdtypes.html#list)，[集合](https://docs.python.org/3.6/library/stdtypes.html#set)和[元组](https://docs.python.org/3.6/library/stdtypes.html#tuple)类，以及 [collections](https://docs.python.org/3.6/library/collections.html#module-collections) 模块.)
+
+字典的键 *几乎* 可以是任意值。不[可哈希的](https://docs.python.org/3.6/glossary.html#term-hashable)值，即值包含列表，字典或其它可变类型 (通过比较值而不是对象身份) 不能被用作键。 
+
+*class* __dict__(_\**kwarg_)  
+*class* __dict__(_mapping, \**kwarg_)  
+*class* __dict__(_iterable, **kwarg_)
+
+**keys()**  
+返回一个字典的键的新的视图。请看[视图对象的文档](https://docs.python.org/3.6/library/stdtypes.html#dict-views)。
+
+**values()**  
+返回一个字典的值的新的视图。请看[视图对象的文档](https://docs.python.org/3.6/library/stdtypes.html#dict-views)。
+
+#### 4.10.1. 字典视图对象
+[dict.keys()](https://docs.python.org/3.6/library/stdtypes.html#dict.keys), [dict.values()](https://docs.python.org/3.6/library/stdtypes.html#dict.values) 和 [dict.items()](https://docs.python.org/3.6/library/stdtypes.html#dict.items) 返回的对象是 *视图对象*。它们提供了一个关于字典条目的动态视图，这意味着当字典变化的时候，视图将反映这些变化。
+
+字典视图用法的一个例子：
+```python
+>>> dishes = {'eggs': 2, 'sausage': 1, 'bacon': 1, 'spam': 500}
+>>> keys = dishes.keys()
+>>> values = dishes.values()
+
+>>> keys
+dict_keys(['eggs', 'sausage', 'bacon', 'spam'])
+>>> values
+dict_values([2, 1, 1, 500])
+
+>>> type(keys)
+<class 'dict_keys'>
+>>> type(values)
+<class 'dict_values'>
+
+>>> # iteration
+...
+>>> n = 0
+>>> for val in values:
+...     n += val
+...
+>>> print(n)
+504
+
+>>> # keys and values are iterated over in the same order
+...
+>>> list(keys)
+['eggs', 'sausage', 'bacon', 'spam']
+>>> list(values)
+[2, 1, 1, 500]
+
+>>> # view objects are dynamic and reflect dict changes
+...
+>>> del dishes['eggs']
+>>> del dishes['sausage']
+>>> list(keys)
+['bacon', 'spam']
+>>> list(values)
+[1, 500]
+
+>>> # set operations
+...
+>>> keys & {'eggs', 'bacon', 'salad'}
+{'bacon'}
+>>> keys ^ {'sausage', 'juice'}
+{'juice', 'sausage', 'spam', 'bacon'}
 ```
