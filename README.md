@@ -2,6 +2,7 @@
 Python官方文档不完全翻译。  
 
 * [Python 3标准库](#python-3标准库)
+	* [2. 内置函数](2-内置函数)
 	* [4.](#4)
 		* [4.6](#46)
 			* [4.6.4. 列表](#464-列表)
@@ -13,6 +14,34 @@ Python官方文档不完全翻译。
 
 # Python 3标准库
 Python版本：3.6.4
+## 2. 内置函数
+Python解释器内置了许多总是可用的函数和类型。在这里以字母顺序列出它们。
+
+          |          |Built-in Functions|          |          |
+----------|----------|------------------|----------|----------|
+          |          |                  |          |          |
+          |          |                  |          |          |
+          |          |                  |          |          |
+          |          |                  |          |          |
+          |          |int()             |          |          |
+          
+*class* **int**(*x=0*)  
+*class* **int**(*x, base=10*)  
+返回一个从数字或者字符串 *x* 构建的整数对象，如果没有给定参数则返回0。
+
+如果 *x* 不是一个数字或者指定了 *base*，则 *x* 必须是一个表示一个以 *base* 为基数的[整型文字](https://docs.python.org/3.6/reference/lexical_analysis.html#integers)的字符串，[字节](https://docs.python.org/3.6/library/stdtypes.html#bytes)或[字节数组](https://docs.python.org/3.6/library/stdtypes.html#bytearray)实例。*base* 的默认值是10。允许的值是 0 和 2-36. 
+
+将十六进制转换为十进制：
+
+```python
+>>> int('0xff', 16)
+255
+>>> int('0xFF', 16)
+255
+>>> int('0x9FFF', 16)
+40959
+```
+
 ## 4.
 ### 4.6
 #### 4.6.4. 列表
@@ -29,19 +58,23 @@ class **list**([*iterable*])
 *reverse* 是一个布尔值。如果设置为 True，则列表元素将按逆序排列（即从大到小）。
 
 To remind users that it operates by side effect, 它不返回排序后的序列(使用 sorted() 明确地请求一个新的排序后的列表实例).  
+
 ```python
 letters = ['d', 'a', 'e', 'c', 'b']
 print(letters.sort())
 ```
+
 **Result:**  
 None
 
 list.sort()方法的返回值是None，要打印排序后的列表，应使用下面的代码：
+
 ```python
 letters = ['d', 'a', 'e', 'c', 'b']
 letters.sort()
 print(letters)
 ```
+
 **Result:**  
 ['a', 'b', 'c', 'd', 'e']
 
@@ -55,6 +88,7 @@ print(letters)
 三引号字符串可能跨越多行 - 所有关联的空白都将被包含在字符串中。
 
 如果一个单一表达式的各个字符串之间仅有空格，那么它们将被含蓄地转换成一个单字符串。即，`("spam " "eggs") == "spam eggs"`。单一字符串等于单一表达式中各个字符串拼接的结果。
+
 ```python
 >>> ("spam" "eggs") == "spameggs"
 True
@@ -83,6 +117,7 @@ True
 [dict.keys()](https://docs.python.org/3.6/library/stdtypes.html#dict.keys), [dict.values()](https://docs.python.org/3.6/library/stdtypes.html#dict.values) 和 [dict.items()](https://docs.python.org/3.6/library/stdtypes.html#dict.items) 返回的对象是 *视图对象*。它们提供了一个关于字典条目的动态视图，这意味着当字典变化的时候，视图将反映这些变化。
 
 字典视图用法的一个例子：
+
 ```python
 >>> dishes = {'eggs': 2, 'sausage': 1, 'bacon': 1, 'spam': 500}
 >>> keys = dishes.keys()
