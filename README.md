@@ -9,6 +9,7 @@ Python官方文档不完全翻译。
 		* [4.7. 文本序列类型 — str](#47-文本序列类型--str)
 		* [4.10. 映射类型 — 字典](#410-映射类型--字典)
 			* [4.10.1. 字典视图对象](#4101-字典视图对象)
+			* [6.2.2. 模块内容](#622-模块内容)
 
 [Python 2标准库](https://github.com/godontop/pythondocs/blob/master/python2/README.md)
 
@@ -165,3 +166,35 @@ dict_values([2, 1, 1, 500])
 >>> keys ^ {'sausage', 'juice'}
 {'juice', 'sausage', 'spam', 'bacon'}
 ```
+
+#### 6.2.2. 模块内容
+这个模块定义了数个函数，常量和一个异常。Some of the functions are simplified versions of the full featured methods for compiled regular expressions. 大多数面对较重大的应用总是使用编译后的形式。
+
+re.**match**(*pattern, string, flags=0*)  
+如果 *string* 的开始位置有0个或多个字符匹配正则表达式 *pattern*，则返回一个对应的[匹配对象](https://docs.python.org/3.6/library/re.html#match-objects)。如果字符串不匹配模式，则返回 `None`；注意，这不同于 zero-length match。
+
+注意，即使在[多行](https://docs.python.org/3.6/library/re.html#re.MULTILINE)模式下，[re.match()](https://docs.python.org/3.6/library/re.html#re.match) 将仅匹配字符串的开始位置而不是每一行的开始位置。
+
+如果你想在 *string* 的任意位置定位一个匹配，使用 [search()](https://docs.python.org/3.6/library/re.html#re.search) 替代。
+
+```python
+>>> import re
+>>> re.match('c', 'abcdef')   # No match
+>>> re.search('c', 'abcdef')  # Match
+<_sre.SRE_Match object; span=(2, 3), match='c'>
+```
+
+**匹配中文**    
+[\u4e00-\u9fd5]虽然不是所有中文的Unicode代码点范围，但它几乎已经包含了所有常用的汉字的Unicode代码点。在Unicode标准版本10.0.0中包含汉字代码点的块共有9个，具体可以查询Unicode官网。Python 3.6.4支持的Unicode标准版本为9.0.0，[\u4e00-\u9fd5]是Unicode标准版本8.0的CJK Unified Ideographs块的代码点范围。
+
+匹配一个或多个中文
+
+```python
+>>> import re
+>>> s = 'Python is a programming language.'
+>>> re.search(u'[\u4e00-\u9fd5]+', s)
+>>> s = 'Python不是大蟒蛇。'
+>>> re.search(u'[\u4e00-\u9fd5]+', s)
+<_sre.SRE_Match object; span=(6, 11), match='不是大蟒蛇'>
+```
+
