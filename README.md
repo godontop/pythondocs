@@ -236,7 +236,7 @@ re.**match**(*pattern, string, flags=0*)
 
 The [urllib.request](https://docs.python.org/3/library/urllib.request.html#module-urllib.request) module defines functions and classes which help in opening URLs (mostly HTTP) in a complex world — 基本的和摘要认证，重定向，cookies等等。
 
-**另请参阅：**更高层次的HTTP客户端接口推荐 [Requests package](http://docs.python-requests.org/)。
+__另请参阅：__ 更高层次的HTTP客户端接口推荐 [Requests package](http://docs.python-requests.org/)。
 
 [urllib.request](https://docs.python.org/3/library/urllib.request.html#module-urllib.request) 模块定义了下面的函数：
 
