@@ -10,7 +10,7 @@ Python官方文档不完全翻译。
 		* [4.10. 映射类型 — 字典](#410-映射类型--字典)
 			* [4.10.1. 字典视图对象](#4101-字典视图对象)
 			* [6.2.2. 模块内容](#622-模块内容)
-		* [21.6. urllib.request — 打开URLs的可扩展库](#216-urllib.request--打开urls的可扩展库)
+		* [21.6. urllib.request — 打开URLs的可扩展库](#216-urllibrequest--打开urls的可扩展库)
 * [Python HOWTOs](#python-howtos)
     * [如何使用urllib包获取互联网资源](#如何使用urllib包获取互联网资源)
         * [头信息](#头信息)
