@@ -10,6 +10,7 @@ Python官方文档不完全翻译。
 		* [4.10. 映射类型 — 字典](#410-映射类型--字典)
 			* [4.10.1. 字典视图对象](#4101-字典视图对象)
 			* [6.2.2. 模块内容](#622-模块内容)
+		* [21.6. urllib.request — 打开URLs的可扩展库](#216-urllib.request--打开urls的可扩展库)
 * [Python HOWTOs](#python-howtos)
     * [如何使用urllib包获取互联网资源](#如何使用urllib包获取互联网资源)
         * [头信息](#头信息)
@@ -229,6 +230,35 @@ re.**match**(*pattern, string, flags=0*)
 >>> re.search(u'[\u4e00-\u9fd5]+', s)
 <_sre.SRE_Match object; span=(6, 11), match='不是大蟒蛇'>
 ```
+
+### 21.6. urllib.request — 打开URLs的可扩展库
+**Source code:** [Lib/urllib/request.py](https://github.com/python/cpython/tree/3.6/Lib/urllib/request.py)
+
+The [urllib.request](https://docs.python.org/3/library/urllib.request.html#module-urllib.request) module defines functions and classes which help in opening URLs (mostly HTTP) in a complex world — 基本的和摘要认证，重定向，cookies等等。
+
+**另请参阅：**更高层次的HTTP客户端接口推荐 [Requests package](http://docs.python-requests.org/)。
+
+[urllib.request](https://docs.python.org/3/library/urllib.request.html#module-urllib.request) 模块定义了下面的函数：
+
+urllib.request.**urlopen**(_url, data=None, [timeout, ]*, cafile=None, capath=None, cadefault=False, context=None_)  
+打开URL _url_，_url_ 可以是一个字符串或者一个 [Request](https://docs.python.org/3/library/urllib.request.html#urllib.request.Request) 对象。
+
+*data* must be an object specifying additional data to be sent to the server, or `None` if no such data is needed. 详见 [Request](https://docs.python.org/3/library/urllib.request.html#urllib.request.Request) 。
+
+This function always returns an object which can work as a [context manager](https://docs.python.org/3/glossary.html#term-context-manager) and has methods such as
+
+* geturl() — return the URL of the resource retrieved, commonly used to determine if a redirect was followed  
+* info() — 返回页面的元信息，例如头信息， in the form of an [email.message_from_string()](https://docs.python.org/3/library/email.parser.html#email.message_from_string) instance (see [Quick Reference to HTTP Headers](https://www.cs.tut.fi/~jkorpela/http.html))  
+* getcode() – 返回响应的HTTP状态代码。
+
+提供下面的类：
+
+class urllib.request.**Request**(*url, data=None, headers={}, origin_req_host=None, unverifiable=False, method=None*)  
+This class is an abstraction of a URL request.
+
+*url* 应该是一个包含一个有效的URL的字符串。
+
+*headers* 应该是一个字典， and will be treated as if [add_header()](https://docs.python.org/3/library/urllib.request.html#urllib.request.Request.add_header) was called with each key and value as arguments. This is often used to “spoof” the `User-Agent` header value, which is used by a browser to identify itself – 一些HTTP服务器仅允许来自普通浏览器的请求而阻止来自脚本的请求。例如，Mozilla Firefox 可能标识自己为 `"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:58.0) Gecko/20100101 Firefox/58.0"`, 而 [urllib](https://docs.python.org/3/library/urllib.html#module-urllib) 的默认用户代理字符串是 `"Python-urllib/3.6"` (on Python 3.6)。
 
 # Python HOWTOs
 ## 如何使用urllib包获取互联网资源
