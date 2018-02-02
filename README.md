@@ -10,6 +10,9 @@ Python官方文档不完全翻译。
 		* [4.10. 映射类型 — 字典](#410-映射类型--字典)
 			* [4.10.1. 字典视图对象](#4101-字典视图对象)
 			* [6.2.2. 模块内容](#622-模块内容)
+* [Python HOWTOs](#python-howtos)
+    * [如何使用urllib包获取互联网资源](#如何使用urllib包获取互联网资源)
+        * [头信息](#头信息)
 
 [Python 2标准库](https://github.com/godontop/pythondocs/blob/master/python2/README.md)
 
@@ -227,3 +230,32 @@ re.**match**(*pattern, string, flags=0*)
 <_sre.SRE_Match object; span=(6, 11), match='不是大蟒蛇'>
 ```
 
+# Python HOWTOs
+## 如何使用urllib包获取互联网资源
+### 头信息
+我们将在这讨论一个具体的HTTP头信息，详细解释如何为你的HTTP请求增加头信息。
+
+一些网站不喜欢被程序浏览，或者给不同的浏览器发送不同的版本。默认情况下urllib以Python-urllib/x.y (x和y分别为Python发行版的主版本号和次版本号，如 Python-urllib/3.6)标识自己，这可能使网站迷惑，或者无法正常工作。一个浏览器标识自己的方式是通过User-Agent(用户代理)头信息。当你创建一个Request对象时，你可以传递一个头信息字典进去。
+
+```python
+from urllib.request import urlopen, Request
+from bs4 import BeautifulSoup
+
+url = 'https://www.whatismybrowser.com/'
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:58.0) \
+Gecko/20100101 Firefox/58.0'
+}
+
+req = Request(url, headers=headers)
+page = urlopen(req).read()
+soup = BeautifulSoup(page, 'lxml')
+myuseragent = soup.find_all('div', class_="user-agent")[0].a.get_text()
+print(myuseragent)
+```
+
+上面代码的执行结果是：  
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:58.0) Gecko/20100101 Firefox/58.0
+
+当Request对象没有传递headers参数时，执行结果是：  
+Python-urllib/3.6
