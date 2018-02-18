@@ -19,6 +19,9 @@ Python相关文档不完全翻译。
         * [安装包](#安装包)
             * [Source Distributions vs Wheels](#source-distributions-vs-wheels)
             * [Requirements files](#requirements-files)
+* [PEPs](#peps)
+    * [PEP 453 -- Explicit bootstrapping of pip in Python installations](#pep-453----explicit-bootstrapping-of-pip-in-python-installations)
+        * [在Windows下执行脚本](#在windows下执行脚本)
 * [pip](#pip)
     * [安装](#安装)
         * [我需要安装pip吗？](#我需要安装pip吗)
@@ -313,6 +316,32 @@ If [pip](https://packaging.python.org/key_projects/#pip) does not find a wheel t
 Install a list of requirements specified in a [Requirements File](https://pip.pypa.io/en/latest/user_guide/#requirements-files).
 
 `pip install -r requirements.txt`
+
+# PEPs
+## PEP 453 -- Explicit bootstrapping of pip in Python installations
+### 在Windows下执行脚本
+Python 3.3 默认为Windows提供了Python Launcher (和相关的 **py** 命令)。
+
+```
+C:\Users\YWH>py -2 -m pip list --format=columns
+Package    Version
+---------- -------
+pip        9.0.1
+setuptools 28.8.0
+
+C:\Users\YWH>py -3 -m pip list --format=columns
+Package     Version
+----------- -------
+pip         9.0.1
+pycodestyle 2.3.1
+setuptools  28.8.0
+
+C:\Users\YWH>py -2 --version
+Python 2.7.14
+
+C:\Users\YWH>py -3 --version
+Python 3.6.4
+```
 
 # pip
 ## 安装
