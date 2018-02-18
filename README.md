@@ -1,5 +1,5 @@
 # Python文档
-Python官方文档不完全翻译。  
+Python相关文档不完全翻译。  
 
 * [Python 3标准库](#python-3标准库)
 	* [2. 内置函数](#2-内置函数)
@@ -19,6 +19,10 @@ Python官方文档不完全翻译。
         * [安装包](#安装包)
             * [Source Distributions vs Wheels](#source-distributions-vs-wheels)
             * [Requirements files](#requirements-files)
+* [pip](#pip)
+    * [安装](#安装)
+        * [我需要安装pip吗？](#我需要安装pip吗)
+        * [升级pip](#升级pip)
 
 [Python 2标准库](https://github.com/godontop/pythondocs/blob/master/python2/README.md)
 
@@ -309,3 +313,15 @@ If [pip](https://packaging.python.org/key_projects/#pip) does not find a wheel t
 Install a list of requirements specified in a [Requirements File](https://pip.pypa.io/en/latest/user_guide/#requirements-files).
 
 `pip install -r requirements.txt`
+
+# pip
+## 安装
+### 我需要安装pip吗？
+pip is already installed if you are using Python 2 >=2.7.9 or Python 3 >=3.4 downloaded from [python.org](https://www.python.org/) or if you are working in a [Virtual Environment](https://packaging.python.org/tutorials/installing-packages/#creating-and-using-virtual-environments) created by [virtualenv](https://packaging.python.org/key_projects/#virtualenv) or [pyvenv](https://packaging.python.org/key_projects/#venv). Just make sure to [upgrade pip](https://pip.pypa.io/en/latest/installing/#upgrading-pip).
+
+### 升级pip
+On Linux or macOS:  
+`pip install -U pip`
+
+On Windows:  
+`python -m pip install -U pip`
