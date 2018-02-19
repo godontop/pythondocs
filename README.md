@@ -27,7 +27,7 @@ Python相关文档不完全翻译。
         * [我需要安装pip吗？](#我需要安装pip吗)
         * [升级pip](#升级pip)
 * [IPython](#ipython)
-    * [安装](#安装)
+    * [Installation](#installation)
         * [安装IPython内核](#安装ipython内核)
             * [Kernels for Python 2 and 3](#kernels-for-python-2-and-3)
 
@@ -360,7 +360,7 @@ On Windows:
 `python -m pip install -U pip`
 
 # IPython
-## 安装
+## Installation
 ### 安装IPython内核
 #### Kernels for Python 2 and 3
 If you’re running Jupyter on Python 3, you can set up a Python 2 kernel like this:
