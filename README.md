@@ -26,6 +26,10 @@ Python相关文档不完全翻译。
     * [安装](#安装)
         * [我需要安装pip吗？](#我需要安装pip吗)
         * [升级pip](#升级pip)
+* [IPython](#ipython)
+    * [安装](#安装)
+        * [安装IPython内核](#安装ipython内核)
+            * [Kernels for Python 2 and 3](#kernels-for-python-2-and-3)
 
 [Python 2标准库](https://github.com/godontop/pythondocs/blob/master/python2/README.md)
 
@@ -354,3 +358,25 @@ On Linux or macOS:
 
 On Windows:  
 `python -m pip install -U pip`
+
+# IPython
+## 安装
+### 安装IPython内核
+#### Kernels for Python 2 and 3
+If you’re running Jupyter on Python 3, you can set up a Python 2 kernel like this:
+
+```
+python2 -m pip install ipykernel
+python2 -m ipykernel install --user
+```
+
+**On Windows:**  
+
+```
+py -2 -m pip install ipykernel
+py -2 -m ipykernel install --user
+```
+
+If you’re running Jupyter on Python 2 and want to set up a Python 3 kernel, follow the same steps, replacing `2` with `3`.
+
+The last command installs a [kernel spec](https://jupyter-client.readthedocs.io/en/latest/kernels.html#kernelspecs) file for the current python installation. Kernel spec 文件是JSON文件，可以被普通文本编辑器浏览和修改。
