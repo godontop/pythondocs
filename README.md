@@ -26,6 +26,9 @@ Python相关文档不完全翻译。
     * [安装](#安装)
         * [我需要安装pip吗？](#我需要安装pip吗)
         * [升级pip](#升级pip)
+    * [参考指南](#参考指南)
+        * [pip install](#pip-install)
+            * [选项](#选项)
 * [IPython](#ipython)
     * [Installation](#installation)
         * [安装IPython内核](#安装ipython内核)
@@ -358,6 +361,12 @@ On Linux or macOS:
 
 On Windows:  
 `python -m pip install -U pip`
+
+## 参考指南
+### pip install
+#### 选项
+--user
+Install to the Python user install directory for your platform. Typically ~/.local/, or %APPDATA%Python on Windows. (See the Python documentation for site.USER_BASE for full details.)
 
 # IPython
 ## Installation
