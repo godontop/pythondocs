@@ -169,6 +169,14 @@ True
 *class* __dict__(_mapping, \**kwarg_)  
 *class* __dict__(_iterable, **kwarg_)
 
+这些是字典支持的操作 (因此，自定义映射类型也应该支持)：
+
+**get**(*key*[, *default*])  
+如果 *key* 在字典中，则返回 *key* 的值，否则返回 *default*。If default is not given, it defaults to `None`, 所以这个方法永远不会抛出 [KeyError](https://docs.python.org/3.6/library/exceptions.html#KeyError)。
+
+**items()**  
+返回一个新的字典的元素的视图 (`(key, value)` pairs)。请看[视图对象的文档](https://docs.python.org/3.6/library/stdtypes.html#dict-views)。
+
 **keys()**  
 返回一个字典的键的新的视图。请看[视图对象的文档](https://docs.python.org/3.6/library/stdtypes.html#dict-views)。
 
