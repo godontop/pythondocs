@@ -382,6 +382,9 @@ On Windows:
 ## 参考指南
 ### pip install
 #### 选项
+-U, --upgrade  
+升级所有指定的包到最新的可用版本。依赖的处理依赖于使用的 upgrade-strategy。
+
 --user
 Install to the Python user install directory for your platform. Typically ~/.local/, or %APPDATA%Python on Windows. (See the Python documentation for site.USER_BASE for full details.)
 
