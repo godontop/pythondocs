@@ -44,13 +44,37 @@ Python解释器内置了许多总是可用的函数和类型。在这里以字�
 |          |          |Built-in Functions|          |          |
 |----------|----------|------------------|----------|----------|
 |          |          |                  |          |          |
-|          |          |hex()             |          |          |
+|all()     |          |hex()             |          |          |
 |          |          |                  |          |          |
 |          |          |                  |          |          |
 |          |          |int()             |          |          |
 |          |          |                  |ord()     |          |
 |          |          |                  |          |          |
 |          |          |                  |print()   |          |
+
+**all**(*iterable*)  
+如果 *iterable* 的所有元素都为真则返回`True` (或者如果iterable为空)。相当于：
+
+```python
+def all(iterable):
+    for element in iterable:
+        if not element:
+            return False
+    return True
+```
+
+用法举例
+```python
+>>> a = []
+>>> b = [1, 2, 3]
+>>> c = [1, 2, None]
+>>> print(all(a))
+True
+>>> print(all(b))
+True
+>>> print(all(c))
+False
+```
 
 **hex**(*x*)  
 将一个整型数转换成一个以 "0x" 为前缀的小写字母十六进制字符串。
