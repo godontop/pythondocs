@@ -109,6 +109,18 @@ False
 
 *file* is a [path-like object](https://docs.python.org/3.6/glossary.html#term-path-like-object) giving the pathname (绝对的或者相对于当前工作目录的) of the file to be opened or an integer file descriptor of the file to be wrapped. (If a file descriptor is given, it is closed when the returned I/O object is closed, unless *closefd* is set to `False`.)
 
+*mode* 是一个可选字符串，用于指定打开文件的模式。默认值为`'r'`，意味着在文本模式下以只读方式打开。其它常用值是`'w’`意味着写(如果文件已经存在则截断文件), `'x'`意味着专门创建（exclusive creation），而`'a'`意味着附加 (在一些Unix系统，意味着所有写操作被附加到文件末尾而不考虑当前搜索位置). 在文本模式下，如果 *encoding* 没有指定，使用的编码将依赖于平台：`locale.getpreferredencoding(False)` 将被调用以得到当前区域编码（locale encoding）。(读写裸字节 (raw bytes)使用binary模式且不要指定 *encoding*.) 可用的模式是：
+|Character |Meaning                                        |
+|----------|-----------------------------------------------|
+|`'r'`     |只读模式打开（默认）                              |
+|`'w'`     |open for writing, 首先截断文件                   |
+|`'x'`     |open for exclusive creation, 如果文件已存在则失败 |
+|`'a'`     |open for writing, 如果文件存在则附加到文件末尾     |
+|`'b'`     |binary mode                                    |
+|`'t'`     |文本模式（默认）                                 |
+|`'+'`     |open a disk file for updating (读和写)          |
+|`'U'`     |[通用新行](https://docs.python.org/3.6/glossary.html#term-universal-newlines) 模式（已弃用）        |
+
 **ord**(*c*)  
 给定一个表示一个Unicode字符的字符串，返回一个代表该字符的Unicode代码点的整型数。例如， `ord('a')` 返回整型数 `97`，`ord('€')` (欧元符号) 返回 `8364`。这是 [chr()](https://docs.python.org/3.6/library/functions.html#chr) 的逆向操作。
 
