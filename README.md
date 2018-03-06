@@ -117,10 +117,12 @@ False
 |`'w'`     |open for writing, 首先截断文件                   |
 |`'x'`     |open for exclusive creation, 如果文件已存在则失败 |
 |`'a'`     |open for writing, 如果文件存在则附加到文件末尾     |
-|`'b'`     |binary mode                                    |
+|`'b'`     |二进制模式                                      |
 |`'t'`     |文本模式（默认）                                 |
 |`'+'`     |open a disk file for updating (读和写)          |
 |`'U'`     |[通用新行](https://docs.python.org/3.6/glossary.html#term-universal-newlines) 模式（已弃用）        |
+
+默认模式是 `'r'` (打开只读文本, 同义词 `'rt'`). 对于二进制读写访问，模式 `'w+b'` 打开并将文件截断为0字节。`'r+b'` 打开文件时不截断。
 
 **ord**(*c*)  
 给定一个表示一个Unicode字符的字符串，返回一个代表该字符的Unicode代码点的整型数。例如， `ord('a')` 返回整型数 `97`，`ord('€')` (欧元符号) 返回 `8364`。这是 [chr()](https://docs.python.org/3.6/library/functions.html#chr) 的逆向操作。
