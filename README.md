@@ -22,6 +22,7 @@ Python相关文档不完全翻译。
 * [PEPs](#peps)
     * [PEP 453 -- Explicit bootstrapping of pip in Python installations](#pep-453----explicit-bootstrapping-of-pip-in-python-installations)
         * [在Windows下执行脚本](#在windows下执行脚本)
+* [术语表](#术语表)
 * [pip](#pip)
     * [安装](#安装)
         * [我需要安装pip吗？](#我需要安装pip吗)
@@ -390,6 +391,21 @@ Python 2.7.14
 C:\Users\YWH>py -3 --version
 Python 3.6.4
 ```
+
+# 术语表
+**`>>>`**    
+Python交互式shell的默认提示符。常见于可以在解释器中交互式执行的示例代码中。
+
+**`...`**  
+The default Python prompt of the interactive shell when entering code for an indented code block or within a pair of matching left and right delimiters (parentheses, square brackets or curly braces).
+
+**file object**  
+An object exposing a file-oriented API (with methods such as read() or write()) to an underlying resource. Depending on the way it was created, a file object can mediate access to a real on-disk file or to another type of storage or communication device (例如标准输入/输出，in-memory buffers, sockets, pipes, etc.). 文件对象也被称为 *file-like objects* 或 *streams*.
+
+事实上有三种文件对象：raw [binary files](https://docs.python.org/3/glossary.html#term-binary-file), buffered [binary files](https://docs.python.org/3/glossary.html#term-binary-file) 和 [文本文件](https://docs.python.org/3/glossary.html#term-text-file). 它们的接口被定义在 [io](https://docs.python.org/3/library/io.html#module-io) 模块中. 创建一个文件对象的标准方式是通过使用 [open()](https://docs.python.org/3/library/functions.html#open) 函数。
+
+**file-like object**  
+[文件对象](https://docs.python.org/3/glossary.html#term-file-object) 的同义词。
 
 # pip
 ## 安装
