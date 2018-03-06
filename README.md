@@ -48,7 +48,7 @@ Python解释器内置了许多总是可用的函数和类型。在这里以字�
 |all()     |          |hex()             |          |          |
 |          |          |                  |          |          |
 |          |          |                  |          |          |
-|          |          |int()             |          |          |
+|          |          |int()             |open()    |          |
 |          |          |                  |ord()     |          |
 |          |          |                  |          |          |
 |          |          |                  |print()   |          |
@@ -103,6 +103,11 @@ False
 >>> int('0x9FFF', 16)
 40959
 ```
+
+**open**(*file, mode='r', buffering=-1, encoding=None, errors=None, newline=None, closefd=True, opener=None*)  
+打开 *file* 并返回一个对应的[文件对象](https://docs.python.org/3.6/glossary.html#term-file-object)。如果文件不能被打开，则抛出一个[OSError](https://docs.python.org/3.6/library/exceptions.html#OSError)异常。
+
+*file* is a [path-like object](https://docs.python.org/3.6/glossary.html#term-path-like-object) giving the pathname (绝对的或者相对于当前工作目录的) of the file to be opened or an integer file descriptor of the file to be wrapped. (If a file descriptor is given, it is closed when the returned I/O object is closed, unless *closefd* is set to `False`.)
 
 **ord**(*c*)  
 给定一个表示一个Unicode字符的字符串，返回一个代表该字符的Unicode代码点的整型数。例如， `ord('a')` 返回整型数 `97`，`ord('€')` (欧元符号) 返回 `8364`。这是 [chr()](https://docs.python.org/3.6/library/functions.html#chr) 的逆向操作。
