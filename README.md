@@ -168,6 +168,113 @@ A custom opener can be used by passing a callable as *opener*. The underlying fi
 >>> os.close(dir_fd)  # don't leak a file descriptor
 ```
 
+[open()](https://docs.python.org/3.6/library/functions.html#open)函数返回的[文件对象](https://docs.python.org/3.6/glossary.html#term-file-object)的类型依赖于模式。当[open()](https://docs.python.org/3.6/library/functions.html#open)以文本模式打开一个文件时(`'w'`, `'r'`, `'wt'`, `'rt'`, etc.), 它返回一个 [io.TextIOBase](https://docs.python.org/3.6/library/io.html#io.TextIOBase) 的子类(具体地是 [io.TextIOWrapper](https://docs.python.org/3.6/library/io.html#io.TextIOWrapper)). When used to open a file in a binary mode with buffering, 返回类是[io.BufferedIOBase](https://docs.python.org/3.6/library/io.html#io.BufferedIOBase)的一个子类. The exact class varies: in read binary mode, 它返回一个[io.BufferedReader](https://docs.python.org/3.6/library/io.html#io.BufferedReader)类; in write binary and append binary modes, 它返回一个[io.BufferedWriter](https://docs.python.org/3.6/library/io.html#io.BufferedWriter)类, and in read/write mode, 它返回一个[io.BufferedRandom](https://docs.python.org/3.6/library/io.html#io.BufferedRandom)类. 当buffering关闭时，the raw stream, 返回一个[io.RawIOBase](https://docs.python.org/3.6/library/io.html#io.RawIOBase)的子类[io.FileIO](https://docs.python.org/3.6/library/io.html#io.FileIO)。
+
+### 文本模式
+```python
+>>> with open('test.txt', 'r') as f:
+...     print(type(f))
+...
+<class '_io.TextIOWrapper'>
+>>> with open('test.txt', 'w') as f:
+...     print(type(f))
+...
+<class '_io.TextIOWrapper'>
+>>> with open('test.txt', 'rt') as f:
+...     print(type(f))
+...
+<class '_io.TextIOWrapper'>
+>>> with open('test.txt', 'wt') as f:
+...     print(type(f))
+...
+<class '_io.TextIOWrapper'>
+>>> with open('test.txt', 'a') as f:
+...     print(type(f))
+...
+<class '_io.TextIOWrapper'>
+>>> with open('test.txt', 'at') as f:
+...     print(type(f))
+...
+<class '_io.TextIOWrapper'>
+>>> with open('test.txt', 'r+') as f:
+...     print(type(f))
+...
+<class '_io.TextIOWrapper'>
+>>> with open('test.txt', 'r+t') as f:
+...     print(type(f))
+...
+<class '_io.TextIOWrapper'>
+>>> with open('test.txt', 'w+') as f:
+...     print(type(f))
+...
+<class '_io.TextIOWrapper'>
+>>> with open('test.txt', 'w+t') as f:
+...     print(type(f))
+...
+<class '_io.TextIOWrapper'>
+>>> import io
+>>> issubclass(io.TextIOWrapper, io.TextIOBase)
+True
+```
+
+### 开启buffering的二进制模式
+```python
+>>> with open('test.txt', 'rb') as f:
+...     print(type(f))
+...
+<class '_io.BufferedReader'>
+>>> with open('test.txt', 'wb') as f:
+...     print(type(f))
+...
+<class '_io.BufferedWriter'>
+>>> with open('test.txt', 'ab') as f:
+...     print(type(f))
+...
+<class '_io.BufferedWriter'>
+>>> with open('test.txt', 'r+b') as f:
+...     print(type(f))
+...
+<class '_io.BufferedRandom'>
+>>> with open('test.txt', 'w+b') as f:
+...     print(type(f))
+...
+<class '_io.BufferedRandom'>
+>>> import io
+>>> issubclass(io.BufferedReader, io.BufferedIOBase)
+True
+>>> issubclass(io.BufferedWriter, io.BufferedIOBase)
+True
+>>> issubclass(io.BufferedRandom, io.BufferedIOBase)
+True
+```
+
+### 关闭buffering的二进制模式
+```python
+>>> with open('test.txt', 'rb', buffering=0) as f:
+...     print(type(f))
+...
+<class '_io.FileIO'>
+>>> with open('test.txt', 'wb', buffering=0) as f:
+...     print(type(f))
+...
+<class '_io.FileIO'>
+>>> with open('test.txt', 'ab', buffering=0) as f:
+...     print(type(f))
+...
+<class '_io.FileIO'>
+>>> with open('test.txt', 'r+b', buffering=0) as f:
+...     print(type(f))
+...
+<class '_io.FileIO'>
+>>> with open('test.txt', 'w+b', buffering=0) as f:
+...     print(type(f))
+...
+<class '_io.FileIO'>
+>>> import io
+>>> issubclass(io.FileIO, io.RawIOBase)
+True
+```
+
 **ord**(*c*)  
 给定一个表示一个Unicode字符的字符串，返回一个代表该字符的Unicode代码点的整型数。例如， `ord('a')` 返回整型数 `97`，`ord('€')` (欧元符号) 返回 `8364`。这是 [chr()](https://docs.python.org/3.6/library/functions.html#chr) 的逆向操作。
 
