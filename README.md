@@ -531,7 +531,19 @@ This class is an abstraction of a URL request.
 **reason**  
 这个错误的原因。它可以是一个消息字符串或者另一个异常实例。
 
-*在版本3.3中发生变化：* [URLError](https://docs.python.org/3.6/library/urllib.error.html#urllib.error.URLError) 成为 [OSError](https://docs.python.org/3.6/library/exceptions.html#OSError) 的一个子类而不是 [IOError](https://docs.python.org/3.6/library/exceptions.html#IOError) 的子类。
+*在版本3.3中发生变化：* [URLError](https://docs.python.org/3.6/library/urllib.error.html#urllib.error.URLError) has been made a subclass of [OSError](https://docs.python.org/3.6/library/exceptions.html#OSError) instead of [IOError](https://docs.python.org/3.6/library/exceptions.html#IOError).
+
+```python
+>>> import urllib.error
+>>> issubclass(urllib.error.ContentTooShortError, urllib.error.URLError)
+True
+>>> issubclass(urllib.error.HTTPError, urllib.error.URLError)
+True
+>>> issubclass(urllib.error.URLError, OSError)
+True
+>>> issubclass(urllib.error.URLError, IOError)
+True
+```
 
 # Python HOWTOs
 ## 如何使用urllib包获取互联网资源
