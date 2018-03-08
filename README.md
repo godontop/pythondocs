@@ -11,6 +11,7 @@ Python相关文档不完全翻译。
 			* [4.10.1. 字典视图对象](#4101-字典视图对象)
 			* [6.2.2. 模块内容](#622-模块内容)
 		* [21.6. urllib.request — 打开URLs的可扩展库](#216-urllibrequest--打开urls的可扩展库)
+        * [21.9. urllib.error — urllib.request抛出的异常类](#219-urlliberror--urllibrequest抛出的异常类)
 * [Python HOWTOs](#python-howtos)
     * [如何使用urllib包获取互联网资源](#如何使用urllib包获取互联网资源)
         * [头信息](#头信息)
@@ -516,6 +517,21 @@ This class is an abstraction of a URL request.
 *url* 应该是一个包含一个有效的URL的字符串。
 
 *headers* 应该是一个字典， and will be treated as if [add_header()](https://docs.python.org/3/library/urllib.request.html#urllib.request.Request.add_header) was called with each key and value as arguments. This is often used to “spoof” the `User-Agent` header value, which is used by a browser to identify itself – 一些HTTP服务器仅允许来自普通浏览器的请求而阻止来自脚本的请求。例如，Mozilla Firefox 可能标识自己为 `"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:58.0) Gecko/20100101 Firefox/58.0"`, 而 [urllib](https://docs.python.org/3/library/urllib.html#module-urllib) 的默认用户代理字符串是 `"Python-urllib/3.6"` (on Python 3.6)。
+
+### 21.9. urllib.error — urllib.request抛出的异常类
+**Source code:** [Lib/urllib/error.py](https://github.com/python/cpython/tree/3.6/Lib/urllib/error.py)
+
+[urllib.error](https://docs.python.org/3.6/library/urllib.error.html#module-urllib.error) 模块为[urllib.request](https://docs.python.org/3.6/library/urllib.request.html#module-urllib.request) 抛出的异常定义了异常类。异常基类是 [URLError](https://docs.python.org/3.6/library/urllib.error.html#urllib.error.URLError).
+
+下列异常通过 [urllib.error](https://docs.python.org/3.6/library/urllib.error.html#module-urllib.error) 适当地抛出：
+
+*exception* urllib.error.**URLError**  
+当处理程序遇到一个问题时，抛出这个异常 (或者衍生的异常)。它是 [OSError](https://docs.python.org/3.6/library/exceptions.html#OSError) 的一个子类。
+
+**reason**  
+这个错误的原因。它可以是一个消息字符串或者另一个异常实例。
+
+*在版本3.3中发生变化：* [URLError](https://docs.python.org/3.6/library/urllib.error.html#urllib.error.URLError) 成为 [OSError](https://docs.python.org/3.6/library/exceptions.html#OSError) 的一个子类而不是 [IOError](https://docs.python.org/3.6/library/exceptions.html#IOError) 的子类。
 
 # Python HOWTOs
 ## 如何使用urllib包获取互联网资源
