@@ -10,6 +10,8 @@ Python相关文档不完全翻译。
 		* [4.10. 映射类型 — 字典](#410-映射类型--字典)
 			* [4.10.1. 字典视图对象](#4101-字典视图对象)
 			* [6.2.2. 模块内容](#622-模块内容)
+    * [5. 内置异常](#5-内置异常)
+        * [5.2. 具体异常](#52-具体异常)
 		* [21.6. urllib.request — 打开URLs的可扩展库](#216-urllibrequest--打开urls的可扩展库)
         * [21.9. urllib.error — urllib.request抛出的异常类](#219-urlliberror--urllibrequest抛出的异常类)
 * [Python HOWTOs](#python-howtos)
@@ -458,6 +460,19 @@ dict_values([2, 1, 1, 500])
 {'juice', 'sausage', 'spam', 'bacon'}
 ```
 
+## 5. 内置异常
+### 5.2. 具体异常
+下面的异常是经常被抛出的异常。
+
+下面的异常是为了与之前的版本保持兼容；从Python 3.3开始，它们都是 [OSError](https://docs.python.org/3.6/library/exceptions.html#OSError) 的别名。
+
+*exception* **EnvironmentError**
+
+*exception* **IOError**
+
+*exception* **WindowsError**  
+仅Windows下可用。
+
 #### 6.2.2. 模块内容
 这个模块定义了数个函数，常量和一个异常。Some of the functions are simplified versions of the full featured methods for compiled regular expressions. 大多数面对较重大的应用总是使用编译后的形式。
 
@@ -541,9 +556,9 @@ True
 True
 >>> issubclass(urllib.error.URLError, OSError)
 True
->>> issubclass(urllib.error.URLError, IOError)
-True
 ```
+
+从Python 3.3开始，[IOError](https://docs.python.org/3.6/library/exceptions.html#IOError) 是 [OSError](https://docs.python.org/3.6/library/exceptions.html#OSError) 的别名。
 
 # Python HOWTOs
 ## 如何使用urllib包获取互联网资源
