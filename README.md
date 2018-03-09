@@ -55,6 +55,11 @@ Python解释器内置了许多总是可用的函数和类型。在这里以字�
 |          |          |                  |ord()     |          |
 |          |          |                  |pow()     |          |
 |          |          |                  |print()   |          |
+|          |          |                  |          |          |
+|          |          |                  |          |          |
+|          |          |                  |          |          |
+|          |          |                  |          |          |
+|          |hasattr() |                  |          |          |
 
 **all**(*iterable*)  
 如果 *iterable* 的所有元素都为真则返回`True` (或者如果iterable为空)。相当于：
@@ -79,6 +84,9 @@ True
 >>> print(all(c))
 False
 ```
+
+**hasattr**(*object, name*)  
+参数是一个对象和一个字符串。如果字符串是对象的某个属性的名称则结果为 `True` ，否则返回 `False` 。(这是通过调用 `getattr(object, name)` 并看它是否抛出一个 [AttributeError](https://docs.python.org/3.6/library/exceptions.html#AttributeError) 来实现的。)
 
 **hex**(*x*)  
 将一个整型数转换成一个以 "0x" 为前缀的小写字母十六进制字符串。
