@@ -13,6 +13,7 @@ Python相关文档不完全翻译。
     * [5. 内置异常](#5-内置异常)
         * [5.2. 具体异常](#52-具体异常)
             * [6.2.2. 模块内容](#622-模块内容)
+            * [16.3.1. 函数](#1631-函数)
 		* [21.6. urllib.request — 打开URLs的可扩展库](#216-urllibrequest--打开urls的可扩展库)
         * [21.9. urllib.error — urllib.request抛出的异常类](#219-urlliberror--urllibrequest抛出的异常类)
 * [Python HOWTOs](#python-howtos)
