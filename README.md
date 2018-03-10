@@ -532,6 +532,12 @@ re.**match**(*pattern, string, flags=0*)
 <_sre.SRE_Match object; span=(6, 11), match='不是大蟒蛇'>
 ```
 
+#### 16.3.1. 函数
+time.**sleep**(*secs*)  
+将当前线程按指定的秒数推迟执行。参数可以是一个浮点数以指定一个更精确的睡眠时间。The actual suspension time may be less than that requested because any caught signal will terminate the [sleep()](https://docs.python.org/3.6/library/time.html#time.sleep) following execution of that signal’s catching routine. Also, the suspension time may be longer than requested by an arbitrary amount because of the scheduling of other activity in the system.
+
+*在版本3.5中发生变化：* The function now sleeps at least *secs* even if the sleep is interrupted by a signal, except if the signal handler raises an exception (原理请看 [PEP 475](https://www.python.org/dev/peps/pep-0475))。
+
 ### 21.6. urllib.request — 打开URLs的可扩展库
 **Source code:** [Lib/urllib/request.py](https://github.com/python/cpython/tree/3.6/Lib/urllib/request.py)
 
