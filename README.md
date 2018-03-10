@@ -8,6 +8,7 @@ Python相关文档不完全翻译。
 		* [4.6](#46)
 			* [4.6.4. 列表](#464-列表)
 		* [4.7. 文本序列类型 — str](#47-文本序列类型--str)
+            * [4.7.1. 字符串方法](#471-字符串方法)
 		* [4.10. 映射类型 — 字典](#410-映射类型--字典)
 			* [4.10.1. 字典视图对象](#4101-字典视图对象)
     * [5. 内置异常](#5-内置异常)
@@ -415,6 +416,60 @@ True
 >>> ("spam "  "eggs") == "spam eggs"
 True
 ```
+
+#### 4.7.1. 字符串方法
+字符串实现了所有[常见的](https://docs.python.org/3.6/library/stdtypes.html#typesseq-common)序列操作，连同下面描述的额外的方法。
+
+str.**endswith**(*suffix*[, *start*[, *end*]])  
+如果字符串以指定的 *suffix* 结尾返回 `True`，否则返回 `False`。*suffix* can also be a tuple of suffixes to look for. With optional *start*, test beginning at that position. With optional *end*, stop comparing at that position.
+
+str.**lower()**  
+Return a copy of the string with all the cased characters [[4]](https://docs.python.org/3.6/library/stdtypes.html#id15) converted to lowercase.
+
+The lowercasing algorithm used is described in section 3.13 of the Unicode Standard.
+
+str.**replace**(*old*, *new*[, *count*])  
+返回一个字符串的副本并将所有子串 *old* 替换为 *new*。如果指定了可选参数 *count*，则仅将前 *count* 个 *old* 替换为 *new*。
+
+```python
+>>> s = "tools for windows"
+>>> s.replace('o', 'p')
+'tppls fpr windpws'
+>>> s.replace('o', 'p', 2)
+'tppls for windows'
+```
+
+str.**split**(*sep=None, maxsplit=-1*)  
+返回字符串中的一个单词列表，使用 *sep* 作为分隔字符串。If *maxsplit* is given, at most *maxsplit* splits are done (thus, the list will have at most `maxsplit+1` elements). If *maxsplit* is not specified or `-1`, then there is no limit on the number of splits (all possible splits are made).
+
+如果指定 *sep*，连续的分隔符不会被聚集到一起而是被视为界定空串 (例如， `'1,,2'.split(',')` 返回 `['1', '', '2']`)。*sep* 参数可以包括多个字符 (例如，`'1<>2<>3'.split('<>')` 返回 `['1', '2', '3']`)。用一个指定的分隔符分隔一个空串返回 `['']`。
+
+例如：
+
+```python
+>>> '1,2,3'.split(',')
+['1', '2', '3']
+>>> '1,2,3'.split(',', maxsplit=1)
+['1', '2,3']
+>>> '1,2,,3,'.split(',')
+['1', '2', '', '3', '']
+```
+
+如果 *sep* 没有指定或者为 `None`，则应用一个不同的分隔算法：连续的空白被作为一个分隔符，而且如果字符串有前导和尾随空白，输出结果的起始或结束位置将不包含空串。因此，当分隔符为 `None` 时，分隔一个空串或者仅由空白组成的字符串返回 `[]`。
+
+例如：
+
+```python
+>>> '1 2 3'.split()
+['1', '2', '3']
+>>> '1 2 3'.split(maxsplit=1)
+['1', '2 3']
+>>> '   1   2   3   '.split()
+['1', '2', '3']
+```
+
+str.**startswith**(*prefix*[, *start*[, *end*]])  
+如果字符串以指定的 *prefix* 开始则返回 `True`，否则返回 `False`。*prefix* can also be a tuple of prefixes to look for. With optional *start*, test string beginning at that position. With optional *end*, stop comparing string at that position.
 
 ### 4.10. 映射类型 — 字典
 一个[映射](https://docs.python.org/3.6/glossary.html#term-mapping) 对象映射 [可哈希的](https://docs.python.org/3.6/glossary.html#term-hashable) 值到任意对象。映射是可变对象。目前仅有一个标准映射类型，*字典*。 (其它容器请参考内置[列表](https://docs.python.org/3.6/library/stdtypes.html#list)，[集合](https://docs.python.org/3.6/library/stdtypes.html#set)和[元组](https://docs.python.org/3.6/library/stdtypes.html#tuple)类，以及 [collections](https://docs.python.org/3.6/library/collections.html#module-collections) 模块.)
