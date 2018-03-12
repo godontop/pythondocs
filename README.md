@@ -566,13 +566,13 @@ The implementation adds a few special read-only attributes to several object typ
 object.**\_\_dict\_\_**  
 一个字典或其它映射对象，用于存储对象的(可写的)属性。
 
-instance.**\__class\__**  
+instance.**\_\_class\_\_**  
 一个类实例属于哪个类。
 
-class.**__bases__**  
+class.**\_\_bases\_\_**  
 一个类对象的基类元组。
 
-class.**__subclasses__()**  
+class.**\_\_subclasses\_\_()**  
 每个类都保持了一份它的直接子类的弱引用列表。这个方法返回一个所有仍然活跃的引用的列表。例如：
 
 ```python
