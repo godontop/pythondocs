@@ -563,10 +563,10 @@ dict_values([2, 1, 1, 500])
 ### 4.13. 特殊属性
 The implementation adds a few special read-only attributes to several object types, where they are relevant. 其中有些不被内置函数[dir()](https://docs.python.org/3.6/library/functions.html#dir) 报道。
 
-object.**__dict__**  
+object.**\_\_dict\_\_**  
 一个字典或其它映射对象，用于存储对象的(可写的)属性。
 
-instance.**__class__**  
+instance.**\__class\__**  
 一个类实例属于哪个类。
 
 class.**__bases__**  
