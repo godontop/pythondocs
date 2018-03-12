@@ -9,8 +9,10 @@ Python相关文档不完全翻译。
 			* [4.6.4. 列表](#464-列表)
 		* [4.7. 文本序列类型 — str](#47-文本序列类型--str)
             * [4.7.1. 字符串方法](#471-字符串方法)
+            * [4.8.3. 字节和字节数组操作](#483-字节和字节数组操作)
 		* [4.10. 映射类型 — 字典](#410-映射类型--字典)
 			* [4.10.1. 字典视图对象](#4101-字典视图对象)
+        * [4.13. 特殊属性](#413-特殊属性)
     * [5. 内置异常](#5-内置异常)
         * [5.2. 具体异常](#52-具体异常)
             * [6.2.2. 模块内容](#622-模块内容)
@@ -471,6 +473,17 @@ str.**split**(*sep=None, maxsplit=-1*)
 str.**startswith**(*prefix*[, *start*[, *end*]])  
 如果字符串以指定的 *prefix* 开始则返回 `True`，否则返回 `False`。*prefix* can also be a tuple of prefixes to look for. With optional *start*, test string beginning at that position. With optional *end*, stop comparing string at that position.
 
+#### 4.8.3. 字节和字节数组操作
+字节和字节数组对象都支持[通用](https://docs.python.org/3.6/library/stdtypes.html#typesseq-common)序列操作。它们不仅可以与同类型的运算对象互操作，还可以与任何 [bytes-like 对象](https://docs.python.org/3.6/glossary.html#term-bytes-like-object)互操作。因为这种灵活性，它们可以自由地混合操作而不引起错误。然而，返回结果的类型可能依赖于操作数的顺序。
+
+bytes.**decode**(*encoding="utf-8", errors="strict"*)  
+bytearray.**decode**(*encoding="utf-8", errors="strict”*)  
+从给定的字节返回一个解码的字符串。默认编码是 `'utf-8'`. `errors` 可以设置为一个不同的错误处理方案。`errors` 的默认值是 `'strict'`, 意为编码错误则抛出一个 [UnicodeError](https://docs.python.org/3.6/library/exceptions.html#UnicodeError). 其它可能的值是`'ignore'`, `'replace'` 和任何其它通过 [codecs.register_error()](https://docs.python.org/3.6/library/codecs.html#codecs.register_error) 注册的名字，参考[错误处理程序](https://docs.python.org/3.6/library/codecs.html#error-handlers)章节。对于可能的编码列表，请参考[标准编码](https://docs.python.org/3.6/library/codecs.html#standard-encodings)章节。
+
+**Note:** Passing the *encoding* argument to `[str]`(https://docs.python.org/3.6/library/stdtypes.html#str) allows decoding any [bytes-like object](https://docs.python.org/3.6/glossary.html#term-bytes-like-object) directly, without needing to make a temporary bytes or bytearray object.
+
+*在版本3.1中发生变化：* 新增对关键字参数的支持。
+
 ### 4.10. 映射类型 — 字典
 一个[映射](https://docs.python.org/3.6/glossary.html#term-mapping) 对象映射 [可哈希的](https://docs.python.org/3.6/glossary.html#term-hashable) 值到任意对象。映射是可变对象。目前仅有一个标准映射类型，*字典*。 (其它容器请参考内置[列表](https://docs.python.org/3.6/library/stdtypes.html#list)，[集合](https://docs.python.org/3.6/library/stdtypes.html#set)和[元组](https://docs.python.org/3.6/library/stdtypes.html#tuple)类，以及 [collections](https://docs.python.org/3.6/library/collections.html#module-collections) 模块.)
 
@@ -545,6 +558,27 @@ dict_values([2, 1, 1, 500])
 {'bacon'}
 >>> keys ^ {'sausage', 'juice'}
 {'juice', 'sausage', 'spam', 'bacon'}
+```
+
+### 4.13. 特殊属性
+The implementation adds a few special read-only attributes to several object types, where they are relevant. 其中有些不被内置函数[dir()](https://docs.python.org/3.6/library/functions.html#dir) 报道。
+
+object.**__dict__**  
+一个字典或其它映射对象，用于存储对象的(可写的)属性。
+
+instance.**__class__**  
+一个类实例属于哪个类。
+
+class.**__bases__**  
+一个类对象的基类元组。
+
+class.**__subclasses__()**  
+每个类都保持了一份它的直接子类的弱引用列表。这个方法返回一个所有仍然活跃的引用的列表。例如：
+
+```python
+>>> import io
+>>> io.IOBase.__subclasses__()
+[<class 'io.RawIOBase'>, <class 'io.BufferedIOBase'>, <class 'io.TextIOBase'>]
 ```
 
 ## 5. 内置异常
