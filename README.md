@@ -480,7 +480,7 @@ bytes.**decode**(*encoding="utf-8", errors="strict"*)
 bytearray.**decode**(*encoding="utf-8", errors="strict”*)  
 从给定的字节返回一个解码的字符串。默认编码是 `'utf-8'`. `errors` 可以设置为一个不同的错误处理方案。`errors` 的默认值是 `'strict'`, 意为编码错误则抛出一个 [UnicodeError](https://docs.python.org/3.6/library/exceptions.html#UnicodeError). 其它可能的值是`'ignore'`, `'replace'` 和任何其它通过 [codecs.register_error()](https://docs.python.org/3.6/library/codecs.html#codecs.register_error) 注册的名字，参考[错误处理程序](https://docs.python.org/3.6/library/codecs.html#error-handlers)章节。对于可能的编码列表，请参考[标准编码](https://docs.python.org/3.6/library/codecs.html#standard-encodings)章节。
 
-**Note:** Passing the *encoding* argument to `[str](https://docs.python.org/3.6/library/stdtypes.html#str)` allows decoding any [bytes-like object](https://docs.python.org/3.6/glossary.html#term-bytes-like-object) directly, without needing to make a temporary bytes or bytearray object.
+**Note:** Passing the *encoding* argument to [str](https://docs.python.org/3.6/library/stdtypes.html#str) allows decoding any [bytes-like object](https://docs.python.org/3.6/glossary.html#term-bytes-like-object) directly, without needing to make a temporary bytes or bytearray object.
 
 *在版本3.1中发生变化：* 新增对关键字参数的支持。
 
