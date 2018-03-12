@@ -15,6 +15,7 @@ Python相关文档不完全翻译。
         * [4.13. 特殊属性](#413-特殊属性)
     * [5. 内置异常](#5-内置异常)
         * [5.2. 具体异常](#52-具体异常)
+            * [6.1.3. 格式化字符串语法](#613-格式化字符串语法)
             * [6.2.2. 模块内容](#622-模块内容)
             * [16.3.1. 函数](#1631-函数)
 		* [21.6. urllib.request — 打开URLs的可扩展库](#216-urllibrequest--打开urls的可扩展库)
@@ -593,6 +594,18 @@ class.**\_\_subclasses\_\_()**
 
 *exception* **WindowsError**  
 仅Windows下可用。
+
+#### 6.1.3. 格式化字符串语法
+The [str.format()](https://docs.python.org/3.6/library/stdtypes.html#str.format) method and the [Formatter](https://docs.python.org/3.6/library/string.html#string.Formatter) class share the same syntax for format strings (although in the case of [Formatter](https://docs.python.org/3.6/library/string.html#string.Formatter), 子类可以定义它们自己的格式化字符串语法). The syntax is related to that of [formatted string literals](https://docs.python.org/3.6/reference/lexical_analysis.html#f-strings), but there are differences.
+
+*在版本3.1中发生变化：*位置参数说明符可以被省略，所以 `'{} {}'` 相当于 `'{0} {1}'`。
+
+一些简单的格式化字符串例子：
+```python
+"First, thou shalt count to {0}"  # 引用第一个位置参数
+"Bring me a {}"                   # 不讲明地引用第一个位置参数
+"From {} to {}"                   # 等同于 "From {0} to {1}"
+```
 
 #### 6.2.2. 模块内容
 这个模块定义了数个函数，常量和一个异常。Some of the functions are simplified versions of the full featured methods for compiled regular expressions. 大多数面对较重大的应用总是使用编译后的形式。
