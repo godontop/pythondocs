@@ -17,6 +17,8 @@ Python相关文档不完全翻译。
         * [5.2. 具体异常](#52-具体异常)
             * [6.1.3. 格式化字符串语法](#613-格式化字符串语法)
             * [6.2.2. 模块内容](#622-模块内容)
+        * [9.6. random — 生成伪随机数](#96-random--生成伪随机数)
+            * [9.6.2. 用于整型数的函数](#962-用于整型数的函数)
             * [16.3.1. 函数](#1631-函数)
 		* [21.6. urllib.request — 打开URLs的可扩展库](#216-urllibrequest--打开urls的可扩展库)
         * [21.9. urllib.error — urllib.request抛出的异常类](#219-urlliberror--urllibrequest抛出的异常类)
@@ -598,7 +600,7 @@ class.**\_\_subclasses\_\_()**
 #### 6.1.3. 格式化字符串语法
 The [str.format()](https://docs.python.org/3.6/library/stdtypes.html#str.format) method and the [Formatter](https://docs.python.org/3.6/library/string.html#string.Formatter) class share the same syntax for format strings (although in the case of [Formatter](https://docs.python.org/3.6/library/string.html#string.Formatter), 子类可以定义它们自己的格式化字符串语法). The syntax is related to that of [formatted string literals](https://docs.python.org/3.6/reference/lexical_analysis.html#f-strings), but there are differences.
 
-*在版本3.1中发生变化：*位置参数说明符可以被省略，所以 `'{} {}'` 相当于 `'{0} {1}'`。
+*在版本3.1中发生变化：* 位置参数说明符可以被省略，所以 `'{} {}'` 相当于 `'{0} {1}'`。
 
 一些简单的格式化字符串例子：
 ```python
@@ -637,6 +639,17 @@ re.**match**(*pattern, string, flags=0*)
 >>> re.search(u'[\u4e00-\u9fd5]+', s)
 <_sre.SRE_Match object; span=(6, 11), match='不是大蟒蛇'>
 ```
+
+### 9.6. random — 生成伪随机数
+**Source code:** [Lib/random.py](https://github.com/python/cpython/tree/3.6/Lib/random.py)
+
+这个模块为各个发行版实现伪随机数生成器。
+
+**警告：** 这个模块的伪随机数生成器不应该被用于安全目的。为了安全或加密用途，请看 [secrets](https://docs.python.org/3.6/library/secrets.html#module-secrets) 模块。
+
+#### 9.6.2. 用于整型数的函数
+random.**randint**(*a, b*)  
+返回一个随机整型数 *N*，且 `a <= N <= b`。`random.randint(a, b)` 为 `random.randrange(a, b+1)` 的别名。
 
 #### 16.3.1. 函数
 time.**sleep**(*secs*)  
