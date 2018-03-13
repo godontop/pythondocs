@@ -19,6 +19,7 @@ Python相关文档不完全翻译。
             * [6.2.2. 模块内容](#622-模块内容)
         * [9.6. random — 生成伪随机数](#96-random--生成伪随机数)
             * [9.6.2. 用于整型数的函数](#962-用于整型数的函数)
+        * [10.2. functools — 高阶函数和操作可调用对象](#102-functools--高阶函数和操作可调用对象)
             * [16.3.1. 函数](#1631-函数)
 		* [21.6. urllib.request — 打开URLs的可扩展库](#216-urllibrequest--打开urls的可扩展库)
         * [21.9. urllib.error — urllib.request抛出的异常类](#219-urlliberror--urllibrequest抛出的异常类)
@@ -650,6 +651,30 @@ re.**match**(*pattern, string, flags=0*)
 #### 9.6.2. 用于整型数的函数
 random.**randint**(*a, b*)  
 返回一个随机整型数 *N*，且 `a <= N <= b`。`random.randint(a, b)` 为 `random.randrange(a, b+1)` 的别名。
+
+### 10.2. functools — 高阶函数和操作可调用对象
+**Source code:** [Lib/functools.py](https://github.com/python/cpython/tree/3.6/Lib/functools.py)
+
+[functools](https://docs.python.org/3.6/library/functools.html#module-functools) 模块是为了高阶函数：作用于或者返回其它函数的函数。通常，为了这个模块的目的，任何可调用对象都可以被作为一个函数。
+
+[functools](https://docs.python.org/3.6/library/functools.html#module-functools) 模块定义了下列函数：
+
+functools.**reduce**(*function*, *iterable*[, *initializer*])  
+应用两个参数的 *function* 从左到右累积 *sequence* 中的项，以便减少序列到一个单值。例如，`reduce(lambda x, y: x+y, [1, 2, 3, 4, 5])` 计算 `((((1+2)+3)+4)+5)`。左边的参数 *x*，是累积的值而右边的参数 *y*，是从 *sequence* 更新的值。如果可选的 *initializer* 存在，it is placed before the items of the sequence in the calculation, and serves as a default when the sequence is empty. 如果没有指定 *initializer* 且 *sequence* 仅包含一个元素，则返回第一个元素。
+
+大致上等价于：
+
+```python
+def reduce(function, iterable, initializer=None):
+    it = iter(iterable)
+    if initializer is None:
+        value = next(it)
+    else:
+        value = initializer
+    for element in it:
+        value = function(value, element)
+    return value
+```
 
 #### 16.3.1. 函数
 time.**sleep**(*secs*)  
