@@ -22,6 +22,7 @@ Python相关文档不完全翻译。
         * [10.2. functools — 高阶函数和操作可调用对象](#102-functools--高阶函数和操作可调用对象)
         * [11.2. os.path — 通用路径名操作](#112-ospath--通用路径名操作)
             * [16.1.8. 各种各样的系统信息](#1618-各种各样的系统信息)
+            * [16.2.3. 类层次结构](#1623-类层次结构)
             * [16.3.1. 函数](#1631-函数)
 		* [21.6. urllib.request — 打开URLs的可扩展库](#216-urllibrequest--打开urls的可扩展库)
         * [21.9. urllib.error — urllib.request抛出的异常类](#219-urlliberror--urllibrequest抛出的异常类)
@@ -709,6 +710,9 @@ os.path.**join**(_path, *paths_)
 
 os.**sep**  
 操作系统用来分隔路径名组件的字符。POSIX 为 `'/'` 而 Windows 为 `'\\'`。Note that knowing this is not sufficient to be able to parse or concatenate pathnames — 使用 [os.path.split()](https://docs.python.org/3.6/library/os.path.html#os.path.split) 和 [os.path.join()](https://docs.python.org/3.6/library/os.path.html#os.path.join) — 但它偶尔是有用的。Also available via [os.path](https://docs.python.org/3.6/library/os.path.html#module-os.path)。
+
+#### 16.2.3. 类层次结构
+![class hierarchy](/image/tpsl_16_2_3_class_hierarchy.png)
 
 #### 16.3.1. 函数
 time.**sleep**(*secs*)  
