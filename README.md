@@ -23,6 +23,7 @@ Python相关文档不完全翻译。
         * [11.2. os.path — 通用路径名操作](#112-ospath--通用路径名操作)
             * [16.1.8. 各种各样的系统信息](#1618-各种各样的系统信息)
             * [16.2.3. 类层次结构](#1623-类层次结构)
+                * [16.2.3.1. I/O 基类](#16231-IO-基类)
             * [16.3.1. 函数](#1631-函数)
 		* [21.6. urllib.request — 打开URLs的可扩展库](#216-urllibrequest--打开urls的可扩展库)
         * [21.9. urllib.error — urllib.request抛出的异常类](#219-urlliberror--urllibrequest抛出的异常类)
@@ -713,6 +714,49 @@ os.**sep**
 
 #### 16.2.3. 类层次结构
 ![class hierarchy](/image/tpsl_16_2_3_class_hierarchy.png)
+
+##### 16.2.3.1. I/O 基类
+
+*class* io.**IOBase**  
+所有 I/O 类的抽象基类，作用于字节流。没有公共构造函数（constructor）。
+
+从一个文件读取或写入二进制数据的基本类型是 [bytes](https://docs.python.org/3.6/library/stdtypes.html#bytes)。其它 [bytes-like object](https://docs.python.org/3.6/glossary.html#term-bytes-like-object) 也可以作为方法参数被接受。在某些情况下，例如 [readinto()](https://docs.python.org/3.6/library/io.html#io.RawIOBase.readinto)，要求一个可写的对象如 [bytearray](https://docs.python.org/3.6/library/stdtypes.html#bytearray)。文本 I/O 类对 [str](https://docs.python.org/3.6/library/stdtypes.html#str) 数据有效。
+
+[IOBase](https://docs.python.org/3.6/library/io.html#io.IOBase) 也是一个上下文管理器，因此支持 [with](https://docs.python.org/3.6/reference/compound_stmts.html#with) 声明。在这个例子中，*file* is closed after the [with](https://docs.python.org/3.6/reference/compound_stmts.html#with) statement’s suite is finished——即使出现异常：
+
+```python
+>>> with open('spam.txt', 'w') as file:
+...     file.write('Spam and eggs!')
+...
+14
+>>> file.closed
+True
+```
+
+[IOBase](https://docs.python.org/3.6/library/io.html#io.IOBase) 提供这些数据属性和方法：
+
+**closed**  
+如果流是关闭的，则返回 `True`。
+
+*class* io.**RawIOBase**  
+原始二进制 I/O 的基类。它继承 [IOBase](https://docs.python.org/3.6/library/io.html#io.IOBase)。没有公共构造函数。
+
+除了从 [IOBase](https://docs.python.org/3.6/library/io.html#io.IOBase) 继承的属性和方法，[RawIOBase](https://docs.python.org/3.6/library/io.html#io.RawIOBase) 还提供下面的方法：
+
+**read**(*size=-1*)  
+Read up to *size* bytes from the object and return them. 为了方便起见，如果 *size* 没有指定或者为 -1, all bytes until EOF are returned. Otherwise, only one system call is ever made. Fewer than *size* bytes may be returned if the operating system call returns fewer than *size* bytes.
+
+如果返回 0 字节，且 *size* 不是 0，this indicates end of file. If the object is in non-blocking mode and no bytes are available, `None` is returned.
+
+默认实现遵守 [readall()](https://docs.python.org/3.6/library/io.html#io.RawIOBase.readall) 和 [readinto()](https://docs.python.org/3.6/library/io.html#io.RawIOBase.readinto)。
+
+*class* io.**BufferedIOBase**  
+支持某种缓冲的二进制流的基类。它继承 [IOBase](https://docs.python.org/3.6/library/io.html#io.IOBase)。没有公共构造函数。
+
+除了那些从 [IOBase](https://docs.python.org/3.6/library/io.html#io.IOBase) 继承的方法和属性，[BufferedIOBase](https://docs.python.org/3.6/library/io.html#io.BufferedIOBase) 还提供或重写了这些方法和属性：
+
+**read**(*size=-1*)  
+Read and return up to *size* bytes. If the argument is omitted, `None`, or negative, data is read and returned until EOF is reached. An empty [bytes](https://docs.python.org/3.6/library/stdtypes.html#bytes) object is returned if the stream is already at EOF.
 
 #### 16.3.1. 函数
 time.**sleep**(*secs*)  
