@@ -21,6 +21,7 @@ Python相关文档不完全翻译。
             * [9.6.2. 用于整型数的函数](#962-用于整型数的函数)
         * [10.2. functools — 高阶函数和操作可调用对象](#102-functools--高阶函数和操作可调用对象)
         * [11.2. os.path — 通用路径名操作](#112-ospath--通用路径名操作)
+            * [16.1.8. 各种各样的系统信息](#1618-各种各样的系统信息)
             * [16.3.1. 函数](#1631-函数)
 		* [21.6. urllib.request — 打开URLs的可扩展库](#216-urllibrequest--打开urls的可扩展库)
         * [21.9. urllib.error — urllib.request抛出的异常类](#219-urlliberror--urllibrequest抛出的异常类)
@@ -700,6 +701,14 @@ os.path.**join**(_path, *paths_)
 在 Windows 平台，当遇到一个绝对路径组件 (如，`r'\foo'`) 时驱动器号不重置。如果一个组件包含一个驱动器号，则所有前面的组件被丢弃且驱动器号被重置。注意，因为每个驱动器都有一个当前目录，`os.path.join("c:", "foo")` represents a path relative to the current directory on drive `C:` (`c:foo`), not `c:\foo`。
 
 *在版本3.6中发生变化：* *path* 和 *paths* 接受 [path-like object](https://docs.python.org/3.6/glossary.html#term-path-like-object)。
+
+#### 16.1.8. 各种各样的系统信息
+**下面的数据值被用于支持路径操作运算。这些是为所有平台定义。**
+
+高层次的路径名操作被定义在 [os.path](https://docs.python.org/3.6/library/os.path.html#module-os.path) 模块中。
+
+os.**sep**  
+操作系统用来分隔路径名组件的字符。POSIX 为 `'/'` 而 Windows 为 `'\\'`。Note that knowing this is not sufficient to be able to parse or concatenate pathnames — 使用 [os.path.split()](https://docs.python.org/3.6/library/os.path.html#os.path.split) 和 [os.path.join()](https://docs.python.org/3.6/library/os.path.html#os.path.join) — 但它偶尔是有用的。Also available via [os.path](https://docs.python.org/3.6/library/os.path.html#module-os.path)。
 
 #### 16.3.1. 函数
 time.**sleep**(*secs*)  
