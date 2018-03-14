@@ -24,6 +24,7 @@ Python相关文档不完全翻译。
             * [16.1.8. 各种各样的系统信息](#1618-各种各样的系统信息)
             * [16.2.3. 类层次结构](#1623-类层次结构)
                 * [16.2.3.1. I/O 基类](#16231-io-基类)
+                * [16.2.3.2. 原始文件 I/O](#16232-原始文件-io)
             * [16.3.1. 函数](#1631-函数)
 		* [21.6. urllib.request — 打开URLs的可扩展库](#216-urllibrequest--打开urls的可扩展库)
         * [21.9. urllib.error — urllib.request抛出的异常类](#219-urlliberror--urllibrequest抛出的异常类)
@@ -757,6 +758,15 @@ Read up to *size* bytes from the object and return them. 为了方便起见，�
 
 **read**(*size=-1*)  
 Read and return up to *size* bytes. If the argument is omitted, `None`, or negative, data is read and returned until EOF is reached. An empty [bytes](https://docs.python.org/3.6/library/stdtypes.html#bytes) object is returned if the stream is already at EOF.
+
+##### 16.2.3.2. 原始文件 I/O
+*class* io.**FileIO**(*name, mode='r', closefd=True, opener=None*)  
+[FileIO](https://docs.python.org/3.6/library/io.html#io.FileIO) 代表一个包含字节数据的操作系统级别的文件。它实现了 [RawIOBase](https://docs.python.org/3.6/library/io.html#io.RawIOBase) 接口 (因此也实现了 [IOBase](https://docs.python.org/3.6/library/io.html#io.IOBase) 接口)。
+
+除了从 [IOBase](https://docs.python.org/3.6/library/io.html#io.IOBase) 和 [RawIOBase](https://docs.python.org/3.6/library/io.html#io.RawIOBase) 继承的属性和方法，[FileIO](https://docs.python.org/3.6/library/io.html#io.FileIO) 还提供下面的数据属性：
+
+**mode**  
+构造函数中指定的模式。
 
 #### 16.3.1. 函数
 time.**sleep**(*secs*)  
