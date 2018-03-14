@@ -25,6 +25,7 @@ Python相关文档不完全翻译。
             * [16.2.3. 类层次结构](#1623-类层次结构)
                 * [16.2.3.1. I/O 基类](#16231-io-基类)
                 * [16.2.3.2. 原始文件 I/O](#16232-原始文件-io)
+                * [16.2.3.4. 文本 I/O](#16234-文本-io)
             * [16.3.1. 函数](#1631-函数)
 		* [21.6. urllib.request — 打开URLs的可扩展库](#216-urllibrequest--打开urls的可扩展库)
         * [21.9. urllib.error — urllib.request抛出的异常类](#219-urlliberror--urllibrequest抛出的异常类)
@@ -767,6 +768,18 @@ Read and return up to *size* bytes. If the argument is omitted, `None`, or negat
 
 **mode**  
 构造函数中指定的模式。
+
+##### 16.2.3.4. 文本 I/O
+*class* io.**TextIOBase**  
+文本流的基类。This class provides a character and line based interface to stream I/O. There is no readinto() method because Python’s character strings are immutable. 它继承 [IOBase](https://docs.python.org/3.6/library/io.html#io.IOBase)。没有公共构造函数。
+
+除了那些从 [IOBase](https://docs.python.org/3.6/library/io.html#io.IOBase) 继承的属性和方法，[TextIOBase](https://docs.python.org/3.6/library/io.html#io.TextIOBase) 提供或重写了这些数据属性和方法：
+
+**read**(*size*)  
+从流中读取并返回至多 *size* 个字符作为一个单一 [str](https://docs.python.org/3.6/library/stdtypes.html#str)。如果 *size* 是负数或者 `None`, reads until EOF.
+
+*class* io.**TextIOWrapper**(*buffer, encoding=None, errors=None, newline=None, line_buffering=False, write_through=False*)  
+A buffered text stream over a [BufferedIOBase](https://docs.python.org/3.6/library/io.html#io.BufferedIOBase) binary stream. 它继承 [TextIOBase](https://docs.python.org/3.6/library/io.html#io.TextIOBase)。
 
 #### 16.3.1. 函数
 time.**sleep**(*secs*)  
