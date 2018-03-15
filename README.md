@@ -29,7 +29,7 @@ Python相关文档不完全翻译。
                 * [16.2.3.4. 文本 I/O](#16234-文本-io)
             * [16.3.1. 函数](#1631-函数)
         * [16.5. getopt — C-风格的命令行选项解析器](#165-getopt--c-风格的命令行选项解析器)
-        * [16.6.2. 日志级别](#1662-日志级别)
+            * [16.6.2. 日志级别](#1662-日志级别)
 		* [21.6. urllib.request — 打开URLs的可扩展库](#216-urllibrequest--打开urls的可扩展库)
         * [21.9. urllib.error — urllib.request抛出的异常类](#219-urlliberror--urllibrequest抛出的异常类)
 * [Python HOWTOs](#python-howtos)
