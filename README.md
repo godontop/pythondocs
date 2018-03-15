@@ -30,6 +30,7 @@ Python相关文档不完全翻译。
             * [16.3.1. 函数](#1631-函数)
         * [16.5. getopt — C-风格的命令行选项解析器](#165-getopt--c-风格的命令行选项解析器)
             * [16.6.2. 日志级别](#1662-日志级别)
+            * [16.6.7. LogRecord属性](#1667-logrecord属性)
 		* [21.6. urllib.request — 打开URLs的可扩展库](#216-urllibrequest--打开urls的可扩展库)
         * [21.9. urllib.error — urllib.request抛出的异常类](#219-urlliberror--urllibrequest抛出的异常类)
 * [Python HOWTOs](#python-howtos)
@@ -862,18 +863,12 @@ LogRecord有许多属性，大多数来源于构造函数的参数。(注意，L
 
 在使用 {}-formatting 的情况下，你可以通过在属性名称之后指定格式化标志，用冒号(:)分隔。例如：`{msecs:03d}` 占位符将格式化毫秒值 `4` 为 `004`。关于可用选项的全部细节请参考 [str.format()](https://docs.python.org/3.6/library/stdtypes.html#str.format) 文档。
 
-|Attribute name  |Format              |Description                     |
-|----------------|--------------------|--------------------------------|
-|args            |你不必自己格式化这个   |参数元组结合 `msg` 以产生 `message`，或者一个字典的值用来结合 `msg`（当仅有一个参数，且它是一个字典）。            |
-
-      
-levelname   
-%(levelname)s
-消息的文本记录级别(‘DEBUG’, ’INFO’, ’WARNING’, ’ERROR’, ’CRITICAL')
-message
-%(message)s
-记录的消息，计算 msg % args。当调用Formatter.format()的时候，这个属性被设置。
-msg 你不必自己格式化这个  传递给原始日志调用的格式化字符串。与args合并以产生message，或者一个任意对象（参考使用任意对象作为消息）。
+|Attribute name  |Format                     |Description                     |
+|----------------|---------------------------|--------------------------------|
+|args            |你不必自己格式化这个          |参数元组结合 `msg` 以产生 `message`，或者一个字典的值用来结合 `msg`（当仅有一个参数，且它是一个字典）。                   |
+|levelname       |`%(levelname)s`            |消息的文本日志级别(`'DEBUG'`, `'INFO'`, `'WARNING'`, `'ERROR'`, `'CRITICAL'`)                                |
+|message         |%(message)s                |记录的消息，计算 `msg % args`。当 [Formatter.format()](https://docs.python.org/3.6/library/logging.html#logging.Formatter.format) 被调用时，这个属性被设置。                 |
+|msg             |你不必自己格式化这个          |传递给原始日志调用的格式化字符串。与 `args` 合并以产生 `message`，或者一个任意对象（参考[使用任意对象作为消息](https://docs.python.org/3.6/howto/logging.html#arbitrary-object-messages)）。          |
 
 ### 21.6. urllib.request — 打开URLs的可扩展库
 **Source code:** [Lib/urllib/request.py](https://github.com/python/cpython/tree/3.6/Lib/urllib/request.py)
