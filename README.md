@@ -863,13 +863,11 @@ LogRecord有许多属性，大多数来源于构造函数的参数。(注意，L
 
 在使用 {}-formatting 的情况下，你可以通过在属性名称之后指定格式化标志，用冒号(:)分隔。例如：`{msecs:03d}` 占位符将格式化毫秒值 `4` 为 `004`。关于可用选项的全部细节请参考 [str.format()](https://docs.python.org/3.6/library/stdtypes.html#str.format) 文档。
 
-<style> table th:first-of-type { width: 150px; } </style>
-
 |Attribute name  |Format                     |Description                     |
 |----------------|---------------------------|--------------------------------|
 |args            |你不必自己格式化这个          |参数元组结合 `msg` 以产生 `message`，或者一个字典的值用来结合 `msg`（当仅有一个参数，且它是一个字典）。                   |
 |levelname       |`%(levelname)s`            |消息的文本日志级别(`'DEBUG'`, `'INFO'`, `'WARNING'`, `'ERROR'`, `'CRITICAL'`)                                |
-|message         |%(message)s                |记录的消息，计算 `msg % args`。当 [Formatter.format()](https://docs.python.org/3.6/library/logging.html#logging.Formatter.format) 被调用时，这个属性被设置。                 |
+|message         |%(message)s                |记录的消息，计算 `msg % args`。当 [Formatter.format()](https://docs.python.org/3.6/library/logging.html#logging.Formatter.format) 被调用时，<br>这个属性被设置。
 |msg             |你不必自己格式化这个          |传递给原始日志调用的格式化字符串。与 `args` 合并以产生 `message`，或者一个任意对象（参考[使用任意对象作为消息](https://docs.python.org/3.6/howto/logging.html#arbitrary-object-messages)）。          |
 
 ### 21.6. urllib.request — 打开URLs的可扩展库
