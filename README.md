@@ -865,7 +865,7 @@ LogRecord有许多属性，大多数来源于构造函数的参数。(注意，L
 
 |Attribute name  |Format                     |Description                     |
 |----------------|---------------------------|--------------------------------|
-|args            |你不必自己格式化这个          |参数元组结合 `msg` 以产生 `message`，或者一个字典的值用来结合 `msg`（当仅有一个参数，且它是一个字典）。                   |
+|args            |你不必自己格式化这个          |参数元组结合 `msg` 以产生 `message`，或者一个字典的值用来结合 `msg`<br>（当仅有一个参数，且它是一个字典）。
 |levelname       |`%(levelname)s`            |消息的文本日志级别(`'DEBUG'`, `'INFO'`, `'WARNING'`, `'ERROR'`, `'CRITICAL'`)                                |
 |message         |%(message)s                |记录的消息，计算 `msg % args`。当 [Formatter.format()](https://docs.python.org/3.6/library/logging.html#logging.Formatter.format) 被调用时，<br>这个属性被设置。
 |msg             |你不必自己格式化这个          |传递给原始日志调用的格式化字符串。与 `args` 合并以产生 `message`，或者一个任意对象（参考[使用任意对象作为消息](https://docs.python.org/3.6/howto/logging.html#arbitrary-object-messages)）。          |
