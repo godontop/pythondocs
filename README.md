@@ -863,6 +863,12 @@ LogRecord有许多属性，大多数来源于构造函数的参数。(注意，L
 
 在使用 {}-formatting 的情况下，你可以通过在属性名称之后指定格式化标志，用冒号(:)分隔。例如：`{msecs:03d}` 占位符将格式化毫秒值 `4` 为 `004`。关于可用选项的全部细节请参考 [str.format()](https://docs.python.org/3.6/library/stdtypes.html#str.format) 文档。
 
+<style>
+table th:first-of-type {
+    width: 110px;
+}
+</style>
+
 |Attribute name  |Format                     |Description                     |
 |----------------|---------------------------|--------------------------------|
 |args            |你不必自己格式化这个          |参数元组结合 `msg` 以产生 `message`，或者一个字典的值用来结合 `msg`（当仅有一个参数，且它是一个字典）。                   |
