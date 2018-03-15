@@ -25,6 +25,7 @@ Python相关文档不完全翻译。
             * [16.2.3. 类层次结构](#1623-类层次结构)
                 * [16.2.3.1. I/O 基类](#16231-io-基类)
                 * [16.2.3.2. 原始文件 I/O](#16232-原始文件-io)
+                * [16.2.3.3. 缓冲流](#16233-缓冲流)
                 * [16.2.3.4. 文本 I/O](#16234-文本-io)
         * [16.5. getopt — C-风格的命令行选项解析器](#165-getopt--c-风格的命令行选项解析器)
             * [16.3.1. 函数](#1631-函数)
@@ -769,6 +770,43 @@ Read and return up to *size* bytes. If the argument is omitted, `None`, or negat
 
 **mode**  
 构造函数中指定的模式。
+
+##### 16.2.3.3. 缓冲流
+缓冲 I/O 流比原始 I/O 流为 I/O 设备提供了一个更高层次的接口。
+
+*class* io.**BufferedReader**(*raw, buffer_size=DEFAULT_BUFFER_SIZE*)  
+除了那些从 [BufferedIOBase](https://docs.python.org/3.6/library/io.html#io.BufferedIOBase) 和 [IOBase](https://docs.python.org/3.6/library/io.html#io.IOBase) 继承的方法，[BufferedReader](https://docs.python.org/3.6/library/io.html#io.BufferedReader) 还提供或重写了这些方法：
+
+**read**([*size*])  
+读取并返回 *size* 字节，或者如果 *size* 没有给出或者是负数，until EOF or if the read call would block in non-blocking mode.
+
+*class* io.**BufferedWriter**(*raw, buffer_size=DEFAULT_BUFFER_SIZE*)  
+一个为可写的，连续的 [RawIOBase](https://docs.python.org/3.6/library/io.html#io.RawIOBase) 对象提供更高层次访问的缓冲区。它继承 [BufferedIOBase](https://docs.python.org/3.6/library/io.html#io.BufferedIOBase)。当向这个对象写数据时，数据通常被放进一个内部缓冲区。缓冲区在多种条件下将被写到底层的 [RawIOBase](https://docs.python.org/3.6/library/io.html#io.RawIOBase) 对象，包括：
+
+* 对所有挂起的数据来说，当缓冲区太小时；
+* 当 [flush()](https://docs.python.org/3.6/library/io.html#io.BufferedWriter.flush) 被调用时；
+* 当 seek() 被请求时(对于 [BufferedRandom](https://docs.python.org/3.6/library/io.html#io.BufferedRandom) 对象);
+* 当 [BufferedWriter](https://docs.python.org/3.6/library/io.html#io.BufferedWriter) 对象被关闭或者销毁时。 
+
+除了那些从 [BufferedIOBase](https://docs.python.org/3.6/library/io.html#io.BufferedIOBase) 和 [IOBase](https://docs.python.org/3.6/library/io.html#io.IOBase) 继承的方法，[BufferedWriter](https://docs.python.org/3.6/library/io.html#io.BufferedWriter) 还提供或重写了这些方法：
+
+**write**(*b*)  
+写入 [bytes-like 对象](https://docs.python.org/3.6/glossary.html#term-bytes-like-object) *b*，并返回写入的字节数。When in non-blocking mode, a [BlockingIOError](https://docs.python.org/3.6/library/exceptions.html#BlockingIOError) is raised if the buffer needs to be written out but the raw stream blocks.
+
+*class* io.**BufferedRandom**(*raw, buffer_size=DEFAULT_BUFFER_SIZE*)  
+一个随机访问流的缓冲区接口。它继承 [BufferedReader](https://docs.python.org/3.6/library/io.html#io.BufferedReader) 和 [BufferedWriter](https://docs.python.org/3.6/library/io.html#io.BufferedWriter), and further supports seek() and tell() functionality.
+
+The constructor creates a reader and writer for a seekable raw stream, given in the first argument. 如果 *buffer_size* 被省略，则它默认为 [DEFAULT_BUFFER_SIZE](https://docs.python.org/3.6/library/io.html#io.DEFAULT_BUFFER_SIZE)。
+
+[BufferedRandom](https://docs.python.org/3.6/library/io.html#io.BufferedRandom) 可以做任何 [BufferedReader](https://docs.python.org/3.6/library/io.html#io.BufferedReader) 或者 [BufferedWriter](https://docs.python.org/3.6/library/io.html#io.BufferedWriter) 能做的事。
+
+```python
+>>> import io
+>>> issubclass(io.BufferedRandom, io.BufferedReader)
+False
+>>> issubclass(io.BufferedRandom, io.BufferedWriter)
+False
+```
 
 ##### 16.2.3.4. 文本 I/O
 *class* io.**TextIOBase**  
