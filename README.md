@@ -855,6 +855,26 @@ getopt.**getopt**(*args, shortopts, longopts=[]*)
 |`DEBUG`     |10             |
 |`NOTSET`    |0              |
 
+#### 16.6.7. LogRecord属性
+LogRecord有许多属性，大多数来源于构造函数的参数。(注意，LogRecord构造函数的参数名称与LogRecord属性名称之间并非总是正确对应。)这些属性可以用来合并由记录转换成格式化字符串的数据。下表列出了（按字母顺序）属性名称，它们的意义以及对应的 %-style 格式化字符串占位符。
+
+如果你使用 {}-formatting ([str.format()](https://docs.python.org/3.6/library/stdtypes.html#str.format)), 那么在格式化字符串中你可以使用 `{attrname}` 作为占位符。如果你使用 \$-formatting ([string.Template](https://docs.python.org/3.6/library/string.html#string.Template)), 那么使用 `${attrname}` 形式。在这两种情况下，当然，用你实际要用的属性名称替换 `attrname`。
+
+在使用 {}-formatting 的情况下，你可以通过在属性名称之后指定格式化标志，用冒号(:)分隔。例如：`{msecs:03d}` 占位符将格式化毫秒值 `4` 为 `004`。关于可用选项的全部细节请参考 [str.format()](https://docs.python.org/3.6/library/stdtypes.html#str.format) 文档。
+
+|Attribute name  |Format              |Description                     |
+|----------------|--------------------|--------------------------------|
+|args            |你不必自己格式化这个   |参数元组结合 `msg` 以产生 `message`，或者一个字典的值用来结合 `msg`（当仅有一个参数，且它是一个字典）。            |
+
+      
+levelname   
+%(levelname)s
+消息的文本记录级别(‘DEBUG’, ’INFO’, ’WARNING’, ’ERROR’, ’CRITICAL')
+message
+%(message)s
+记录的消息，计算 msg % args。当调用Formatter.format()的时候，这个属性被设置。
+msg 你不必自己格式化这个  传递给原始日志调用的格式化字符串。与args合并以产生message，或者一个任意对象（参考使用任意对象作为消息）。
+
 ### 21.6. urllib.request — 打开URLs的可扩展库
 **Source code:** [Lib/urllib/request.py](https://github.com/python/cpython/tree/3.6/Lib/urllib/request.py)
 
