@@ -1034,7 +1034,7 @@ As initialized upon program startup, the first item of this list, `path[0]`, is 
 sys.**version_info**  
 一个包含版本号的5个组成部分的元组：*major*, *minor*, *micro*, *releaselevel*, and *serial*. 除了 *releaselevel* 所有值都是整型数；发行版级别是 `'alpha'`, `'beta'`, `'candidate'`, 或者 `'final'`. Python版本2.0对应的 `version_info` 值是 `(2, 0, 0, 'final', 0)`. 组件也可以通过名称来访问，如 `sys.version_info[0]` 等价于 `sys.version_info.major`。
 
-**在版本3.1中发生了变化：** 增加了名称组件属性。
+*在版本3.1中发生了变化：* 增加了名称组件属性。
 
 # Python HOWTOs
 ## 如何使用urllib包获取互联网资源
