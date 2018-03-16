@@ -36,6 +36,7 @@ Python相关文档不完全翻译。
         * [21.9. urllib.error — urllib.request抛出的异常类](#219-urlliberror--urllibrequest抛出的异常类)
         * [21.21. socketserver — 一个网络服务器框架](#2121-socketserver--一个网络服务器框架)
             * [21.21.2. 服务器对象](#21212-服务器对象)
+        * [21.22. http.server — HTTP 服务器](#2122-httpserver--http-服务器)
 * [Python HOWTOs](#python-howtos)
     * [如何使用urllib包获取互联网资源](#如何使用urllib包获取互联网资源)
         * [头信息](#头信息)
@@ -979,6 +980,35 @@ Tell the [serve_forever()](https://docs.python.org/3.6/library/socketserver.html
 
 **server_address**  
 服务器监听的地址。地址格式的变化依赖于协议族；详细信息请看 [socket](https://docs.python.org/3.6/library/socket.html#module-socket) 模块的文档。对于 Internet protocols (IP), 这是一个包含一个给定地址的字符串和一个整型数端口号的元组：`('127.0.0.1', 80)`, 例如。
+
+### 21.22. http.server — HTTP 服务器
+**源代码:** [Lib/http/server.py](https://github.com/python/cpython/tree/3.6/Lib/http/server.py)
+
+这个模块定义实现HTTP服务器（Web服务器）的类。
+
+*class* http.server.**SimpleHTTPRequestHandler**(*request, client_address, server*)  
+这个类为当前目录及其子目录下的文件服务，直接映射目录结构到HTTP请求。
+
+很多工作，例如解析请求，由基类 [BaseHTTPRequestHandler](https://docs.python.org/3.6/library/http.server.html#http.server.BaseHTTPRequestHandler) 完成。这个类实现了 [do_GET()](https://docs.python.org/3.6/library/http.server.html#http.server.SimpleHTTPRequestHandler.do_GET) 和 [do_HEAD()](https://docs.python.org/3.6/library/http.server.html#http.server.SimpleHTTPRequestHandler.do_HEAD) 方法。
+
+下面是定义为 [SimpleHTTPRequestHandler](https://docs.python.org/3.6/library/http.server.html#http.server.SimpleHTTPRequestHandler) 类级别的属性：
+
+**extensions_map**  
+一个映射后缀到MIME类型的字典。默认值由空串表明，且被认为是 `application/octet-stream`。映射不区分大小写，所以应该仅包含小写键。
+
+```python
+from http.server import SimpleHTTPRequestHandler
+
+
+SimpleHTTPRequestHandler.extensions_map = {
+    '.html': 'text/html',
+    '.sh': 'test/x-sh',
+    '.js': 'application/javascript',
+    '.pac': 'application/x-ns-proxy-autoconfig',
+    '': 'application/octet/stream',
+}
+
+```
 
 # Python HOWTOs
 ## 如何使用urllib包获取互联网资源
