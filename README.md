@@ -31,6 +31,7 @@ Python相关文档不完全翻译。
         * [16.5. getopt — C-风格的命令行选项解析器](#165-getopt--c-风格的命令行选项解析器)
             * [16.6.2. 日志级别](#1662-日志级别)
             * [16.6.7. LogRecord属性](#1667-logrecord属性)
+            * [16.6.10. 模块级别的函数](#16610-模块级别的函数)
 		* [21.6. urllib.request — 打开URLs的可扩展库](#216-urllibrequest--打开urls的可扩展库)
         * [21.9. urllib.error — urllib.request抛出的异常类](#219-urlliberror--urllibrequest抛出的异常类)
 * [Python HOWTOs](#python-howtos)
@@ -869,6 +870,24 @@ LogRecord有许多属性，大多数来源于构造函数的参数。(注意，L
 |levelname       |`%(levelname)s`            |消息的文本日志级别(`'DEBUG'`, `'INFO'`, `'WARNING'`, `'ERROR'`, `'CRITICAL'`)                                |
 |message         |`%(message)s`              |记录的消息，计算 `msg % args`。当 [Formatter.format()](https://docs.python.org/3.6/library/logging.html#logging.Formatter.format) 被<br>调用时，这个属性被设置。
 |msg             |你不必自己格式化这个          |传递给原始日志调用的格式化字符串。与 `args` 合并以产生 <br>`message`，或者一个任意对象（参考[使用任意对象作为消息](https://docs.python.org/3.6/howto/logging.html#arbitrary-object-messages)）。    
+
+#### 16.6.10. 模块级别的函数
+除了上面描述的类，还有一些模块级别的函数。
+
+logging.**basicConfig**(_**kwargs_)  
+通过创建一个带一个默认 [Formatter](https://docs.python.org/3.6/library/logging.html#logging.Formatter) 的 [StreamHandler](https://docs.python.org/3.6/library/logging.handlers.html#logging.StreamHandler) 来为日志系统做基本配置，并将其添加到根记录器。如果没有为根记录器定义处理器，则函数 [debug()](https://docs.python.org/3.6/library/logging.html#logging.debug), [info()](https://docs.python.org/3.6/library/logging.html#logging.info), [warning()](https://docs.python.org/3.6/library/logging.html#logging.warning), [error()](https://docs.python.org/3.6/library/logging.html#logging.error) 和 [critical()](https://docs.python.org/3.6/library/logging.html#logging.critical) 将自动调用
+[basicConfig()](https://docs.python.org/3.6/library/logging.html#logging.basicConfig)。
+
+如果已经为根记录器配置了处理器，则这个函数什么也不做。
+
+**注意：** 这个函数应该在其它线程启动以前由main线程调用。在Python版本2.7.1和3.2以前，如果这个函数被多线程调用，可能（尽管这种情况很少出现）会使处理器（handler）被多次添加到根记录器，这将导致意外结果，如日志中的消息重复。
+
+支持下列关键字参数（keyword arguments）。  
+
+|Format     |Description    |
+|-----------|---------------|
+`format`    |为处理器使用指定的格式化字符串
+`level`     |设置根记录器级别为指定的级别
 
 ### 21.6. urllib.request — 打开URLs的可扩展库
 **Source code:** [Lib/urllib/request.py](https://github.com/python/cpython/tree/3.6/Lib/urllib/request.py)
