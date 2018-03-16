@@ -35,6 +35,7 @@ Python相关文档不完全翻译。
 		* [21.6. urllib.request — 打开URLs的可扩展库](#216-urllibrequest--打开urls的可扩展库)
         * [21.9. urllib.error — urllib.request抛出的异常类](#219-urlliberror--urllibrequest抛出的异常类)
         * [21.21. socketserver — 一个网络服务器框架](#2121-socketserver--一个网络服务器框架)
+            * [21.21.2. 服务器对象](#21212-服务器对象)
 * [Python HOWTOs](#python-howtos)
     * [如何使用urllib包获取互联网资源](#如何使用urllib包获取互联网资源)
         * [头信息](#头信息)
@@ -955,6 +956,29 @@ True
 
 *class* socketserver.**TCPServer**(*server_address, RequestHandlerClass, bind_and_activate=True*)  
 这个类使用在客户端与服务器之间提供连续的数据流的互联网TCP协议，如果 *bind_and_activate* 是 true, 则构造函数自动地尝试调用 [server_bind()](https://docs.python.org/3.6/library/socketserver.html#socketserver.BaseServer.server_bind) 和 [server_activate()](https://docs.python.org/3.6/library/socketserver.html#socketserver.BaseServer.server_activate)。其它参数（parameters）被传递给基类 [BaseServer](https://docs.python.org/3.6/library/socketserver.html#socketserver.BaseServer)。
+
+#### 21.21.2. 服务器对象
+*class* socketserver.**BaseServer**(*server_address, RequestHandlerClass*)  
+这是模块（socketserver）中所有服务器对象的超类。它定义了接口，如下，但大多数方法都没有实现，方法在子类中实现。两个参数（parameters）被分别存储在 [server_address](https://docs.python.org/3.6/library/socketserver.html#socketserver.BaseServer.server_address) 和 [RequestHandlerClass](https://docs.python.org/3.6/library/socketserver.html#socketserver.BaseServer.RequestHandlerClass) 属性中。
+
+**serve_forever**(*poll_interval=0.5*)  
+处理请求直到一个明确的 [shutdown()](https://docs.python.org/3.6/library/socketserver.html#socketserver.BaseServer.shutdown) 请求。每 *poll_interval* 秒投票关闭。忽略 [timeout](https://docs.python.org/3.6/library/socketserver.html#socketserver.BaseServer.timeout) 属性。它也调用 [service_actions()](https://docs.python.org/3.6/library/socketserver.html#socketserver.BaseServer.service_actions)，`service_actions()` 可能被子类或混入类用来给一个给定的服务提供具体的动作。例如，[ForkingMixIn](https://docs.python.org/3.6/library/socketserver.html#socketserver.ForkingMixIn) 类使用 [service_actions()](https://docs.python.org/3.6/library/socketserver.html#socketserver.BaseServer.service_actions) 清理僵尸子进程。
+
+*在3.3版本中发生变化：* 为 `serve_forever` 方法增加 `service_actions` 调用。
+
+**service_actions()**  
+这在 [serve_forever()](https://docs.python.org/3.6/library/socketserver.html#socketserver.BaseServer.serve_forever) 循环中被调用。这个方法可以被子类或混入类重写以便给一个给定的服务执行特定的动作，例如清理动作。
+
+*版本3.3中新增。*
+
+**shutdown()**  
+Tell the [serve_forever()](https://docs.python.org/3.6/library/socketserver.html#socketserver.BaseServer.serve_forever) loop to stop and wait until it does.
+
+**RequestHandlerClass**  
+用户提供的请求处理程序类；每次请求都会创建一个该类的实例。
+
+**server_address**  
+服务器监听的地址。地址格式的变化依赖于协议族；详细信息请看 [socket](https://docs.python.org/3.6/library/socket.html#module-socket) 模块的文档。对于 Internet protocols (IP), 这是一个包含一个给定地址的字符串和一个整型数端口号的元组：`('127.0.0.1', 80)`, 例如。
 
 # Python HOWTOs
 ## 如何使用urllib包获取互联网资源
