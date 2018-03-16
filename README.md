@@ -37,6 +37,7 @@ Python相关文档不完全翻译。
         * [21.21. socketserver — 一个网络服务器框架](#2121-socketserver--一个网络服务器框架)
             * [21.21.2. 服务器对象](#21212-服务器对象)
         * [21.22. http.server — HTTP 服务器](#2122-httpserver--http-服务器)
+        * [29.1. sys — 系统专用参量和函数](#291-sys--系统专用参量和函数)
 * [Python HOWTOs](#python-howtos)
     * [如何使用urllib包获取互联网资源](#如何使用urllib包获取互联网资源)
         * [头信息](#头信息)
@@ -1009,6 +1010,31 @@ SimpleHTTPRequestHandler.extensions_map = {
 }
 
 ```
+
+### 29.1. sys — 系统专用参量和函数
+这个模块提供访问一些由解释器使用或维护的变量及与解释器有极大关系的函数。这个模块总是可用的。
+
+sys.**argv**  
+传递给Python脚本的命令行参数列表。`argv[0]` 是脚本的名字 (是否是full pathname依赖于操作系统)。If the command was executed using the [-c](https://docs.python.org/3.6/using/cmdline.html#cmdoption-c) command line option to the interpreter, `argv[0]` 将被设置为字符串 `'-c'`。如果没有脚本名称传递给Python解释器，则 `argv[0]` 是空串。
+
+循环处理（loop over）标准输入，或者命令行中给出的文件列表，参考 [fileinput](https://docs.python.org/3.6/library/fileinput.html#module-fileinput) 模块。
+
+sys.**exit**([*arg*])  
+退出Python。
+
+可选参数 *arg* 可以是给出退出状态的整型数 (默认为0)，或者另一种类型的对象。如果它是一个整型数，shells和与shells类似的认为0是"成功终止"，而任何非0的值被认为是"不正常的终止"。大多数系统要求它在0-127的范围内，否则将产生未定义的结果。一些系统对特定的退出代码分配特定的含义有一个约定，但这些通常是非充分开发的；Unix程序通常使用 2 表示命令行语法错误，而 1 表示所有其它类型的错误。如果传递的是另一种类型的对象，`None` 等价于传递 0，而任何其它对象则打印到 [stderr](https://docs.python.org/3.6/library/sys.html#sys.stderr) 并导致一个退出代码 1。特别是，当一个错误发生的时候，`sys.exit("some error message")` 是退出一个程序的一种快速的方式。
+
+sys.**path**  
+一个指定模块搜索路径的字符串列表。Initialized from the environment variable [PYTHONPATH](https://docs.python.org/3.6/using/cmdline.html#envvar-PYTHONPATH), plus an installation-dependent default.
+
+As initialized upon program startup, the first item of this list, `path[0]`, is the directory containing the script that was used to invoke the Python interpreter. If the script directory is not available (e.g. if the interpreter is invoked interactively or if the script is read from standard input), `path[0]` is the empty string, which directs Python to search modules in the current directory first. Notice that the script directory is inserted *before* the entries inserted as a result of [PYTHONPATH](https://docs.python.org/3.6/using/cmdline.html#envvar-PYTHONPATH).
+
+程序为了自己的目的可以自由修改这个列表。只有 strings 和 bytes 可以被添加到 [sys.path](https://docs.python.org/3.6/library/sys.html#sys.path)；所有其它数据类型在导入期间被忽略。
+
+sys.**version_info**  
+一个包含版本号的5个组成部分的元组：*major*, *minor*, *micro*, *releaselevel*, and *serial*. 除了 *releaselevel* 所有值都是整型数；发行版级别是 `'alpha'`, `'beta'`, `'candidate'`, 或者 `'final'`. Python版本2.0对应的 `version_info` 值是 `(2, 0, 0, 'final', 0)`. 组件也可以通过名称来访问，如 `sys.version_info[0]` 等价于 `sys.version_info.major`。
+
+**在版本3.1中发生了变化：** 增加了名称组件属性。
 
 # Python HOWTOs
 ## 如何使用urllib包获取互联网资源
