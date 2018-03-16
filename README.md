@@ -34,6 +34,7 @@ Python相关文档不完全翻译。
             * [16.6.10. 模块级别的函数](#16610-模块级别的函数)
 		* [21.6. urllib.request — 打开URLs的可扩展库](#216-urllibrequest--打开urls的可扩展库)
         * [21.9. urllib.error — urllib.request抛出的异常类](#219-urlliberror--urllibrequest抛出的异常类)
+        * [21.21. socketserver — 一个网络服务器框架](#2121-socketserver--一个网络服务器框架)
 * [Python HOWTOs](#python-howtos)
     * [如何使用urllib包获取互联网资源](#如何使用urllib包获取互联网资源)
         * [头信息](#头信息)
@@ -944,6 +945,16 @@ True
 ```
 
 从Python 3.3开始，[IOError](https://docs.python.org/3.6/library/exceptions.html#IOError) 是 [OSError](https://docs.python.org/3.6/library/exceptions.html#OSError) 的别名。
+
+### 21.21. socketserver — 一个网络服务器框架
+**Source code:** [Lib/socketserver.py](https://github.com/python/cpython/tree/3.6/Lib/socketserver.py)
+
+[socketserver](https://docs.python.org/3.6/library/socketserver.html#module-socketserver) 模块简化了写网络服务器的任务。
+
+有四个基本的具体的服务器类：
+
+*class* socketserver.**TCPServer**(*server_address, RequestHandlerClass, bind_and_activate=True*)  
+这个类使用在客户端与服务器之间提供连续的数据流的互联网TCP协议，如果 *bind_and_activate* 是 true, 则构造函数自动地尝试调用 [server_bind()](https://docs.python.org/3.6/library/socketserver.html#socketserver.BaseServer.server_bind) 和 [server_activate()](https://docs.python.org/3.6/library/socketserver.html#socketserver.BaseServer.server_activate)。其它参数（parameters）被传递给基类 [BaseServer](https://docs.python.org/3.6/library/socketserver.html#socketserver.BaseServer)。
 
 # Python HOWTOs
 ## 如何使用urllib包获取互联网资源
