@@ -79,7 +79,7 @@ Python解释器内置了许多总是可用的函数和类型。在这里以字�
 |          |          |                  |ord()     |          |
 |          |          |                  |pow()     |          |
 |          |          |                  |print()   |          |
-|          |          |                  |          |          |
+|          |          |                  |          |type()    |
 |          |          |                  |          |          |
 |          |          |                  |          |          |
 |          |          |                  |          |          |
@@ -357,7 +357,7 @@ True
 
 The arguments must have numeric types. With mixed operand types, the coercion rules for binary arithmetic operators apply. 对于 [整型数](https://docs.python.org/3.6/library/functions.html#int) 操作数，结果与操作数的类型相同 (强制之后) 除非第二个参数是负的；在那种情况下，所有参数被转换成浮点数并返回一个浮点数结果。例如，`10**2` 返回 `100`，但 `10**-2` 返回 `0.01`。如果第二个参数是负的，第三个参数必须被省略。如果 *z* 出现，*x* 和 *y* 必须是整数类型，且 *y* 必须是非负的。
 
-__print__(_*objects, sep=' ', end='\n', file=sys.stdout, flush=False_)  
+**print**(_*objects, sep=' ', end='\n', file=sys.stdout, flush=False_)  
 打印 *objects* 到文本流 *file*, separated by *sep* and followed by *end*. 如果出现*sep*, *end*, *file* 和 *flush*, 则必须被作为关键字参数给出。  
 
 所有非关键字参数被转换成字符串就像 [str()](https://docs.python.org/3.6/library/stdtypes.html#str) 做的那样并写入到流，separated by *sep* and followed by *end*。*sep* 和 *end* 都必须是字符串；它们也可以是 `None`，意味着使用默认值（*sep* 的默认值为一个空格，*end* 的默认值为一个换行符）。如果没有给定 *objects*， [print()](https://docs.python.org/3.6/library/functions.html#print) 将仅写入 *end*。  
@@ -367,6 +367,22 @@ The *file* argument must be an object with a `write(string)` method; if it is no
 输出是否缓冲通常由 *file* 决定，但如果 *flush* 关键字参数是 true, 则流被强制 flushed.
 
 _在版本3.3中发生变化：_ 增加了 *flush* 关键字参数。
+
+*class* **type**(*object*)  
+*class* **type**(*name, bases, dict*)  
+带一个参数时，返回 *object* 的类型。返回值是一种类型对象并且通常和 [object.\_\_class\_\_](https://docs.python.org/3.6/library/stdtypes.html#instance.__class__) 返回相同的对象。
+
+推荐使用内置函数 [isinstance()](https://docs.python.org/3.6/library/functions.html#isinstance) 测试一个对象的类型, because it takes subclasses into account.
+
+```python
+>>> obj = "It's a string."
+>>> type(obj)
+<class 'str'>
+>>> obj.__class__
+<class 'str'>
+>>> isinstance(obj, str)
+True
+```
 
 ## 4.
 ### 4.2. 布尔运算 — and, or, not
