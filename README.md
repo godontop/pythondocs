@@ -76,7 +76,7 @@ Python解释器内置了许多总是可用的函数和类型。在这里以字�
 |          |          |                  |          |          |
 |          |          |                  |          |          |
 |          |          |int()             |open()    |          |
-|          |          |                  |ord()     |          |
+|          |          |isinstance()      |ord()     |          |
 |          |          |                  |pow()     |          |
 |          |          |                  |print()   |          |
 |          |          |                  |          |type()    |
@@ -141,6 +141,9 @@ False
 >>> int('0x9FFF', 16)
 40959
 ```
+
+**isinstance**(*object, classinfo*)  
+Return true if the *object* argument is an instance of the *classinfo* argument, or of a (direct, indirect or [virtual](https://docs.python.org/3.6/glossary.html#term-abstract-base-class)) subclass thereof. 如果 *object* 不是一个指定类型的对象，则函数总是返回 false. If *classinfo* is a tuple of type objects (or recursively, other such tuples), return true if *object* is an instance of any of the types. If *classinfo* is not a type or tuple of types and such tuples, a [TypeError](https://docs.python.org/3.6/library/exceptions.html#TypeError) exception is raised.
 
 **open**(*file, mode='r', buffering=-1, encoding=None, errors=None, newline=None, closefd=True, opener=None*)  
 打开 *file* 并返回一个对应的[文件对象](https://docs.python.org/3.6/glossary.html#term-file-object)。如果文件不能被打开，则抛出一个[OSError](https://docs.python.org/3.6/library/exceptions.html#OSError)异常。
