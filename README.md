@@ -472,6 +472,20 @@ str.**encode**(*encoding="utf-8", errors="strict"*)
 str.**endswith**(*suffix*[, *start*[, *end*]])  
 如果字符串以指定的 *suffix* 结尾返回 `True`，否则返回 `False`。*suffix* can also be a tuple of suffixes to look for. With optional *start*, test beginning at that position. With optional *end*, stop comparing at that position.
 
+str.**join**(*iterable*)  
+返回一个由 *iterable* 中的字符串串联而成的字符串。如果 *iterable* 中有任何非字符串值则抛出一个 [TypeError](https://docs.python.org/3.6/library/exceptions.html#TypeError)，包括 [bytes](https://docs.python.org/3.6/library/stdtypes.html#bytes) 对象。元素之间的分隔符是提供这个方法的字符串。
+
+```python
+>>> a = ['apple', 'banana', 'cisco', 'decode']
+>>> '*'.join(a)
+'apple*banana*cisco*decode'
+>>> ' '.join(a)
+'apple banana cisco decode'
+>>> ''.join(a)
+'applebananaciscodecode'
+>>>
+```
+
 str.**lower()**  
 Return a copy of the string with all the cased characters [[4]](https://docs.python.org/3.6/library/stdtypes.html#id15) converted to lowercase.
 
