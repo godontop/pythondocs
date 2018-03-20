@@ -464,6 +464,11 @@ True
 #### 4.7.1. 字符串方法
 字符串实现了所有[常见的](https://docs.python.org/3.6/library/stdtypes.html#typesseq-common)序列操作，连同下面描述的额外的方法。
 
+str.**encode**(*encoding="utf-8", errors="strict"*)  
+返回一个编码的字符串版本作为一个字节对象。默认编码是 `'utf-8'`。*errors* 可以设置为一个不同的错误处理方案。*errors* 的默认值是 `'strict'`，意为编码错误将抛出一个 [UnicodeError](https://docs.python.org/3.6/library/exceptions.html#UnicodeError)。其它可能的值是 `'ignore'`, `'replace'`, `'xmlcharrefreplace'`, `'backslashreplace'` 和任何其它通过 [codecs.register_error()](https://docs.python.org/3.6/library/codecs.html#codecs.register_error) 注册的名字，参考 [Error Handlers](https://docs.python.org/3.6/library/codecs.html#error-handlers) 章节。可能的编码列表，请参考 [Standard Encodings](https://docs.python.org/3.6/library/codecs.html#standard-encodings) 章节。
+
+*在版本3.1中发生变化：* 增加了对关键字参数的支持。
+
 str.**endswith**(*suffix*[, *start*[, *end*]])  
 如果字符串以指定的 *suffix* 结尾返回 `True`，否则返回 `False`。*suffix* can also be a tuple of suffixes to look for. With optional *start*, test beginning at that position. With optional *end*, stop comparing at that position.
 
