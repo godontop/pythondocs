@@ -19,6 +19,7 @@ Python相关文档不完全翻译。
             * [6.2.2. 模块内容](#622-模块内容)
         * [9.6. random — 生成伪随机数](#96-random--生成伪随机数)
             * [9.6.2. 用于整型数的函数](#962-用于整型数的函数)
+            * [9.6.3. 用于序列的函数](#963-用于序列的函数)
         * [10.2. functools — 高阶函数和操作可调用对象](#102-functools--高阶函数和操作可调用对象)
         * [11.2. os.path — 通用路径名操作](#112-ospath--通用路径名操作)
             * [16.1.8. 各种各样的系统信息](#1618-各种各样的系统信息)
@@ -688,6 +689,10 @@ re.**match**(*pattern, string, flags=0*)
 #### 9.6.2. 用于整型数的函数
 random.**randint**(*a, b*)  
 返回一个随机整型数 *N*，且 `a <= N <= b`。`random.randint(a, b)` 为 `random.randrange(a, b+1)` 的别名。
+
+#### 9.6.3. 用于序列的函数
+random.**choice**(*seq*)  
+从一个非空的序列 *seq* 返回一个随机元素。如果 *seq* 为空，则抛出 [IndexError](https://docs.python.org/3.6/library/exceptions.html#IndexError)。
 
 ### 10.2. functools — 高阶函数和操作可调用对象
 **Source code:** [Lib/functools.py](https://github.com/python/cpython/tree/3.6/Lib/functools.py)
