@@ -16,6 +16,8 @@ Python相关文档不完全翻译。
     * [5. 内置异常](#5-内置异常)
         * [5.2. 具体异常](#52-具体异常)
             * [6.1.3. 格式化字符串语法](#613-格式化字符串语法)
+        * [6.2. re — 正则表达式运算](#62-re--正则表达式运算)
+            * [6.2.1. 正则表达式语法](#621-正则表达式语法)
             * [6.2.2. 模块内容](#622-模块内容)
         * [9.6. random — 生成伪随机数](#96-random--生成伪随机数)
             * [9.6.2. 用于整型数的函数](#962-用于整型数的函数)
@@ -666,6 +668,19 @@ The [str.format()](https://docs.python.org/3.6/library/stdtypes.html#str.format)
 "Bring me a {}"                   # 不讲明地引用第一个位置参数
 "From {} to {}"                   # 等同于 "From {0} to {1}"
 ```
+
+### 6.2. re — 正则表达式运算
+**Source code:** [Lib/re.py](https://github.com/python/cpython/tree/3.6/Lib/re.py)
+
+这个模块提供与Perl中相似的正则表达式匹配运算。
+
+#### 6.2.1. 正则表达式语法
+`\w`  
+For Unicode (str) patterns:  
+Matches Unicode word characters; this includes most characters that can be part of a word in any language, as well as numbers and the underscore. 如果 [ASCII](https://docs.python.org/3/library/re.html#re.ASCII) 标志被使用，则仅匹配 `[a-zA-Z0-9_]` (但标志影响整个正则表达式，所以在这种情况下使用一个明确的 `[a-zA-Z0-9_]` 可能是一个更好的选择)。
+
+For 8-bit (bytes) patterns:  
+匹配ASCII字符集中被认为是字母数字的字符；这相当于 `[a-zA-Z0-9_]`。如果 [LOCALE](https://docs.python.org/3/library/re.html#re.LOCALE) 标志被使用，则匹配当前区域设置中被认为是字母数字的字符及下划线。
 
 #### 6.2.2. 模块内容
 这个模块定义了数个函数，常量和一个异常。Some of the functions are simplified versions of the full featured methods for compiled regular expressions. 大多数面对较重大的应用总是使用编译后的形式。
