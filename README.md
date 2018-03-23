@@ -698,6 +698,28 @@ re.**match**(*pattern, string, flags=0*)
 <_sre.SRE_Match object; span=(6, 11), match='不是大蟒蛇'>
 ```
 
+re.**findall**(*pattern, string, flags=0*)  
+返回 *string* 中所有非重叠的 *模式* 匹配，作为一个字符串列表。*string* 被从左到右搜索，匹配按被找到的顺序返回。If one or more groups are present in the pattern, return a list of groups; this will be a list of tuples if the pattern has more than one group. 空匹配被包含在结果中。
+
+**注意：** 因为当前实现的限制一个空匹配后面的字符没有被包含在下一个匹配中，所以 `findall(r'^|\w+', 'two words')` 返回 `['', 'wo', 'words']` (注意丢失的 “t”)。这在Python 3.7中将发送变化。
+
+```python
+>>> import re
+>>> re.findall(r'^|\w+', 'two words')
+['', 'wo', 'words']
+>>> re.findall(r'^|\w+', 'three apples')
+['', 'hree', 'apples']
+>>> re.findall(r'^|\w+', 'flyhigh')
+['', 'lyhigh']
+>>> re.findall(r'^|.', 'abcdcba')
+['', 'b', 'c', 'd', 'c', 'b', 'a']
+>>> re.findall(r'a|b', 'abcba')
+['a', 'b', 'b', 'a']
+>>> re.findall(r'^a|b', 'abcba')
+['a', 'b', 'b']
+>>>
+```
+
 ### 9.6. random — 生成伪随机数
 **Source code:** [Lib/random.py](https://github.com/python/cpython/tree/3.6/Lib/random.py)
 
