@@ -675,6 +675,26 @@ The [str.format()](https://docs.python.org/3.6/library/stdtypes.html#str.format)
 这个模块提供与Perl中相似的正则表达式匹配运算。
 
 #### 6.2.1. 正则表达式语法
+特殊字符是：
+
+`.`  
+(点.) 默认模式下，这匹配除了一个换行符以外的任何字符。如果指定了 [DOTALL](https://docs.python.org/3.6/library/re.html#re.DOTALL) 标准，这将匹配任何字符，包括一个换行符。
+
+`?`  
+Causes the resulting RE to match 0 or 1 repetitions of the preceding RE. `ab?` 将匹配 `‘a’` 或者 `‘ab’`。
+
+`*?`, `+?`, `??`  
+限定符 `'*'`, `'+'`, 和 `'?'` 都是*贪婪的*；它们匹配尽可能多的文本。有时这种行为不是被期望的；如果正则表达式 `<.*>` 与 `'<a> b <c>'` 进行匹配，它将匹配整个字符串，而不仅仅是 `'<a>'`。在限定符的后面添加 `?` 使它执行非贪婪匹配或最小匹配的方式；匹配尽可能少的字符。使用正则表达式 `<.*?>` 将仅匹配 `'<a>'`。
+
+```python
+>>> import re
+>>> re.findall(r'a(.*)a', 'abcbaabcaabca')
+['bcbaabcaabc']
+>>> re.findall(r'a(.*?)a', 'abcbaabcaabca')
+['bcb', 'bc', 'bc']
+>>>
+```
+
 `\w`  
 For Unicode (str) patterns:  
 Matches Unicode word characters; this includes most characters that can be part of a word in any language, as well as numbers and the underscore. 如果 [ASCII](https://docs.python.org/3/library/re.html#re.ASCII) 标志被使用，则仅匹配 `[a-zA-Z0-9_]` (但标志影响整个正则表达式，所以在这种情况下使用一个明确的 `[a-zA-Z0-9_]` 可能是一个更好的选择)。
