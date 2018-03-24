@@ -40,6 +40,8 @@ Python相关文档不完全翻译。
                 * [16.16.2.5. 实用函数](#161625-实用函数)
 		* [21.6. urllib.request — 打开URLs的可扩展库](#216-urllibrequest--打开urls的可扩展库)
         * [21.9. urllib.error — urllib.request抛出的异常类](#219-urlliberror--urllibrequest抛出的异常类)
+        * [21.12. http.client — HTTP协议客户端](#2112-httpclient--http协议客户端)
+            * [21.12.2. HTTPResponse对象](#21122-httpresponse对象)
         * [21.21. socketserver — 一个网络服务器框架](#2121-socketserver--一个网络服务器框架)
             * [21.21.2. 服务器对象](#21212-服务器对象)
         * [21.22. http.server — HTTP 服务器](#2122-httpserver--http-服务器)
@@ -1122,6 +1124,36 @@ True
 ```
 
 从Python 3.3开始，[IOError](https://docs.python.org/3.6/library/exceptions.html#IOError) 是 [OSError](https://docs.python.org/3.6/library/exceptions.html#OSError) 的别名。
+
+### 21.12. http.client — HTTP协议客户端
+**Source code:** [Lib/http/client.py](https://github.com/python/cpython/tree/3.6/Lib/http/client.py)
+
+这个模块定义实现HTTP和HTTPS协议客户端的类。它通常不被直接使用 — 模块 [urllib.request](https://docs.python.org/3.6/library/urllib.request.html#module-urllib.request) 使用它处理HTTP和HTTPS URLs。
+
+**另请参阅：** 更高层次的HTTP客户端接口推荐 [Requests package](http://docs.python-requests.org/)。
+
+**注意：** 如果Python编译了SSL支持 (通过 [ssl](https://docs.python.org/3.6/library/ssl.html#module-ssl) 模块)，HTTPS支持才可用。
+
+这个模块提供了下面的类：
+
+*class* http.client.**HTTPResponse**(*sock, debuglevel=0, method=None, url=None*)  
+Class whose instances are returned upon successful connection. Not instantiated directly by user.
+
+*在版本3.4中发生变化：* *strict* 参量被移除了。HTTP 0.9 风格 “Simple Responses” 不再支持。
+
+#### 21.12.2. HTTPResponse对象
+An [HTTPResponse](https://docs.python.org/3.6/library/http.client.html#http.client.HTTPResponse) instance wraps the HTTP response from the server. It provides access to the request headers and the entity body. The response is an iterable object and can be used in a with statement.
+
+*在版本3.5中发生变化：* 现在实现了 [io.BufferedIOBase](https://docs.python.org/3.6/library/io.html#io.BufferedIOBase) 接口，它的所有的读操作都支持。
+
+HTTPResponse.**read**([*amt*])  
+读取并返回响应正文，或者直到下一个 *amt* 字节。
+
+HTTPResponse.**version**  
+服务器使用的HTTP协议版本。HTTP/1.0 为 10，HTTP/1.1 为 11。
+
+HTTPResponse.**status**  
+服务器返回的状态代码。
 
 ### 21.21. socketserver — 一个网络服务器框架
 **Source code:** [Lib/socketserver.py](https://github.com/python/cpython/tree/3.6/Lib/socketserver.py)
