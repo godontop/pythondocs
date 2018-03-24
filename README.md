@@ -19,6 +19,7 @@ Python相关文档不完全翻译。
         * [6.2. re — 正则表达式运算](#62-re--正则表达式运算)
             * [6.2.1. 正则表达式语法](#621-正则表达式语法)
             * [6.2.2. 模块内容](#622-模块内容)
+            * [8.1.3. date对象](#813-date对象)
         * [9.6. random — 生成伪随机数](#96-random--生成伪随机数)
             * [9.6.2. 用于整型数的函数](#962-用于整型数的函数)
             * [9.6.3. 用于序列的函数](#963-用于序列的函数)
@@ -756,6 +757,18 @@ re.**findall**(*pattern, string, flags=0*)
 ['a', 'b', 'b']
 >>>
 ```
+
+#### 8.1.3. date对象
+
+日期可以被用作字典的键。在布尔上下文中，所有 [date](https://docs.python.org/3.6/library/datetime.html#datetime.date) 对象都被认为是真。
+
+实例方法：
+
+date.**weekday()**  
+用一个整数返回星期几，星期一是0，星期天是6。例如，`date(2002, 12, 4).weekday() == 2`，星期三。另请参阅 [isoweekday()](https://docs.python.org/3.6/library/datetime.html#datetime.date.isoweekday)。
+
+date.**isoweekday()**  
+用一个整数返回星期几，星期一是1，星期天是7. 例如，`date(2002, 12, 4).isoweekday() == 3`，星期三。另请参阅 [weekday()](https://docs.python.org/3.6/library/datetime.html#datetime.date.weekday)，[isocalendar()](https://docs.python.org/3.6/library/datetime.html#datetime.date.isocalendar)。
 
 ### 9.6. random — 生成伪随机数
 **Source code:** [Lib/random.py](https://github.com/python/cpython/tree/3.6/Lib/random.py)
