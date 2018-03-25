@@ -47,6 +47,9 @@ Python相关文档不完全翻译。
             * [21.21.2. 服务器对象](#21212-服务器对象)
         * [21.22. http.server — HTTP 服务器](#2122-httpserver--http-服务器)
         * [29.1. sys — 系统专用参量和函数](#291-sys--系统专用参量和函数)
+* [Python教程](#python教程)
+    * [2. 使用Python解释器](#2-使用python解释器)
+        * [2.1. 调用解释器](#21-调用解释器)
 * [Python HOWTOs](#python-howtos)
     * [如何使用urllib包获取互联网资源](#如何使用urllib包获取互联网资源)
         * [头信息](#头信息)
@@ -1254,6 +1257,11 @@ sys.**version_info**
 一个包含版本号的5个组成部分的元组：*major*, *minor*, *micro*, *releaselevel*, and *serial*. 除了 *releaselevel* 所有值都是整型数；发行版级别是 `'alpha'`, `'beta'`, `'candidate'`, 或者 `'final'`. Python版本2.0对应的 `version_info` 值是 `(2, 0, 0, 'final', 0)`. 组件也可以通过名称来访问，如 `sys.version_info[0]` 等价于 `sys.version_info.major`。
 
 *在版本3.1中发生了变化：* 增加了名称组件属性。
+
+# Python教程
+## 2. 使用Python解释器
+### 2.1. 调用解释器
+Typing an end-of-file character (`Control-D` on Unix, `Control-Z` on Windows) at the primary prompt causes the interpreter to exit with a zero exit status. 如果无效，你可以通过输入下面的命令：`quit()` 退出解释器。
 
 # Python HOWTOs
 ## 如何使用urllib包获取互联网资源
