@@ -761,6 +761,18 @@ re.**findall**(*pattern, string, flags=0*)
 >>>
 ```
 
+匹配sitemap文件中的所有链接
+
+```python
+import re
+import urllib.request
+
+
+sitemap = urllib.request.urlopen('https://example.com/sitemap.xml').read()
+links = re.findall('<loc>(.*?)</loc>', sitemap.decode())
+
+```
+
 #### 8.1.3. date对象
 
 日期可以被用作字典的键。在布尔上下文中，所有 [date](https://docs.python.org/3.6/library/datetime.html#datetime.date) 对象都被认为是真。
