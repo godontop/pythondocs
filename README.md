@@ -731,7 +731,24 @@ For 8-bit (bytes) patterns:
 re.**compile**(*pattern, flags=0*)  
 将一个正则表达式模式编译进一个[正则表达式对象](https://docs.python.org/3.6/library/re.html#re-objects)，正则表达式对象可以使用它的 [match()](https://docs.python.org/3.6/library/re.html#re.regex.match)，[search()](https://docs.python.org/3.6/library/re.html#re.regex.search) 和其它方法来进行匹配，详情如下。
 
-表达式的行为可以通过指定一个 *flags* 值来进行修改。 Values can be any of the following variables, combined using bitwise OR (the | operator).
+表达式的行为可以通过指定一个 *flags* 值来进行修改。标志值可以是下面任何有一个变量，组合使用按位或(即 `|` 操作符)。
+
+The sequence  
+
+```python
+prog = re.compile(pattern)
+result = prog.match(string)
+```
+
+等同于
+
+```python
+result = re.match(pattern, string)
+```
+
+但当表达式在一个单一程序中将要被使用几次时，使用 [re.compile()](https://docs.python.org/3.6/library/re.html#re.compile) 及保存的结果正则表达式对象以重用是更高效的。
+
+**注意：** 传递给 [re.compile()](https://docs.python.org/3.6/library/re.html#re.compile) 及模块级别的匹配函数最新的模式的编译版本被缓存，所以每次仅使用几个（a few）正则表达式的程序不必担心编译正则表达式。
 
 re.**I**  
 re.**IGNORECASE**  
