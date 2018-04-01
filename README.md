@@ -15,6 +15,7 @@ Python相关文档不完全翻译。
         * [4.13. 特殊属性](#413-特殊属性)
     * [5. 内置异常](#5-内置异常)
         * [5.2. 具体异常](#52-具体异常)
+            * [5.2.1. OS异常](#521-os异常)
             * [6.1.3. 格式化字符串语法](#613-格式化字符串语法)
         * [6.2. re — 正则表达式运算](#62-re--正则表达式运算)
             * [6.2.1. 正则表达式语法](#621-正则表达式语法)
@@ -663,6 +664,17 @@ class.**\_\_subclasses\_\_()**
 
 *exception* **WindowsError**  
 仅Windows下可用。
+
+#### 5.2.1. OS异常
+下面的异常是 [OSError](https://docs.python.org/3.6/library/exceptions.html#OSError) 的子类，they get raised depending on the system error code.
+
+*exception* **ConnectionError**  
+连接相关的问题的一个基类。
+
+子类是 [BrokenPipeError](https://docs.python.org/3.6/library/exceptions.html#BrokenPipeError), [ConnectionAbortedError](https://docs.python.org/3.6/library/exceptions.html#ConnectionAbortedError), [ConnectionRefusedError](https://docs.python.org/3.6/library/exceptions.html#ConnectionRefusedError) 和 [ConnectionResetError](https://docs.python.org/3.6/library/exceptions.html#ConnectionResetError)。
+
+*exception* **ConnectionResetError**  
+[ConnectionError](https://docs.python.org/3.6/library/exceptions.html#ConnectionError) 的一个子类，当一个连接被对方重置时抛出。相当于 errno `ECONNRESET`。
 
 #### 6.1.3. 格式化字符串语法
 The [str.format()](https://docs.python.org/3.6/library/stdtypes.html#str.format) method and the [Formatter](https://docs.python.org/3.6/library/string.html#string.Formatter) class share the same syntax for format strings (although in the case of [Formatter](https://docs.python.org/3.6/library/string.html#string.Formatter), 子类可以定义它们自己的格式化字符串语法). The syntax is related to that of [formatted string literals](https://docs.python.org/3.6/reference/lexical_analysis.html#f-strings), but there are differences.
