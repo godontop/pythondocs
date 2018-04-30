@@ -42,6 +42,8 @@ Python相关文档不完全翻译。
                 * [16.16.2.1. 查找共享库](#161621-查找共享库)
                 * [16.16.2.5. 实用函数](#161625-实用函数)
 		* [21.6. urllib.request — 打开URLs的可扩展库](#216-urllibrequest--打开urls的可扩展库)
+        * [21.8. urllib.parse — 将URLs解析为组件](#218-urllibparse--将urls解析为组件)
+            * [21.8.1. URL解析](#2181-url解析)
         * [21.9. urllib.error — urllib.request抛出的异常类](#219-urlliberror--urllibrequest抛出的异常类)
         * [21.12. http.client — HTTP协议客户端](#2112-httpclient--http协议客户端)
             * [21.12.2. HTTPResponse对象](#21122-httpresponse对象)
@@ -1204,6 +1206,40 @@ This class is an abstraction of a URL request.
 *url* 应该是一个包含一个有效的URL的字符串。
 
 *headers* 应该是一个字典， and will be treated as if [add_header()](https://docs.python.org/3/library/urllib.request.html#urllib.request.Request.add_header) was called with each key and value as arguments. This is often used to “spoof” the `User-Agent` header value, which is used by a browser to identify itself – 一些HTTP服务器仅允许来自普通浏览器的请求而阻止来自脚本的请求。例如，Mozilla Firefox 可能标识自己为 `"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:58.0) Gecko/20100101 Firefox/58.0"`, 而 [urllib](https://docs.python.org/3/library/urllib.html#module-urllib) 的默认用户代理字符串是 `"Python-urllib/3.6"` (on Python 3.6)。
+
+### 21.8. urllib.parse — 将URLs解析为组件
+**源代码:** [Lib/urllib/parse.py](https://github.com/python/cpython/tree/3.6/Lib/urllib/parse.py)
+
+This module defines a standard interface to break Uniform Resource Locator (URL) strings up in components (addressing scheme, network location, path etc.), to combine the components back into a URL string, and to convert a “relative URL” to an absolute URL given a “base URL.”
+
+#### 21.8.1. URL解析
+URL解析函数聚焦于将一个URL字符串分成多个组件，或组合URL组件为一个URL字符串。
+
+urllib.parse.**urljoin**(*base, url, allow_fragments=True*)  
+通过组合一个 "base URL" (*base*) 和另一个 URL (*url*) 来构造一个完整的 ("绝对的") URL。Informally, this uses components of the base URL, in particular the addressing scheme, the network location and (part of) the path, to provide missing components in the relative URL. 例如：
+
+```python
+>>> from urllib.parse import urljoin
+>>> urljoin('https://docs.python.org/3.6/library/urllib.parse.html', 'urllib.error.html')
+'https://docs.python.org/3.6/library/urllib.error.html'
+>>>
+```
+
+The *allow_fragments* argument has the same meaning and default as for [urlparse()](https://docs.python.org/3.6/library/urllib.parse.html#urllib.parse.urlparse).
+
+**注意：** 如果 *url* 是一个绝对 URL (即，以 `//` 或 `scheme://` 开头), 则 *url*’s 主机名和/或方案将出现在结果中。例如：
+
+```python
+>>> urljoin('http://www.cwi.nl/%7Eguido/Python.html', '//www.python.org/%7Eguido')
+'http://www.python.org/%7Eguido'
+>>> urljoin('http://www.cwi.nl/%7Eguido/Python.html', 'https://www.python.org/%7Eguido')
+'https://www.python.org/%7Eguido'
+>>>
+```
+
+If you do not want that behavior, preprocess the *url* with [urlsplit()](https://docs.python.org/3.6/library/urllib.parse.html#urllib.parse.urlsplit) and [urlunsplit()](https://docs.python.org/3.6/library/urllib.parse.html#urllib.parse.urlunsplit), removing possible *scheme* and *netloc* parts.
+
+*在版本3.5中发生变化：* Behaviour updated to match the semantics defined in [RFC 3986](https://tools.ietf.org/html/rfc3986.html).
 
 ### 21.9. urllib.error — urllib.request抛出的异常类
 **Source code:** [Lib/urllib/error.py](https://github.com/python/cpython/tree/3.6/Lib/urllib/error.py)
