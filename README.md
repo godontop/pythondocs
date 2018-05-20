@@ -1199,6 +1199,13 @@ This function always returns an object which can work as a [context manager](htt
 * info() — 返回页面的元信息，例如头信息， in the form of an [email.message_from_string()](https://docs.python.org/3/library/email.parser.html#email.message_from_string) instance (see [Quick Reference to HTTP Headers](https://www.cs.tut.fi/~jkorpela/http.html))  
 * getcode() – 返回响应的HTTP状态代码。
 
+urllib.request.**build_opener**(\[*handler, ...*\])  
+返回一个 [OpenerDirector](https://docs.python.org/3.6/library/urllib.request.html#urllib.request.OpenerDirector) 实例，which chains the handlers in the order given. *handlers* 可以是 [BaseHandler](https://docs.python.org/3.6/library/urllib.request.html#urllib.request.BaseHandler) 的实例，或者 [BaseHandler](https://docs.python.org/3.6/library/urllib.request.html#urllib.request.BaseHandler) 的子类 (在这种情况下它必须能够不带任何参数调用构造函数)。下面这些类的实例将出现在 *handlers* 的前面，除非 *handlers* 包含它们，它们的实例或者它们的子类：[ProxyHandler](https://docs.python.org/3.6/library/urllib.request.html#urllib.request.ProxyHandler) (如果检测到了代理设置), [UnknownHandler](https://docs.python.org/3.6/library/urllib.request.html#urllib.request.UnknownHandler), [HTTPHandler](https://docs.python.org/3.6/library/urllib.request.html#urllib.request.HTTPHandler), [HTTPDefaultErrorHandler](https://docs.python.org/3.6/library/urllib.request.html#urllib.request.HTTPDefaultErrorHandler), [HTTPRedirectHandler](https://docs.python.org/3.6/library/urllib.request.html#urllib.request.HTTPRedirectHandler), [FTPHandler](https://docs.python.org/3.6/library/urllib.request.html#urllib.request.FTPHandler), [FileHandler](https://docs.python.org/3.6/library/urllib.request.html#urllib.request.FileHandler), [HTTPErrorProcessor](https://docs.python.org/3.6/library/urllib.request.html#urllib.request.HTTPErrorProcessor).
+
+如果安装的Python支持SSL (例如，如果 [ssl](https://docs.python.org/3.6/library/ssl.html#module-ssl) 模块可以被导入), [HTTPSHandler](https://docs.python.org/3.6/library/urllib.request.html#urllib.request.HTTPSHandler) 也将被加入。
+
+一个 [BaseHandler](https://docs.python.org/3.6/library/urllib.request.html#urllib.request.BaseHandler) 子类也可能改变它的 `handler_order` 属性以修改它在处理程序列表中的位置。
+
 提供下面的类：
 
 class urllib.request.**Request**(*url, data=None, headers={}, origin_req_host=None, unverifiable=False, method=None*)  
