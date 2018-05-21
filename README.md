@@ -42,6 +42,7 @@ Python相关文档不完全翻译。
                 * [16.16.2.1. 查找共享库](#161621-查找共享库)
                 * [16.16.2.5. 实用函数](#161625-实用函数)
 		* [21.6. urllib.request — 打开URLs的可扩展库](#216-urllibrequest--打开urls的可扩展库)
+            * [21.6.2. OpenerDirector对象](#2162-openerdirector对象)
         * [21.8. urllib.parse — 将URLs解析为组件](#218-urllibparse--将urls解析为组件)
             * [21.8.1. URL解析](#2181-url解析)
         * [21.9. urllib.error — urllib.request抛出的异常类](#219-urlliberror--urllibrequest抛出的异常类)
@@ -1215,6 +1216,12 @@ This class is an abstraction of a URL request.
 
 *headers* 应该是一个字典， and will be treated as if [add_header()](https://docs.python.org/3/library/urllib.request.html#urllib.request.Request.add_header) was called with each key and value as arguments. This is often used to “spoof” the `User-Agent` header value, which is used by a browser to identify itself – 一些HTTP服务器仅允许来自普通浏览器的请求而阻止来自脚本的请求。例如，Mozilla Firefox 可能标识自己为 `"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:58.0) Gecko/20100101 Firefox/58.0"`, 而 [urllib](https://docs.python.org/3/library/urllib.html#module-urllib) 的默认用户代理字符串是 `"Python-urllib/3.6"` (on Python 3.6)。
 
+*class* urllib.request.**OpenerDirector**  
+[OpenerDirector](https://docs.python.org/3.6/library/urllib.request.html#urllib.request.OpenerDirector) 类通过链接起来的 [BaseHandler](https://docs.python.org/3.6/library/urllib.request.html#urllib.request.BaseHandler)s 打开URLs。它管理处理程序链以及从错误中恢复。
+
+*class* urllib.request.**BaseHandler**  
+这是所有注册处理程序的基类——且仅处理简单的注册机制。
+
 *class* urllib.request.**ProxyHandler**(*proxies=None*)  
 使请求通过一个代理。如果给定 *proxies*，它必须是一个映射协议名称到代理URLs的字典。默认是从环境变量 `<protocol>_proxy` 中读取代理列表。如果没有设置代理环境变量，则在 Windows 环境下代理设置从注册表的Internet设置部分获取，而在 macOS 环境下代理信息从macOS系统配置框架中获取。
 
@@ -1223,6 +1230,21 @@ This class is an abstraction of a URL request.
 `no_proxy` 环境变量可以用于指定不应通过代理到达的主机；如果设置，它应该是一个逗号分隔的主机名后缀列表，可以选择附加 `:port`，例如 `cern.ch,ncsa.uiuc.edu,some.host:8080`。
 
 **注意：** 如果设置了 `REQUEST_METHOD` 变量 `HTTP_PROXY` 将被忽略；请看关于 [getproxies()](https://docs.python.org/3.6/library/urllib.request.html#urllib.request.getproxies) 的文档。
+
+#### 21.6.2. OpenerDirector对象
+[OpenerDirector](https://docs.python.org/3.6/library/urllib.request.html#urllib.request.OpenerDirector) 实例拥有以下方法：
+
+OpenerDirector.**add_handler**(*handler*)  
+*handler* 必须是 [BaseHandler](https://docs.python.org/3.6/library/urllib.request.html#urllib.request.BaseHandler) 的一个实例。搜索下面的方法，并将其添加到可能的链中 (注意 HTTP errors 是一个特例)。
+
+* protocol_open() — signal that the handler knows how to open *protocol* URLs.
+* http_error_type() — signal that the handler knows how to handle HTTP errors with HTTP error code *type*.
+* protocol_error() — signal that the handler knows how to handle errors from (non-`http`) protocol.
+* protocol_request() — signal that the handler knows how to pre-process *protocol* requests.
+* protocol_response() — signal that the handler knows how to post-process *protocol* responses.
+
+OpenerDirector.**open**(*url, data=None*\[*, timeout*\])  
+打开指定 *url* (可以是一个请求对象或者一个字符串), 可选择传递指定 *data*。Arguments, return values and exceptions raised are the same as those of [urlopen()](https://docs.python.org/3.6/library/urllib.request.html#urllib.request.urlopen) (which simply calls the [open()](https://docs.python.org/3.6/library/functions.html#open) method on the currently installed global [OpenerDirector](https://docs.python.org/3.6/library/urllib.request.html#urllib.request.OpenerDirector)). 可选参数 *timeout* 以秒为单位指定了一个超时时间用于阻断操作，如连接尝试 (如果没有指定，将使用全局的默认超时设置)。实际上超时特性只能用于 HTTP, HTTPS 和 FTP 连接)。
 
 ### 21.8. urllib.parse — 将URLs解析为组件
 **源代码:** [Lib/urllib/parse.py](https://github.com/python/cpython/tree/3.6/Lib/urllib/parse.py)
