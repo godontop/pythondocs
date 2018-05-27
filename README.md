@@ -53,6 +53,9 @@ Python相关文档不完全翻译。
             * [21.21.2. 服务器对象](#21212-服务器对象)
         * [21.22. http.server — HTTP 服务器](#2122-httpserver--http-服务器)
         * [29.1. sys — 系统专用参量和函数](#291-sys--系统专用参量和函数)
+* [Python语言参考](#python语言参考)
+    * [8. 复合语句](#8-复合语句)
+        * [8.5. with语句](#85-with语句)
 * [Python教程](#python教程)
     * [2. 使用Python解释器](#2-使用python解释器)
         * [2.1. 调用解释器](#21-调用解释器)
@@ -1499,6 +1502,16 @@ sys.**version_info**
 一个包含版本号的5个组成部分的元组：*major*, *minor*, *micro*, *releaselevel*, and *serial*. 除了 *releaselevel* 所有值都是整型数；发行版级别是 `'alpha'`, `'beta'`, `'candidate'`, 或者 `'final'`. Python版本2.0对应的 `version_info` 值是 `(2, 0, 0, 'final', 0)`. 组件也可以通过名称来访问，如 `sys.version_info[0]` 等价于 `sys.version_info.major`。
 
 *在版本3.1中发生了变化：* 增加了名称组件属性。
+
+# Python语言参考
+## 8. 复合语句
+### 8.5. with语句
+The [with](https://docs.python.org/3.6/reference/compound_stmts.html#with) statement is used to wrap the execution of a block with methods defined by a context manager (参见 [With语句上下文管理器](https://docs.python.org/3.6/reference/datamodel.html#context-managers) 章节).
+
+```python
+with_stmt ::=  "with" with_item ("," with_item)* ":" suite
+with_item ::=  expression ["as" target]
+```
 
 # Python教程
 ## 2. 使用Python解释器
