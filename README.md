@@ -1511,6 +1511,22 @@ The [with](https://docs.python.org/3.6/reference/compound_stmts.html#with) state
 **with_stmt ::=**  "with" with_item ("," with_item)* ":" [suite](https://docs.python.org/3.6/reference/compound_stmts.html#grammar-token-suite)  
 **with_item ::=**  [expression](https://docs.python.org/3.6/reference/expressions.html#grammar-token-expression) \["as" [target](https://docs.python.org/3.6/reference/simple_stmts.html#grammar-token-target)\]
 
+当不止一个 with_item 时，上下文管理器的处理就好像有多个 [with](https://docs.python.org/3.6/reference/compound_stmts.html#with) 语句嵌套似的。
+
+```python
+with A() as a, B() as b:
+    suite
+```
+
+等同于
+
+```python
+with A() as a:
+    with B() as b:
+        suite
+```
+
+*在版本3.1中发生变化：* 支持多个上下文表达式。
 
 # Python教程
 ## 2. 使用Python解释器
