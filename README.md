@@ -1508,10 +1508,9 @@ sys.**version_info**
 ### 8.5. with语句
 The [with](https://docs.python.org/3.6/reference/compound_stmts.html#with) statement is used to wrap the execution of a block with methods defined by a context manager (参见 [With语句上下文管理器](https://docs.python.org/3.6/reference/datamodel.html#context-managers) 章节).
 
--------------------------------------------------------------------------------
 **with_stmt ::=**  "with" with_item ("," with_item)* ":" [suite](https://docs.python.org/3.6/reference/compound_stmts.html#grammar-token-suite)
 **with_item ::=**  [expression](https://docs.python.org/3.6/reference/expressions.html#grammar-token-expression) \["as" [target](https://docs.python.org/3.6/reference/simple_stmts.html#grammar-token-target)\]
--------------------------------------------------------------------------------
+
 
 # Python教程
 ## 2. 使用Python解释器
