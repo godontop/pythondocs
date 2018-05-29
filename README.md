@@ -1553,6 +1553,66 @@ with A() as a:
 ### 2.1. 调用解释器
 Typing an end-of-file character (`Control-D` on Unix, `Control-Z` on Windows) at the primary prompt causes the interpreter to exit with a zero exit status. 如果无效，你可以通过输入下面的命令：`quit()` 退出解释器。
 
+## 4. 更多控制流工具
+Besides the [while](https://docs.python.org/3/reference/compound_stmts.html#while) statement just introduced, Python knows the usual control flow statements known from other languages, with some twists.
+
+### 4.3. The range() Function
+如果你需要遍历一个数字序列，内置函数 [range()](https://docs.python.org/3/library/stdtypes.html#range) 派得上用场。它生成等差数列：
+
+```python
+>>> for i in range(5):
+...     print(i)
+...
+0
+1
+2
+3
+4
+```
+
+给定的结束点永远都不是生成的序列的一部分；一个长度为10的序列的项的合法索引，`range(10)` 生成 10 个值。让 range 以另一个数开始是可能的，或者指定一个不同的增量(即使为负；有时这被称为 ‘step’):
+
+```python
+>>> range(5, 10)
+range(5, 10)
+>>> for i in range(5, 10):
+...     print(i)
+...
+5
+6
+7
+8
+9
+>>> for i in range(0, 10, 3):
+...     print(i)
+...
+0
+3
+6
+9
+>>> for i in range(-10, -100, -30):
+...     print(i)
+...
+-10
+-40
+-70
+```
+
+遍历一个序列的索引，你可以联合 [range()](https://docs.python.org/3/library/stdtypes.html#range) 和 [len()](https://docs.python.org/3/library/functions.html#len) 如下：
+
+```python
+>>> a = ['Mary', 'had', 'a', 'little', 'lamb']
+>>> for i in range(len(a)):
+...     print(i, a[i])
+...
+0 Mary
+1 had
+2 a
+3 little
+4 lamb
+>>>
+```
+
 # Python HOWTOs
 ## 如何使用urllib包获取互联网资源
 ### 头信息
