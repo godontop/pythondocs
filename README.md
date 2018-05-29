@@ -7,6 +7,7 @@ Python相关文档不完全翻译。
         * [4.2. 布尔运算 — and, or, not](#42-布尔运算--and-or-not)
 		* [4.6. 序列类型 — 列表, 元组, range](#46-序列类型--列表-元组-range)
 			* [4.6.4. 列表](#464-列表)
+            * [4.6.6. Ranges](#466-ranges)
 		* [4.7. 文本序列类型 — str](#47-文本序列类型--str)
             * [4.7.1. 字符串方法](#471-字符串方法)
             * [4.8.3. 字节和字节数组操作](#483-字节和字节数组操作)
@@ -463,6 +464,19 @@ print(letters)
 
 **Result:**  
 ['a', 'b', 'c', 'd', 'e']
+
+#### 4.6.6. Ranges
+[range](https://docs.python.org/3/library/stdtypes.html#range) 类型代表一种不可变的数字序列且通常用于在 [for](https://docs.python.org/3/reference/compound_stmts.html#for) 循环中循环一个特定的次数。
+
+*class* **range**(*stop*)  
+*class* **range**(*start, stop*[*, step*])  
+range 构造函数的参数必须是整型数(要么是内置 [int](https://docs.python.org/3/library/functions.html#int) 要么是任何实现了 `__index__` 特殊方法的对象)。如果省略了 *step* 参数，则它默认为 `1`。如果省略了 *start* 参数，则它默认为 `0`。如果 *step* 是 zero, 则抛出 [ValueError](https://docs.python.org/3/library/exceptions.html#ValueError)。
+
+对于正数 *step*, 一个 range `r` 的内容由公式 `r[i] = start + step*i` 决定，其中 `i >= 0` 且 `r[i] < stop`。
+
+对于负数 *step*, range的内容仍然由公式 `r[i] = start + step*i` 决定，但约束条件是 `i >= 0` 和 `r[i] > stop`。
+
+如果 `r[0]` 不满足值的约束条件则range对象将为空。Ranges do support negative indices, but these are interpreted as indexing from the end of the sequence determined by the positive indices.
 
 ### 4.7. 文本序列类型 — str
 在Python中，文本数据是通过 [str](https://docs.python.org/3.6/library/stdtypes.html#str) 对象或 *strings* 来处理的。字符串是不可变的Unicode代码点[序列](https://docs.python.org/3.6/library/stdtypes.html#typesseq)。字符串的写法有多种方式：
