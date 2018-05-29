@@ -60,6 +60,8 @@ Python相关文档不完全翻译。
 * [Python教程](#python教程)
     * [2. 使用Python解释器](#2-使用python解释器)
         * [2.1. 调用解释器](#21-调用解释器)
+    * [4. 更多控制流工具](#4-更多控制流工具)
+        * [4.3. range() 函数](#43-range-函数)
 * [Python HOWTOs](#python-howtos)
     * [如何使用urllib包获取互联网资源](#如何使用urllib包获取互联网资源)
         * [头信息](#头信息)
@@ -1556,7 +1558,7 @@ Typing an end-of-file character (`Control-D` on Unix, `Control-Z` on Windows) at
 ## 4. 更多控制流工具
 Besides the [while](https://docs.python.org/3/reference/compound_stmts.html#while) statement just introduced, Python knows the usual control flow statements known from other languages, with some twists.
 
-### 4.3. The range() Function
+### 4.3. range() 函数
 如果你需要遍历一个数字序列，内置函数 [range()](https://docs.python.org/3/library/stdtypes.html#range) 派得上用场。它生成等差数列：
 
 ```python
