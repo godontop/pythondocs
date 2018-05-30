@@ -62,6 +62,7 @@ Python相关文档不完全翻译。
         * [2.1. 调用解释器](#21-调用解释器)
     * [4. 更多控制流工具](#4-更多控制流工具)
         * [4.3. range() 函数](#43-range-函数)
+        * [4.4. break 和 continue 语句, 和循环中的 else 子句](#44-break-和-continue-语句-和循环中的-else-子句)
 * [Python HOWTOs](#python-howtos)
     * [如何使用urllib包获取互联网资源](#如何使用urllib包获取互联网资源)
         * [头信息](#头信息)
@@ -1612,6 +1613,78 @@ range(5, 10)
 2 a
 3 little
 4 lamb
+>>>
+```
+
+In most such cases, however, it is convenient to use the [enumerate()](https://docs.python.org/3/library/functions.html#enumerate) function, 请看 [Looping Techniques](https://docs.python.org/3/tutorial/datastructures.html#tut-loopidioms)。
+
+如果你仅打印一个range，将发生一件奇怪的事情：
+
+```python
+>>> print(range(0, 10))
+range(0, 10)
+>>>
+```
+
+在很多方面 [range()](https://docs.python.org/3/library/stdtypes.html#range) 返回对象的行为就好像它是一个列表，但实际上它不是。当你遍历它时，它是一个返回预期的序列中的连续的项的对象，但它实际上不制造列表，从而节省空间。
+
+我们说这样的对象是*可迭代的*，也就是说，suitable as a target for functions and constructs that expect something from which they can obtain successive items until the supply is exhausted. 我们已经见过 [for](https://docs.python.org/3/reference/compound_stmts.html#for) 语句就是这样一个*迭代器*。[list()](https://docs.python.org/3/library/stdtypes.html#list) 函数是另一个；它从可迭代对象创建列表：
+
+```python
+>>> list(range(5))
+[0, 1, 2, 3, 4]
+>>>
+```
+
+稍后我们将看到更多返回可迭代对象和使用可迭代对象作为参数的函数。
+
+### 4.4. break 和 continue 语句, 和循环中的 else 子句
+[break](https://docs.python.org/3/reference/simple_stmts.html#break) 语句，与 C 中相似，摆脱封闭它的最内层的 [for](https://docs.python.org/3/reference/compound_stmts.html#for) 或者 [while](https://docs.python.org/3/reference/compound_stmts.html#while) 循环。
+
+循环语句可能含有一个 `else` 子句；当循环通过耗尽列表 (with [for](https://docs.python.org/3/reference/compound_stmts.html#for)) 或者当条件变为 false (with [while](https://docs.python.org/3/reference/compound_stmts.html#while)) 而结束时执行 else 子句，当循环被一个 [break](https://docs.python.org/3/reference/simple_stmts.html#break) 语句终止时则不执行 else 子句。通过下面这个搜索质数的循环来举例说明：
+
+```python
+>>> for n in range(2, 10):
+...     for x in range(2, n):
+...         if n % x == 0:
+...             print(n, 'equals', x, '*', n//x)
+...             break
+...     else:
+...         # loop fell through without finding a factor
+...         print(n, 'is a prime number')
+...
+2 is a prime number
+3 is a prime number
+4 equals 2 * 2
+5 is a prime number
+6 equals 2 * 3
+7 is a prime number
+8 equals 2 * 4
+9 equals 3 * 3
+>>>
+```
+
+(是的，这是正确的代码。仔细看：`else` 子句属于 [for](https://docs.python.org/3/reference/compound_stmts.html#for) 循环，**而不是** [if](https://docs.python.org/3/reference/compound_stmts.html#if) 语句。)
+
+当与循环一起使用时，比起 [if](https://docs.python.org/3/reference/compound_stmts.html#if) 语句中的 `else` 子句，循环中的 `else` 子句与 [try](https://docs.python.org/3/reference/compound_stmts.html#try) 语句中的 `else` 子句有更多的共同点：当没有异常发生时执行 [try](https://docs.python.org/3/reference/compound_stmts.html#try) 语句的 `else` 子句，当没有 `break` 发生时执行循环的 `else` 子句。关于 [try](https://docs.python.org/3/reference/compound_stmts.html#try) 语句和异常的更多信息，请看 [处理异常](https://docs.python.org/3/tutorial/errors.html#tut-handling)。
+
+[continue](https://docs.python.org/3/reference/simple_stmts.html#continue) 语句，也是从 C 借鉴来的，继续循环的下一次迭代：
+
+```python
+>>> for num in range(2, 10):
+...     if num % 2 == 0:
+...         print('Found an even number', num)
+...         continue
+...     print('Found a number', num)
+...
+Found an even number 2
+Found a number 3
+Found an even number 4
+Found a number 5
+Found an even number 6
+Found a number 7
+Found an even number 8
+Found a number 9
 >>>
 ```
 
