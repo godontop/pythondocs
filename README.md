@@ -1543,7 +1543,7 @@ if x < y < z: print(x); print(y); print(z)
 总结：
 
 **compound_stmt ::**=&nbsp;&nbsp;[if_stmt](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-if_stmt)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| [while_stmt](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-while_stmt)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| [while_stmt](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-while_stmt)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| [for_stmt](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-for_stmt)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| [try_stmt](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-try_stmt)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| [with_stmt](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-with_stmt)  
