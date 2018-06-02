@@ -1528,6 +1528,34 @@ sys.**version_info**
 
 # Python语言参考
 ## 8. 复合语句
+一个复合语句由一个或多个“子句”构成。一个子句由一个头部和一个“套件”构成。一个具体的复合语句的子句头部拥有相同的缩进级别。每个子句头部以一个唯一的标识关键字开始及以一个冒号结尾。一个套件是由一个子句控制的一组语句。一个套件可以是与头部处于同一行且位于头部的冒号之后的一个或多个由分号分隔的简单语句，或者它可以是随后的行中的一个或多个缩进的语句。只有后面这种形式的套件可以包含嵌套的复合语句；下面是非法的，主要是因为接下来的 [else](https://docs.python.org/3/reference/compound_stmts.html#else) 子句属于哪一个 [if](https://docs.python.org/3/reference/compound_stmts.html#if) 子句不清晰：
+
+```python
+if test1: if test2: print(x)
+```
+
+还要注意在这个上下文中分号比冒号捆绑得更紧密，所以在下面的例子中，要么所有的 [print()](https://docs.python.org/3/library/functions.html#print) 调用都被执行，要么一个都没有：
+
+```python
+if x < y < z: print(x); print(y); print(z)
+```
+
+总结：
+
+**compound_stmt ::**=  [if_stmt](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-if_stmt)
+                   | [while_stmt](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-while_stmt)
+                   | [for_stmt](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-for_stmt)
+                   | [try_stmt](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-try_stmt)
+                   | [with_stmt](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-with_stmt)
+                   | [funcdef](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-funcdef)
+                   | [classdef](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-classdef)
+                   | [async_with_stmt](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-async_with_stmt)
+                   | [async_for_stmt](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-async_for_stmt)
+                   | [async_funcdef](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-async_funcdef)
+**suite         ::**=  [stmt_list](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-stmt_list) NEWLINE | NEWLINE INDENT [statement](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-statement)+ DEDENT
+**statement     ::**=  [stmt_list](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-stmt_list) NEWLINE | [compound_stmt](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-compound_stmt)
+**stmt_list     ::**=  [simple_stmt](https://docs.python.org/3/reference/simple_stmts.html#grammar-token-simple_stmt) (";" [simple_stmt](https://docs.python.org/3/reference/simple_stmts.html#grammar-token-simple_stmt))* [";"]
+
 ### 8.5. with语句
 The [with](https://docs.python.org/3.6/reference/compound_stmts.html#with) statement is used to wrap the execution of a block with methods defined by a context manager (参见 [With语句上下文管理器](https://docs.python.org/3.6/reference/datamodel.html#context-managers) 章节).
 
