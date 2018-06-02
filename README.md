@@ -1542,18 +1542,18 @@ if x < y < z: print(x); print(y); print(z)
 
 总结：
 
-**compound_stmt ::**=  [if_stmt](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-if_stmt)
-                   | [while_stmt](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-while_stmt)
-                   | [for_stmt](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-for_stmt)
-                   | [try_stmt](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-try_stmt)
-                   | [with_stmt](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-with_stmt)
-                   | [funcdef](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-funcdef)
-                   | [classdef](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-classdef)
-                   | [async_with_stmt](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-async_with_stmt)
-                   | [async_for_stmt](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-async_for_stmt)
-                   | [async_funcdef](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-async_funcdef)
-**suite         ::**=  [stmt_list](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-stmt_list) NEWLINE | NEWLINE INDENT [statement](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-statement)+ DEDENT
-**statement     ::**=  [stmt_list](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-stmt_list) NEWLINE | [compound_stmt](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-compound_stmt)
+**compound_stmt ::**=  [if_stmt](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-if_stmt)  
+                   | [while_stmt](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-while_stmt)  
+                   | [for_stmt](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-for_stmt)  
+                   | [try_stmt](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-try_stmt)  
+                   | [with_stmt](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-with_stmt)  
+                   | [funcdef](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-funcdef)  
+                   | [classdef](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-classdef)  
+                   | [async_with_stmt](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-async_with_stmt)  
+                   | [async_for_stmt](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-async_for_stmt)  
+                   | [async_funcdef](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-async_funcdef)  
+**suite         ::**=  [stmt_list](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-stmt_list) NEWLINE | NEWLINE INDENT [statement](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-statement)+ DEDENT  
+**statement     ::**=  [stmt_list](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-stmt_list) NEWLINE | [compound_stmt](https://docs.python.org/3/reference/compound_stmts.html#grammar-token-compound_stmt)  
 **stmt_list     ::**=  [simple_stmt](https://docs.python.org/3/reference/simple_stmts.html#grammar-token-simple_stmt) (";" [simple_stmt](https://docs.python.org/3/reference/simple_stmts.html#grammar-token-simple_stmt))* [";"]
 
 ### 8.5. with语句
