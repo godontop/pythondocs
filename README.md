@@ -21,6 +21,7 @@ Python相关文档不完全翻译。
         * [6.2. re — 正则表达式运算](#62-re--正则表达式运算)
             * [6.2.1. 正则表达式语法](#621-正则表达式语法)
             * [6.2.2. 模块内容](#622-模块内容)
+            * [8.1.1. 可用类型](#811-可用类型)
             * [8.1.3. date对象](#813-date对象)
         * [9.6. random — 生成伪随机数](#96-random--生成伪随机数)
             * [9.6.2. 用于整型数的函数](#962-用于整型数的函数)
@@ -860,6 +861,10 @@ sitemap = urllib.request.urlopen('https://example.com/sitemap.xml').read()
 links = re.findall('<loc>(.*?)</loc>', sitemap.decode())
 
 ```
+
+#### 8.1.1. 可用类型
+*class* datetime.**date**  
+An idealized naive date, assuming the current Gregorian calendar always was, and always will be, in effect. 属性：[year](https://docs.python.org/3.6/library/datetime.html#datetime.date.year), [month](https://docs.python.org/3.6/library/datetime.html#datetime.date.month), 和 [day](https://docs.python.org/3.6/library/datetime.html#datetime.date.day).
 
 #### 8.1.3. date对象
 
