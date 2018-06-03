@@ -24,6 +24,7 @@ Python相关文档不完全翻译。
         * [8.1. datetime — 基本的日期和时间类型](#81-datetime--基本的日期和时间类型)
             * [8.1.1. 可用类型](#811-可用类型)
             * [8.1.3. date对象](#813-date对象)
+            * [8.1.4. datetime对象](#814-datetime对象)
         * [9.6. random — 生成伪随机数](#96-random--生成伪随机数)
             * [9.6.2. 用于整型数的函数](#962-用于整型数的函数)
             * [9.6.3. 用于序列的函数](#963-用于序列的函数)
@@ -714,6 +715,7 @@ The [str.format()](https://docs.python.org/3.6/library/stdtypes.html#str.format)
 *在版本3.1中发生变化：* 位置参数说明符可以被省略，所以 `'{} {}'` 相当于 `'{0} {1}'`。
 
 一些简单的格式化字符串例子：
+
 ```python
 "First, thou shalt count to {0}"  # 引用第一个位置参数
 "Bring me a {}"                   # 不讲明地引用第一个位置参数
@@ -911,9 +913,9 @@ date.**isoweekday()**
 其它构造函数，所有类方法：
 
 *classmethod* datetime.**now**(tz=None)  
-返回当前本地的日期和时间。如果可选参数 *tz* 是 `None` 或者没有指定，这将类似于 [today()](https://docs.python.org/3.6/library/datetime.html#datetime.datetime.today)，但是，if possible, supplies more precision than can be gotten from going through a [time.time()](https://docs.python.org/3.6/library/time.html#time.time) timestamp (例如，在提供 C gettimeofday() 函数的平台上这是可能的).
+　　返回当前本地的日期和时间。如果可选参数 *tz* 是 `None` 或者没有指定，这将类似于 [today()](https://docs.python.org/3.6/library/datetime.html#datetime.datetime.today)，但是，if possible, supplies more precision than can be gotten from going through a [time.time()](https://docs.python.org/3.6/library/time.html#time.time) timestamp (例如，在提供 C gettimeofday() 函数的平台上这是可能的).
 
-如果 *tz* 不是 `None`，它必须是 [tzinfo](https://docs.python.org/3.6/library/datetime.html#datetime.tzinfo) 子类的一个实例，且当前的日期和时间被转换成 *tz* 的时区。在这种情况下结果等同于 `tz.fromutc(datetime.utcnow().replace(tzinfo=tz))`。参见 [today()](https://docs.python.org/3.6/library/datetime.html#datetime.datetime.today), [utcnow()](https://docs.python.org/3.6/library/datetime.html#datetime.datetime.utcnow)。
+　　如果 *tz* 不是 `None`，它必须是 [tzinfo](https://docs.python.org/3.6/library/datetime.html#datetime.tzinfo) 子类的一个实例，且当前的日期和时间被转换成 *tz* 的时区。在这种情况下结果等同于 `tz.fromutc(datetime.utcnow().replace(tzinfo=tz))`。参见 [today()](https://docs.python.org/3.6/library/datetime.html#datetime.datetime.today), [utcnow()](https://docs.python.org/3.6/library/datetime.html#datetime.datetime.utcnow)。
 
 ### 9.6. random — 生成伪随机数
 **Source code:** [Lib/random.py](https://github.com/python/cpython/tree/3.6/Lib/random.py)
