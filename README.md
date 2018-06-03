@@ -21,6 +21,7 @@ Python相关文档不完全翻译。
         * [6.2. re — 正则表达式运算](#62-re--正则表达式运算)
             * [6.2.1. 正则表达式语法](#621-正则表达式语法)
             * [6.2.2. 模块内容](#622-模块内容)
+        * [8.1. datetime — 基本的日期和时间类型](#81-datetime--基本的日期和时间类型)
             * [8.1.1. 可用类型](#811-可用类型)
             * [8.1.3. date对象](#813-date对象)
         * [9.6. random — 生成伪随机数](#96-random--生成伪随机数)
@@ -862,9 +863,17 @@ links = re.findall('<loc>(.*?)</loc>', sitemap.decode())
 
 ```
 
+## 8.1. datetime — 基本的日期和时间类型
+**源代码：** [Lib/datetime.py](https://github.com/python/cpython/tree/3.6/Lib/datetime.py)
+
+[datetime](https://docs.python.org/3.6/library/datetime.html#module-datetime) 模块提供以简单和复杂两种方式操作日期和时间的类。当支持日期和时间运算时，实现的焦点在于格式化和处理提取的属性输出的效率。相关的功能，参见 [time](https://docs.python.org/3.6/library/time.html#module-time) 和 [calendar](https://docs.python.org/3.6/library/calendar.html#module-calendar) 模块。
+
 #### 8.1.1. 可用类型
 *class* datetime.**date**  
 An idealized naive date, assuming the current Gregorian calendar always was, and always will be, in effect. 属性：[year](https://docs.python.org/3.6/library/datetime.html#datetime.date.year), [month](https://docs.python.org/3.6/library/datetime.html#datetime.date.month), 和 [day](https://docs.python.org/3.6/library/datetime.html#datetime.date.day).
+
+*class* datetime.**datetime**  
+一个日期和一个时间的组合。属性：[year](https://docs.python.org/3.6/library/datetime.html#datetime.datetime.year), [month](https://docs.python.org/3.6/library/datetime.html#datetime.datetime.month), [day](https://docs.python.org/3.6/library/datetime.html#datetime.datetime.day), [hour](https://docs.python.org/3.6/library/datetime.html#datetime.datetime.hour), [minute](https://docs.python.org/3.6/library/datetime.html#datetime.datetime.minute), [second](https://docs.python.org/3.6/library/datetime.html#datetime.datetime.second), [microsecond](https://docs.python.org/3.6/library/datetime.html#datetime.datetime.microsecond), 和 [tzinfo](https://docs.python.org/3.6/library/datetime.html#datetime.datetime.tzinfo).
 
 #### 8.1.3. date对象
 
