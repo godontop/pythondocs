@@ -887,6 +887,34 @@ date.**weekday()**
 date.**isoweekday()**  
 用一个整数返回星期几，星期一是1，星期天是7. 例如，`date(2002, 12, 4).isoweekday() == 3`，星期三。另请参阅 [weekday()](https://docs.python.org/3.6/library/datetime.html#datetime.date.weekday)，[isocalendar()](https://docs.python.org/3.6/library/datetime.html#datetime.date.isocalendar)。
 
+#### 8.1.4. datetime对象
+一个 [datetime](https://docs.python.org/3.6/library/datetime.html#datetime.datetime) 对象是包含一个 [date](https://docs.python.org/3.6/library/datetime.html#datetime.date) 对象和一个 [time](https://docs.python.org/3.6/library/datetime.html#datetime.time) 对象的所有信息的一个单一对象。与一个 [date](https://docs.python.org/3.6/library/datetime.html#datetime.date) 对象相似，[datetime](https://docs.python.org/3.6/library/datetime.html#datetime.datetime) assumes the current Gregorian calendar extended in both directions; 与一个 time 对象相似，[datetime](https://docs.python.org/3.6/library/datetime.html#datetime.datetime) 假定每一天都精确地含有 3600*24 秒。
+
+构造函数：
+
+*class* datetime.**datetime**(_year, month, day, hour=0, minute=0, second=0, microsecond=0, tzinfo=None, *, fold=0_)  
+　　year, month 和 day 参数是必须的。*tzinfo* 可以是 `None`，或者是一个 [tzinfo](https://docs.python.org/3.6/library/datetime.html#datetime.tzinfo) 子类的一个实例。其余的参数可以是整型数，范围如下：
+
+* `MINYEAR <= year <= MAXYEAR`,
+* `1 <= month <= 12`,
+* `1 <= day <= number of days in the given month and year`,
+* `0 <= hour < 24`,
+* `0 <= minute < 60`,
+* `0 <= second < 60`,
+* `0 <= microsecond < 1000000`,
+* `fold in [0, 1]`.
+
+　　如果一个参数的值超出上面指定的范围，将抛出 [ValueError](https://docs.python.org/3.6/library/exceptions.html#ValueError)。
+
+　　*在版本3.6中发生变化：* 新增了 `fold` 参数。
+
+其它构造函数，所有类方法：
+
+*classmethod* datetime.**now**(tz=None)  
+返回当前本地的日期和时间。如果可选参数 *tz* 是 `None` 或者没有指定，这将类似于 [today()](https://docs.python.org/3.6/library/datetime.html#datetime.datetime.today)，但是，if possible, supplies more precision than can be gotten from going through a [time.time()](https://docs.python.org/3.6/library/time.html#time.time) timestamp (例如，在提供 C gettimeofday() 函数的平台上这是可能的).
+
+如果 *tz* 不是 `None`，它必须是 [tzinfo](https://docs.python.org/3.6/library/datetime.html#datetime.tzinfo) 子类的一个实例，且当前的日期和时间被转换成 *tz* 的时区。在这种情况下结果等同于 `tz.fromutc(datetime.utcnow().replace(tzinfo=tz))`。参见 [today()](https://docs.python.org/3.6/library/datetime.html#datetime.datetime.today), [utcnow()](https://docs.python.org/3.6/library/datetime.html#datetime.datetime.utcnow)。
+
 ### 9.6. random — 生成伪随机数
 **Source code:** [Lib/random.py](https://github.com/python/cpython/tree/3.6/Lib/random.py)
 
