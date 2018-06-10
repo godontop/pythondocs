@@ -23,6 +23,7 @@ Python相关文档不完全翻译。
             * [6.2.2. 模块内容](#622-模块内容)
         * [8.1. datetime — 基本的日期和时间类型](#81-datetime--基本的日期和时间类型)
             * [8.1.1. 可用类型](#811-可用类型)
+            * [8.1.2. timedelta对象](#812-timedelta对象)
             * [8.1.3. date对象](#813-date对象)
             * [8.1.4. datetime对象](#814-datetime对象)
         * [9.6. random — 生成伪随机数](#96-random--生成伪随机数)
@@ -877,6 +878,47 @@ An idealized naive date, assuming the current Gregorian calendar always was, and
 *class* datetime.**datetime**  
 一个日期和一个时间的组合。属性：[year](https://docs.python.org/3.6/library/datetime.html#datetime.datetime.year), [month](https://docs.python.org/3.6/library/datetime.html#datetime.datetime.month), [day](https://docs.python.org/3.6/library/datetime.html#datetime.datetime.day), [hour](https://docs.python.org/3.6/library/datetime.html#datetime.datetime.hour), [minute](https://docs.python.org/3.6/library/datetime.html#datetime.datetime.minute), [second](https://docs.python.org/3.6/library/datetime.html#datetime.datetime.second), [microsecond](https://docs.python.org/3.6/library/datetime.html#datetime.datetime.microsecond), 和 [tzinfo](https://docs.python.org/3.6/library/datetime.html#datetime.datetime.tzinfo).
 
+#### 8.1.2. timedelta对象
+一个 [timedelta](https://docs.python.org/3.6/library/datetime.html#datetime.timedelta) 对象代表一段时长，是两个日期或时间之间的差异。
+
+*class* datetime.**timedelta**(*days=0, seconds=0, microseconds=0, milliseconds=0, minutes=0, hours=0, weeks=0*)  
+　　所有参数都是可选的且默认为 `0`。参数可以是整型数或浮点数，也可以是正的或负的。
+
+　　内部仅存储 *天*，*秒* 和 *微秒*。参数都被转换成那些单元：
+
+* 一毫秒被转换成1000微秒。
+* 一分钟被转换成60秒。
+* 一小时被转换成3600秒。
+* 一星期被转换成7天。
+
+　　而天，秒和微秒是标准化的，所以表现是唯一的，用
+
+* `0 <= microseconds < 1000000`
+* `0 <= seconds < 3600*24` (一天所含的秒数)
+* `-999999999 <= days <= 999999999`
+
+如果有任何一个参数是浮点数就会有小数微秒，the fractional microseconds left over from all arguments are combined and their sum is rounded to the nearest microsecond using round-half-to-even tiebreaker. 如果没有参数是浮点数，则转换及标准化处理就是精确的 (没有信息丢失)。
+
+如果天数的标准化值位于指示的范围之外，就会抛出 [OverflowError](https://docs.python.org/3.6/library/exceptions.html#OverflowError)。
+
+首先，请注意标准化负值可能令人感到意外。例如，
+
+```python
+>>> from datetime import timedelta
+>>> d = timedelta(microseconds=-1)
+>>> (d.days, d.seconds, d.microseconds)
+(-1, 86399, 999999)
+>>>
+```
+
+实例属性 (只读)：
+
+Attribute       |Value
+----------------|------------------------------------
+`days`          |-999999999 到 999999999 之间，包含两端
+`seconds`       |0 到 86399 之间，包含两端
+`microseconds`  |0 到 999999 之间，包含两端
+
 #### 8.1.3. date对象
 
 日期可以被用作字典的键。在布尔上下文中，所有 [date](https://docs.python.org/3.6/library/datetime.html#datetime.date) 对象都被认为是真。
@@ -916,6 +958,17 @@ date.**isoweekday()**
 　　返回当前本地的日期和时间。如果可选参数 *tz* 是 `None` 或者没有指定，这将类似于 [today()](https://docs.python.org/3.6/library/datetime.html#datetime.datetime.today)，但是，if possible, supplies more precision than can be gotten from going through a [time.time()](https://docs.python.org/3.6/library/time.html#time.time) timestamp (例如，在提供 C gettimeofday() 函数的平台上这是可能的).
 
 　　如果 *tz* 不是 `None`，它必须是 [tzinfo](https://docs.python.org/3.6/library/datetime.html#datetime.tzinfo) 子类的一个实例，且当前的日期和时间被转换成 *tz* 的时区。在这种情况下结果等同于 `tz.fromutc(datetime.utcnow().replace(tzinfo=tz))`。参见 [today()](https://docs.python.org/3.6/library/datetime.html#datetime.datetime.today), [utcnow()](https://docs.python.org/3.6/library/datetime.html#datetime.datetime.utcnow)。
+
+支持的运算：
+
+Operation                            |Result
+-------------------------------------|--------------------------------
+`datetime2 = datetime1 + timedelta`  |(1)
+`datetime2 = datetime1 - timedelta`  |(2)
+`timedelta = datetime1 - datetime2`  |(3)
+`datetime1 < datetime2`              |比较 `datetime1` 和 `datetime2`. <br>(4)
+
+* 1.datetime2 is a duration of timedelta removed from datetime1, moving forward in time if timedelta.days > 0, or backward if timedelta.days < 0. The result has the same tzinfo attribute as the input datetime, and datetime2 - datetime1 == timedelta after. OverflowError is raised if datetime2.year would be smaller than MINYEAR or larger than MAXYEAR. Note that no time zone adjustments are done even if the input is an aware object.
 
 ### 9.6. random — 生成伪随机数
 **Source code:** [Lib/random.py](https://github.com/python/cpython/tree/3.6/Lib/random.py)
