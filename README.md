@@ -968,9 +968,9 @@ Operation                            |Result
 `timedelta = datetime1 - datetime2`  |(3)
 `datetime1 < datetime2`              |比较 `datetime1` 和 `datetime2`. <br>(4)
 
-* 1. 如果 `timedelta.days > 0` ，则 datetime2 是在时间轴上以 datetime1 为基准点向前移动一个 timedelta 时长，如果 `timedelta.days < 0` ，则向后移动。结果与输入的 datetime 拥有相同的 [tzinfo](https://docs.python.org/3.6/library/datetime.html#datetime.datetime.tzinfo) 属性，且 datetime2 - datetime1 == timedelta。如果 datetime2.year 比 [MINYEAR](https://docs.python.org/3.6/library/datetime.html#datetime.MINYEAR) 小或者比 [MAXYEAR](https://docs.python.org/3.6/library/datetime.html#datetime.MAXYEAR) 大，则抛出 [OverflowError](https://docs.python.org/3.6/library/exceptions.html#OverflowError)。注意，即使输入是一个 aware 对象也不调整时区。
+* 1.如果 `timedelta.days > 0` ，则 datetime2 是在时间轴上以 datetime1 为基准点向前移动一个 timedelta 时长，如果 `timedelta.days < 0` ，则向后移动。结果与输入的 datetime 拥有相同的 [tzinfo](https://docs.python.org/3.6/library/datetime.html#datetime.datetime.tzinfo) 属性，且 datetime2 - datetime1 == timedelta。如果 datetime2.year 比 [MINYEAR](https://docs.python.org/3.6/library/datetime.html#datetime.MINYEAR) 小或者比 [MAXYEAR](https://docs.python.org/3.6/library/datetime.html#datetime.MAXYEAR) 大，则抛出 [OverflowError](https://docs.python.org/3.6/library/exceptions.html#OverflowError)。注意，即使输入是一个 aware 对象也不调整时区。
 
-* 2. Computes the datetime2 such that datetime2 + timedelta == datetime1. As for addition, the result has the same tzinfo attribute as the input datetime, and no time zone adjustments are done even if the input is aware. This isn’t quite equivalent to datetime1 + (-timedelta), because -timedelta in isolation can overflow in cases where datetime1 - timedelta does not.
+* 2.Computes the datetime2 such that datetime2 + timedelta == datetime1. As for addition, the result has the same tzinfo attribute as the input datetime, and no time zone adjustments are done even if the input is aware. This isn’t quite equivalent to datetime1 + (-timedelta), because -timedelta in isolation can overflow in cases where datetime1 - timedelta does not.
 
 ### 9.6. random — 生成伪随机数
 **Source code:** [Lib/random.py](https://github.com/python/cpython/tree/3.6/Lib/random.py)
