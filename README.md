@@ -970,7 +970,21 @@ Operation                            |Result
 
 * 1.如果 `timedelta.days > 0` ，则 datetime2 是在时间轴上以 datetime1 为基准点向前移动一个 timedelta 时长，如果 `timedelta.days < 0` ，则向后移动。结果与输入的 datetime 拥有相同的 [tzinfo](https://docs.python.org/3.6/library/datetime.html#datetime.datetime.tzinfo) 属性，且 datetime2 - datetime1 == timedelta。如果 datetime2.year 比 [MINYEAR](https://docs.python.org/3.6/library/datetime.html#datetime.MINYEAR) 小或者比 [MAXYEAR](https://docs.python.org/3.6/library/datetime.html#datetime.MAXYEAR) 大，则抛出 [OverflowError](https://docs.python.org/3.6/library/exceptions.html#OverflowError)。注意，即使输入是一个 aware 对象也不调整时区。
 
-* 2.Computes the datetime2 such that datetime2 + timedelta == datetime1. As for addition, the result has the same tzinfo attribute as the input datetime, and no time zone adjustments are done even if the input is aware. This isn’t quite equivalent to datetime1 + (-timedelta), because -timedelta in isolation can overflow in cases where datetime1 - timedelta does not.
+* 2.计算 datetime2 以使 datetime2 + timedelta == datetime1。至于加法，结果与输入的 datetime 拥有相同的 [tzinfo](https://docs.python.org/3/library/datetime.html#datetime.datetime.tzinfo) 属性且不调整时区，即使输入是 aware。这不完全等同于 datetime1 + (-timedelta)，因为孤立的 -timedelta 可能会溢出而 datetime1 - timedelta 则不会。
+
+* 3.从一个 [datetime](https://docs.python.org/3/library/datetime.html#datetime.datetime) 减去另一个 [datetime](https://docs.python.org/3/library/datetime.html#datetime.datetime) 只有当两个运算对象都是 naive 或者都是 aware 时才被定义。如果一个是 aware 而另一个是 naive，则抛出 [TypeError](https://docs.python.org/3/library/exceptions.html#TypeError)。
+
+如果两者都是 naive 或者都是 aware 且拥有相同的 [tzinfo](https://docs.python.org/3/library/datetime.html#datetime.datetime.tzinfo) 属性，则 [tzinfo](https://docs.python.org/3/library/datetime.html#datetime.datetime.tzinfo) 属性被忽略，且结果是一个 [timedelta](https://docs.python.org/3/library/datetime.html#datetime.timedelta) 对象 *t* 如此以致 `datetime2 + t == datetime1`。在这种情况下不调整时区。
+
+如果两者都是 aware 且拥有不同的 [tzinfo](https://docs.python.org/3/library/datetime.html#datetime.datetime.tzinfo) 属性，`a-b` 的行为就好像 *a* 和 *b* 首先被转换成 naive UTC datetimes。The result is `(a.replace(tzinfo=None) - a.utcoffset()) - (b.replace(tzinfo=None) - b.utcoffset())` except that the implementation never overflows.
+
+* 4.当 *datetime1* 在时间上早于 *datetime2* 时，*datetime1* 被认为小于 *datetime2*。
+
+如果一个比较数是 naive 而另一个是 aware，如果试图对两者的顺序进行比较会抛出 [TypeError](https://docs.python.org/3/library/exceptions.html#TypeError)。为平等比较，naive 实例永远不等于 aware 实例。
+
+如果两个比较数都是 aware，且拥有相同的 [tzinfo](https://docs.python.org/3/library/datetime.html#datetime.datetime.tzinfo) 属性，则共同的 [tzinfo](https://docs.python.org/3/library/datetime.html#datetime.datetime.tzinfo) 属性被忽略且 base datetimes 被比较。如果两个比较数都是 aware 但拥有不同的 [tzinfo](https://docs.python.org/3/library/datetime.html#datetime.datetime.tzinfo) 属性，则比较数首先被调整，通过减去它们的 UTC 偏移量 (从 `self.utcoffset()` 获得)。
+
+*在版本3.3中发生变化：* naive 和 aware [datetime](https://docs.python.org/3/library/datetime.html#datetime.datetime) 实例之间的等式比较（equality comparisons）不会抛出 [TypeError](https://docs.python.org/3/library/exceptions.html#TypeError)。
 
 ### 9.6. random — 生成伪随机数
 **Source code:** [Lib/random.py](https://github.com/python/cpython/tree/3.6/Lib/random.py)
