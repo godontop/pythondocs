@@ -992,12 +992,12 @@ Operation                            |Result
 
 实例方法：
 
-datetime**\.replace**(_year=self.year, month=self.month, day=self.day, hour=self.hour, minute=self.minute, second=self.second, microsecond=self.microsecond, tzinfo=self.tzinfo, * fold=0_)  
+datetime.**replace**(_year=self.year, month=self.month, day=self.day, hour=self.hour, minute=self.minute, second=self.second, microsecond=self.microsecond, tzinfo=self.tzinfo, * fold=0_)  
 返回一个拥有相同属性的 datetime，除了由关键字参数指定新值的那些属性。注意可以通过指定 `tzinfo=None` 从一个 aware datetime 创建一个 naive datetime而无需转换日期和时间数据。
 
 *在版本3.6中新增：* 增加了 `fold` 参数。
 
-datetime**\.utcoffset()**  
+datetime.**utcoffset()**  
 如果 [tzinfo](https://docs.python.org/3.6/library/datetime.html#datetime.datetime.tzinfo) 是 `None`，返回 `None`，否则返回 `self.tzinfo.utcoffset(self)`，且如果后者不返回 `None` 或一个总的分钟数小于一天的一个 timedelta 对象则抛出一个异常。
 
 ### 9.6. random — 生成伪随机数
