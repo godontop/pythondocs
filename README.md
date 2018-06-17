@@ -986,6 +986,20 @@ Operation                            |Result
 
 *在版本3.3中发生变化：* naive 和 aware [datetime](https://docs.python.org/3/library/datetime.html#datetime.datetime) 实例之间的等式比较（equality comparisons）不会抛出 [TypeError](https://docs.python.org/3/library/exceptions.html#TypeError)。
 
+**注意：** In order to stop comparison from falling back to the default scheme of comparing object addresses, datetime comparison normally raises [TypeError](https://docs.python.org/3.6/library/exceptions.html#TypeError) if the other comparand isn’t also a [datetime](https://docs.python.org/3.6/library/datetime.html#datetime.datetime) object. However, `NotImplemented` is returned instead if the other comparand has a `timetuple()` attribute. This hook gives other kinds of date objects a chance at implementing mixed-type comparison. 不然的话，当一个 [datetime](https://docs.python.org/3.6/library/datetime.html#datetime.datetime) 对象与另一个不同类型的对象比较时，会抛出 [TypeError](https://docs.python.org/3.6/library/exceptions.html#TypeError) 除非比较是 `==` 或 `!=`。后一种情况分别返回 [False](https://docs.python.org/3.6/library/constants.html#False) 或 [True](https://docs.python.org/3.6/library/constants.html#True)。
+
+[datetime](https://docs.python.org/3.6/library/datetime.html#datetime.datetime) 对象可以用作字典的键。在布尔上下文中，所有的 [datetime](https://docs.python.org/3.6/library/datetime.html#datetime.datetime) 对象都被认为是真。
+
+实例方法：
+
+datetime**.replace**(_year=self.year, month=self.month, day=self.day, hour=self.hour, minute=self.minute, second=self.second, microsecond=self.microsecond, tzinfo=self.tzinfo, * fold=0_)  
+返回一个拥有相同属性的 datetime，除了由关键字参数指定新值的那些属性。注意可以通过指定 `tzinfo=None` 从一个 aware datetime 创建一个 naive datetime而无需转换日期和时间数据。
+
+*在版本3.6中新增：* 增加了 `fold` 参数。
+
+datetime**.utcoffset()**  
+如果 [tzinfo](https://docs.python.org/3.6/library/datetime.html#datetime.datetime.tzinfo) 是 `None`，返回 `None`，否则返回 `self.tzinfo.utcoffset(self)`，且如果后者不返回 `None` 或一个总的分钟数小于一天的一个 timedelta 对象则抛出一个异常。
+
 ### 9.6. random — 生成伪随机数
 **Source code:** [Lib/random.py](https://github.com/python/cpython/tree/3.6/Lib/random.py)
 
