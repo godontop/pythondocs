@@ -764,6 +764,15 @@ Causes the resulting RE to match 0 or 1 repetitions of the preceding RE. `ab?` �
 * 不在一个范围内的字符可以通过补全集合来匹配。如果集合的第一个字符是 `'^'`，则所有不在集合中的字符将被匹配。例如，`[^5]` 将匹配除了 `5` 以外的所有字符，而 `[^^]` 将匹配除了 `^` 以外的所有字符。如果 `^` 不是集合中的第一个字符则它没有特殊含义。  
 * 要在集合中匹配文字 `']'` ，可以在它前面放一个反斜杠，或者将它放在集合的开始位置。例如，`[()[\]{}]` 和 `[]()[{}]` 都将匹配一个括号。
 
+特殊序列由 `'\'` 和一个下面列出的字符构成。如果普通字符不是一个 ASCII 数字或一个 ASCII 字母，则结果是正则表达式将匹配第二个字符。例如，`\$` 匹配字符 `'$'`。
+
+`\s`  
+For Unicode (str) patterns:  
+匹配 Unicode 空白字符 (包括 `[ \t\n\r\f\v]`，及一些其它字符，例如在许多语言的排版规则中所要求的 non-breaking spaces)。如果 ASCII 标志被使用，则仅匹配 `[ \t\n\r\f\v]`。
+
+For 8-bit (bytes) patterns:  
+匹配 ASCII 字符集中被认为是空白的字符；这等同于 `[ \t\n\r\f\v]`。
+
 `\w`  
 For Unicode (str) patterns:  
 Matches Unicode word characters; this includes most characters that can be part of a word in any language, as well as numbers and the underscore. 如果 [ASCII](https://docs.python.org/3/library/re.html#re.ASCII) 标志被使用，则仅匹配 `[a-zA-Z0-9_]` (但标志影响整个正则表达式，所以在这种情况下使用一个明确的 `[a-zA-Z0-9_]` 可能是一个更好的选择)。
