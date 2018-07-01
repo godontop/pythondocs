@@ -90,6 +90,9 @@ Python相关文档不完全翻译。
     * [Installation](#installation)
         * [安装IPython内核](#安装ipython内核)
             * [Kernels for Python 2 and 3](#kernels-for-python-2-and-3)
+* [Beautiful Soup](#beautiful-soup)
+    * [输出](#输出)
+        * [Pretty-printing](#pretty-printing)
 
 [Python 2标准库](https://github.com/godontop/pythondocs/blob/master/python2/README.md)
 
@@ -1980,3 +1983,43 @@ py -2 -m ipykernel install --user
 If you’re running Jupyter on Python 2 and want to set up a Python 3 kernel, follow the same steps, replacing `2` with `3`.
 
 The last command installs a [kernel spec](https://jupyter-client.readthedocs.io/en/latest/kernels.html#kernelspecs) file for the current python installation. Kernel spec 文件是JSON文件，可以被普通文本编辑器浏览和修改。
+
+# Beautiful Soup
+## 输出
+### Pretty-printing
+`prettify()` 方法将Beautiful Soup的文档树格式化后以Unicode编码输出,每个XML/HTML标签都独占一行
+
+```python
+>>> from bs4 import BeautifulSoup
+>>> html = '<a href="http://example.com/">I linked to <i>example.com</i></a>'
+>>> soup = BeautifulSoup(html, 'lxml')
+>>> print(soup.prettify())
+<html>
+ <body>
+  <a href="http://example.com/">
+   I linked to
+   <i>
+    example.com
+   </i>
+  </a>
+ </body>
+</html>
+>>>
+```
+
+`BeautifulSoup` 对象和它的tag节点都可以调用 `prettify()` 方法:
+
+```python
+>>> print(soup.a.prettify())
+<a href="http://example.com/">
+ I linked to
+ <i>
+  example.com
+ </i>
+</a>
+>>> print(soup.i.prettify())
+<i>
+ example.com
+</i>
+>>>
+```
