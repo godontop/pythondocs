@@ -17,10 +17,13 @@ Python相关文档不完全翻译。
     * [5. 内置异常](#5-内置异常)
         * [5.2. 具体异常](#52-具体异常)
             * [5.2.1. OS异常](#521-os异常)
+    * [6. 文本处理服务](#6-文本处理服务)
+        * [6.1. string — 通用字符串操作](#61-string--通用字符串操作)
             * [6.1.3. 格式化字符串语法](#613-格式化字符串语法)
         * [6.2. re — 正则表达式运算](#62-re--正则表达式运算)
             * [6.2.1. 正则表达式语法](#621-正则表达式语法)
             * [6.2.2. 模块内容](#622-模块内容)
+            * [6.2.4. 匹配对象](#624-匹配对象)
         * [8.1. datetime — 基本的日期和时间类型](#81-datetime--基本的日期和时间类型)
             * [8.1.1. 可用类型](#811-可用类型)
             * [8.1.2. timedelta对象](#812-timedelta对象)
@@ -714,6 +717,10 @@ class.**\_\_subclasses\_\_()**
 *exception* **ConnectionResetError**  
 [ConnectionError](https://docs.python.org/3.6/library/exceptions.html#ConnectionError) 的一个子类，当一个连接被对方重置时抛出。相当于 errno `ECONNRESET`。
 
+## 6. 文本处理服务
+
+### 6.1. string — 通用字符串操作
+
 #### 6.1.3. 格式化字符串语法
 The [str.format()](https://docs.python.org/3.6/library/stdtypes.html#str.format) method and the [Formatter](https://docs.python.org/3.6/library/string.html#string.Formatter) class share the same syntax for format strings (although in the case of [Formatter](https://docs.python.org/3.6/library/string.html#string.Formatter), 子类可以定义它们自己的格式化字符串语法). The syntax is related to that of [formatted string literals](https://docs.python.org/3.6/reference/lexical_analysis.html#f-strings), but there are differences.
 
@@ -817,6 +824,9 @@ re.**IGNORECASE**
 
 注意当 Unicode 模式 `[a-z]` 或者 `[A-Z]` 与 [IGNORECASE](https://docs.python.org/3.6/library/re.html#re.IGNORECASE) 标志组合使用时，它们将匹配52个 ASCII 字母及 4 个额外的非ASCII字母：`‘İ’` (U+0130, 大写拉丁字母I上面带一个点), `‘ı’` (U+0131, 小写拉丁字母i不带点), `‘ſ’` (U+017F, Latin small letter long s) 和 `‘K’` (U+212A, 开尔文符号)。如果 [ASCII](https://docs.python.org/3.6/library/re.html#re.ASCII) 标志被使用，则仅字母 `‘a’` 到 `‘z’` 和 `‘A’` 到 `‘Z’` 被匹配 (但标志影响整个正则表达式，所以在这种情况下使用一个明确的 `(?-i:[a-zA-Z])` 可能是一个更好的选择)。
 
+re.**search**(*pattern, string, flags=0*)  
+扫描 *string* 查找第一个正则表达式 *pattern* 产生一个匹配的位置，并返回一个对应的[匹配对象](https://docs.python.org/3/library/re.html#match-objects)。如果字符串中没有位置匹配模式则返回 `None`；注意这不同于在字符串中的某点查找一个零长度的匹配。
+
 re.**match**(*pattern, string, flags=0*)  
 如果 *string* 的开始位置有0个或多个字符匹配正则表达式 *pattern*，则返回一个对应的[匹配对象](https://docs.python.org/3.6/library/re.html#match-objects)。如果字符串不匹配模式，则返回 `None`；注意，这不同于 zero-length match。
 
@@ -877,6 +887,45 @@ import urllib.request
 sitemap = urllib.request.urlopen('https://example.com/sitemap.xml').read()
 links = re.findall('<loc>(.*?)</loc>', sitemap.decode())
 
+```
+
+re.**purge()**  
+清除正则表达式缓存。
+
+#### 6.2.4. 匹配对象
+匹配对象总是有一个值为 `True` 的布尔值。因为当没有匹配时 [match()](https://docs.python.org/3/library/re.html#re.Pattern.match) 和 [search()](https://docs.python.org/3/library/re.html#re.Pattern.search) 返回 `None`，你可以用一个简单的 `if` 语句测试是否有一个匹配：
+
+```python
+match = re.search(pattern, string)
+if match:
+    process(match)
+```
+
+匹配对象支持下面的方法和属性：
+
+Match.**groups**(*default=None*)  
+返回一个包含所有匹配的子组的元组，从1到模式中所含的组。*default* 参数用于不参与匹配的组；它默认为 `None`。
+
+例如：
+
+```python
+>>> import re
+>>> m = re.match(r"(\d+)\.(\d+)", "24.1632")
+>>> m.groups()
+('24', '1632')
+>>>
+```
+
+如果我们使小数位及其后面的所有数成为可选，则不是所有组都可以参与匹配。这些组将默认为 `None` 除非指定 *default* 参数：
+
+```python
+>>> import re
+>>> m = re.match(r"(\d+)\.?(\d+)?", "24")
+>>> m.groups()      # Second group defaults to None.
+('24', None)
+>>> m.groups('0')   # Now, the second group defaults to '0'.
+('24', '0')
+>>>
 ```
 
 ## 8.1. datetime — 基本的日期和时间类型
