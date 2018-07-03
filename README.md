@@ -603,6 +603,48 @@ str.**startswith**(*prefix*[, *start*[, *end*]])
 6. Length modifier (可选).
 7. 转换类型。
 
+当右边的参数是一个字典 (或者其它映射类型)时，则字符串中的 *formats* 必须包含一个圆括号括起来的映射键到那个字典且立即插入到 `'%'` 字符后面。映射键从映射中选择将被格式化的值。例如：
+
+```python
+>>> print('%(language)s has %(number)03d quote types.' %
+...       {'language': "Python", "number": 2})
+Python has 002 quote types.
+>>> print('%(language)s has %(number)03d quote types.' %
+...       {"language": "Python", "number": 22})
+Python has 022 quote types.
+>>> print('%(language)s has %(number)03d quote types.' %
+...       {"language": "Python", "number": 222})
+Python has 222 quote types.
+>>> print('%(language)s has %(number)03d quote types.' %
+...       {"language": "Python", "number": 2222})
+Python has 2222 quote types.
+>>>
+```
+
+转换标志字符是：
+
+Flag   |Meaning
+-------|------------------
+`'0'`  |转换将为数值填充0。
+
+转换类型是：
+
+Conversion    |Meaning            |Notes
+--------------|-------------------|------
+`'d'`         |象征十进制整型数。   |
+`'s'`         |字符串（使用 [str()](https://docs.python.org/3/library/stdtypes.html#str) 转换任何Python对象）。  |(5)
+
+注释：
+
+5. 如果精度是 `N`，则输出被截断为 `N` 个字符。
+
+```python
+>>> print('%(language).2s has %(number)03d quote types.' %
+...       {"language": "Python", "number": 222})
+Py has 222 quote types.
+>>>
+```
+
 #### 4.8.3. 字节和字节数组操作
 字节和字节数组对象都支持[通用](https://docs.python.org/3.6/library/stdtypes.html#typesseq-common)序列操作。它们不仅可以与同类型的运算对象互操作，还可以与任何 [bytes-like 对象](https://docs.python.org/3.6/glossary.html#term-bytes-like-object)互操作。因为这种灵活性，它们可以自由地混合操作而不引起错误。然而，返回结果的类型可能依赖于操作数的顺序。
 
