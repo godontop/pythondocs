@@ -3,13 +3,14 @@ Python相关文档不完全翻译。
 
 * [Python 3标准库](#python-3标准库)
 	* [2. 内置函数](#2-内置函数)
-	* [4.](#4)
+	* [4. 内置类型](#4-内置类型)
         * [4.2. 布尔运算 — and, or, not](#42-布尔运算--and-or-not)
 		* [4.6. 序列类型 — 列表, 元组, range](#46-序列类型--列表-元组-range)
 			* [4.6.4. 列表](#464-列表)
             * [4.6.6. Ranges](#466-ranges)
 		* [4.7. 文本序列类型 — str](#47-文本序列类型--str)
             * [4.7.1. 字符串方法](#471-字符串方法)
+            * [4.7.2. printf-style 字符串格式化](#472-printf-style-字符串格式化)
             * [4.8.3. 字节和字节数组操作](#483-字节和字节数组操作)
 		* [4.10. 映射类型 — 字典](#410-映射类型--字典)
 			* [4.10.1. 字典视图对象](#4101-字典视图对象)
@@ -427,7 +428,7 @@ _在版本3.3中发生变化：_ 增加了 *flush* 关键字参数。
 True
 ```
 
-## 4.
+## 4. 内置类型
 ### 4.2. 布尔运算 — and, or, not
 这些是布尔运算，按优先级升序排列：
 
@@ -584,6 +585,23 @@ str.**split**(*sep=None, maxsplit=-1*)
 
 str.**startswith**(*prefix*[, *start*[, *end*]])  
 如果字符串以指定的 *prefix* 开始则返回 `True`，否则返回 `False`。*prefix* can also be a tuple of prefixes to look for. With optional *start*, test string beginning at that position. With optional *end*, stop comparing string at that position.
+
+#### 4.7.2. printf-style 字符串格式化
+**注意：** 这里描述的格式化操作展示了一些导致若干常见错误的怪现象 (例如无法正确地显示元组和字典)。使用更新的[格式化字符串文字](https://docs.python.org/3/reference/lexical_analysis.html#f-strings)，[str.format()](https://docs.python.org/3/library/stdtypes.html#str.format) 接口，或者[模板字符串](https://docs.python.org/3/library/string.html#template-strings)可以帮助避免这些错误。这些替代选择每一个都提供了它们自己的权衡及简单，灵活，和/或可扩展性的好处。
+
+字符串对象有一个唯一的内置运算： % 运算符 (模运算)。这也称为字符串*格式化*或*插值*运算符。给定 `format % values` (其中 *format* 是一个字符串)，`%` conversion specifications in *format* are replaced with zero or more elements of *values*. 效果与在C语言中使用 `sprintf()` 相似。
+
+如果 *format* 要求一个单一参数，*values* 可以是一个单一的非元组对象。[\[5\]](https://docs.python.org/3/library/stdtypes.html#id16) 否则，*values* 必须是一个恰好带有由格式化字符串指定的项数的元组，或者一个单一的映射对象 (例如，一个字典)。
+
+一个转换说明符包含2个或多个字符并拥有下面的组件，这些组件必须按下面的顺序出现：
+
+1. `'%'` 字符，标识说明符的开始。
+2. 映射键 (可选)，由一个圆括号括起来的字符序列组成 (例如， `(somename)` )。
+3. 转换标志 (可选)，影响一些转换类型的结果。
+4. 最小字段宽度 (可选)。If specified as an `'*'` (星号), the actual width is read from the next element of the tuple in *values*, and the object to convert comes after the minimum field width and optional precision.
+5. 精度 (可选)，表示为一个 `'.'` (点) 后跟精度。If specified as `'*'` (一个星号)， the actual precision is read from the next element of the tuple in *values*, and the value to convert comes after the precision.
+6. Length modifier (可选).
+7. 转换类型。
 
 #### 4.8.3. 字节和字节数组操作
 字节和字节数组对象都支持[通用](https://docs.python.org/3.6/library/stdtypes.html#typesseq-common)序列操作。它们不仅可以与同类型的运算对象互操作，还可以与任何 [bytes-like 对象](https://docs.python.org/3.6/glossary.html#term-bytes-like-object)互操作。因为这种灵活性，它们可以自由地混合操作而不引起错误。然而，返回结果的类型可能依赖于操作数的顺序。
