@@ -641,6 +641,8 @@ Conversion    |Meaning            |Notes
 
    精度决定小数点后面的位数，默认为6位。
 
+4. 
+
 5. 如果精度是 `N`，则输出被截断为 `N` 个字符。
 
 ```python
