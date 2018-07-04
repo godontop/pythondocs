@@ -64,6 +64,9 @@ Python相关文档不完全翻译。
         * [21.22. http.server — HTTP 服务器](#2122-httpserver--http-服务器)
         * [29.1. sys — 系统专用参量和函数](#291-sys--系统专用参量和函数)
 * [Python语言参考](#python语言参考)
+    * [7. 简单语句](#7-简单语句)
+        * [7.3. assert语句](#73-assert语句)
+        * [7.12. global语句](#712-global语句)
     * [8. 复合语句](#8-复合语句)
         * [8.5. with语句](#85-with语句)
 * [Python教程](#python教程)
@@ -1798,6 +1801,24 @@ sys.**version_info**
 *在版本3.1中发生了变化：* 增加了名称组件属性。
 
 # Python语言参考
+## 7. 简单语句
+### 7.3. assert语句
+将调试断言插入到一个程序中，assert 语句是一种方便的方式：
+
+**assert_stmt** ::=  "assert" [expression](https://docs.python.org/3/reference/expressions.html#grammar-token-expression) \["," [expression](https://docs.python.org/3/reference/expressions.html#grammar-token-expression)\]
+
+简单形式，`assert expression`，等同于
+
+```python
+if __debug__:
+    if not expression: raise AssertionError
+```
+
+### 7.12. global语句
+**global_stmt** ::=  "global" [identifier](https://docs.python.org/3/reference/lexical_analysis.html#grammar-token-identifier) ("," [identifier](https://docs.python.org/3/reference/lexical_analysis.html#grammar-token-identifier))*
+
+[global](https://docs.python.org/3/reference/simple_stmts.html#global) 语句是一个适用于整个当前代码块的公告。它意味着global语句中的identifiers都将被解释为全局变量。
+
 ## 8. 复合语句
 一个复合语句由一个或多个“子句”构成。一个子句由一个头部和一个“套件”构成。一个具体的复合语句的子句头部拥有相同的缩进级别。每个子句头部以一个唯一的标识关键字开始及以一个冒号结尾。一个套件是由一个子句控制的一组语句。一个套件可以是与头部处于同一行且位于头部的冒号之后的一个或多个由分号分隔的简单语句，或者它可以是随后的行中的一个或多个缩进的语句。只有后面这种形式的套件可以包含嵌套的复合语句；下面是非法的，主要是因为接下来的 [else](https://docs.python.org/3/reference/compound_stmts.html#else) 子句属于哪一个 [if](https://docs.python.org/3/reference/compound_stmts.html#if) 子句不清晰：
 
