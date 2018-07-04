@@ -3,6 +3,7 @@ Python相关文档不完全翻译。
 
 * [Python 3标准库](#python-3标准库)
 	* [2. 内置函数](#2-内置函数)
+    * [3. 内置常量](#3-内置常量)
 	* [4. 内置类型](#4-内置类型)
         * [4.2. 布尔运算 — and, or, not](#42-布尔运算--and-or-not)
 		* [4.6. 序列类型 — 列表, 元组, range](#46-序列类型--列表-元组-range)
@@ -430,6 +431,23 @@ _在版本3.3中发生变化：_ 增加了 *flush* 关键字参数。
 >>> isinstance(obj, str)
 True
 ```
+
+## 3. 内置常量
+有一小部分常量在命名空间中。它们是：
+
+**False**  
+[bool](https://docs.python.org/3/library/functions.html#bool) 类型的false值。给 `False` 赋值是不合法的且会抛出一个 [SyntaxError](https://docs.python.org/3/library/exceptions.html#SyntaxError)。
+
+**True**  
+[bool](https://docs.python.org/3/library/functions.html#bool) 类型的true值。给 `True` 赋值是不合法的且会抛出一个 [SyntaxError](https://docs.python.org/3/library/exceptions.html#SyntaxError)。
+
+**None**  
+`NoneType` 类型唯一的值。`None` 经常用于表示一个不存在的值，如当默认参数没有传递给函数时。给 `None` 赋值是不合法的且会抛出一个 [SyntaxError](https://docs.python.org/3/library/exceptions.html#SyntaxError)。
+
+**\_\_debug\_\_**  
+如果Python启动时没带 [-O](https://docs.python.org/3/using/cmdline.html#cmdoption-o) 选项则这个常量为真。另请参见 [assert](https://docs.python.org/3/reference/simple_stmts.html#assert) 语句。
+
+**注意：** 名称 [None](https://docs.python.org/3/library/constants.html#None), [False](https://docs.python.org/3/library/constants.html#False), [True](https://docs.python.org/3/library/constants.html#True) 和 [__debug__](https://docs.python.org/3/library/constants.html#__debug__) 不能被再分配 (给它们赋值，哪怕是一个属性名称，也会抛出 [SyntaxError](https://docs.python.org/3/library/exceptions.html#SyntaxError)), 所以它们可以被认为是 “true” 常量。
 
 ## 4. 内置类型
 ### 4.2. 布尔运算 — and, or, not
