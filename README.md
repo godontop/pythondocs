@@ -1,5 +1,5 @@
 # Python文档
-Python相关文档不完全翻译。  
+Python相关文档。  
 
 * [Python 3标准库](#python-3标准库)
 	* [2. 内置函数](#2-内置函数)
@@ -7,6 +7,7 @@ Python相关文档不完全翻译。
 	* [4. 内置类型](#4-内置类型)
         * [4.2. 布尔运算 — and, or, not](#42-布尔运算--and-or-not)
 		* [4.6. 序列类型 — 列表, 元组, range](#46-序列类型--列表-元组-range)
+            * [4.6.3. 可变序列类型](#463-可变序列类型)
 			* [4.6.4. 列表](#464-列表)
             * [4.6.6. Ranges](#466-ranges)
 		* [4.7. 文本序列类型 — str](#47-文本序列类型--str)
@@ -106,7 +107,7 @@ Python相关文档不完全翻译。
 [Python 2标准库](https://github.com/godontop/pythondocs/blob/master/python2/README.md)
 
 # Python 3标准库
-Python版本：3.6.4
+Python版本：3.6.4——3.7
 ## 2. 内置函数
 Python解释器内置了许多总是可用的函数和类型。在这里以字母顺序列出它们。
 
@@ -466,6 +467,24 @@ True
 
 ### 4.6. 序列类型 — 列表, 元组, range
 有三种基本的序列类型：列表，元组, 和 range 对象。专门处理[二进制数据](https://docs.python.org/3/library/stdtypes.html#binaryseq)和[文本字符串](https://docs.python.org/3/library/stdtypes.html#textseq)的额外的序列类型在专门的章节中描述。
+
+#### 4.6.3. 可变序列类型
+可变序列定义了下表中的操作。Python 提供的抽象基类 [collections.abc.MutableSequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.MutableSequence) 使自定义序列类型正确地实现这些操作变得更容易。
+
+表中的 *s* 表示可变序列类型的一个实例，*t* 是任何可迭代对象，*x* 是符合由 *s* 所限制的类型及值的一个任意对象 (例如，[bytearray](https://docs.python.org/3/library/stdtypes.html#bytearray) 仅接受符合 `0 <= x <= 255` 值限制的整型数)。
+
+Operation                  |Result                |Notes
+---------------------------|----------------------|-----
+`s.extend(t)` 或 `s += t`  |用 `t` 的内容扩展 `s`  |
+
+```python
+>>> s = [1, 2]
+>>> t = ('a', 'b')
+>>> s.extend(t)
+>>> print(s)
+[1, 2, 'a', 'b']
+>>>
+```
 
 #### 4.6.4. 列表
 列表是可变序列，通常用于存储同类元素的集合(元素精确的相似度因应用程序而变化).
@@ -885,7 +904,7 @@ For 8-bit (bytes) patterns:
 *在版本3.6中发生变化：* 标志常量现在是 RegexFlag 的实例，RegexFlag 是 [enum.IntFlag](https://docs.python.org/3.6/library/enum.html#enum.IntFlag) 的一个子类。
 
 re.**compile**(*pattern, flags=0*)  
-将一个正则表达式模式编译进一个[正则表达式对象](https://docs.python.org/3.6/library/re.html#re-objects)，正则表达式对象可以使用它的 [match()](https://docs.python.org/3.6/library/re.html#re.regex.match)，[search()](https://docs.python.org/3.6/library/re.html#re.regex.search) 和其它方法来进行匹配，详情如下。
+将一个正则表达式模式编译进一个[正则表达式对象](https://docs.python.org/3.6/library/re.html#re-objects)，正则表达式对象可以使用它的 [match()](https://docs.python.org/3/library/re.html#re.Pattern.match)，[search()](https://docs.python.org/3/library/re.html#re.Pattern.search) 和其它方法来进行匹配，详情如下。
 
 表达式的行为可以通过指定一个 *flags* 值来进行修改。标志值可以是下面任何有一个变量，组合使用按位或(即 `|` 操作符)。
 
