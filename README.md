@@ -66,6 +66,8 @@ Python相关文档。
         * [21.22. http.server — HTTP 服务器](#2122-httpserver--http-服务器)
         * [29.1. sys — 系统专用参量和函数](#291-sys--系统专用参量和函数)
 * [Python语言参考](#python语言参考)
+    * [3. 数据模型](#3-数据模型)
+        * [3.3. 特殊方法名](#33-特殊方法名)
             * [3.3.6. 仿真可调用对象](#336-仿真可调用对象)
     * [7. 简单语句](#7-简单语句)
         * [7.3. assert语句](#73-assert语句)
@@ -1839,6 +1841,18 @@ sys.**version_info**
 *在版本3.1中发生了变化：* 增加了名称组件属性。
 
 # Python语言参考
+## 3. 数据模型
+### 3.2. 标准类型层次结构
+**模块**  
+　　模块是 Python 代码的基本组织单元，模块由 [import](https://docs.python.org/3/reference/simple_stmts.html#import) 语句 (参见 [import](https://docs.python.org/3/reference/simple_stmts.html#import))，或通过调用函数如 [importlib.import_module()](https://docs.python.org/3/library/importlib.html#importlib.import_module) 和内置的 [__import__()](https://docs.python.org/3/library/functions.html#__import__) 调用[导入系统](https://docs.python.org/3/reference/import.html#importsystem) 所创建。每个模块对象都有一个通过一个字典对象实现的命名空间 (这就是模块中定义的函数的 `__globals__` 属性所引用的字典)。属性引用被转换为在字典中查找，例如，`m.x` 等同于 `m.__dict__["x"]`。模块对象不包含用于初始化模块的代码对象 (因为一旦初始化完成就不需要它了)。
+
+属性赋值更新模块的命名空间字典，例如，`m.x = 1` 等价于 `m.__dict__["x"] = 1`。
+
+预定义的 (可写的) 属性： [__name__](https://docs.python.org/3/reference/import.html#__name__) 是模块的名字；\_\_doc\_\_ 是模块的文档字符串，如不可用则为 `None`；\_\_annotations\_\_ (可选的) 是一个包含模块正文执行期间收集的变量注释的字典；如果模块是从一个文件加载，则 [__file__](https://docs.python.org/3/reference/import.html#__file__) 是该文件的路径名。
+
+特殊的只读属性：[__dict__](https://docs.python.org/3/library/stdtypes.html#object.__dict__) is the module’s namespace as a dictionary object.
+
+### 3.3. 特殊方法名
 #### 3.3.6. 仿真可调用对象
 object.**\_\_call\_\_**(*self*__\[__*, args...*__\]__)  
 当实例作为一个函数被“调用”时调用；如果定义了这个方法，则 `x(arg1, arg2, ...)` 是 `x.__call__(arg1, arg2, ...)` 的缩写。
