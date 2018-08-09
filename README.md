@@ -44,6 +44,10 @@ Python相关文档。
                 * [16.2.3.2. 原始文件 I/O](#16232-原始文件-io)
                 * [16.2.3.3. 缓冲流](#16233-缓冲流)
                 * [16.2.3.4. 文本 I/O](#16234-文本-io)
+    * [14. 文件格式](#14-文件格式)
+        * [14.1. csv — CSV文件读写](#141-csv--csv文件读写)
+            * [14.1.1. 模块内容](#1411-模块内容)
+                * [14.1.4. Writer对象](#1414-writer对象)
         * [16.3. time — 时间访问和转化](#163-time--时间访问和转化)
             * [16.3.1. 函数](#1631-函数)
         * [16.5. getopt — C-风格的命令行选项解析器](#165-getopt--c-风格的命令行选项解析器)
@@ -1273,6 +1277,44 @@ os.path.**join**(_path, *paths_)
 在 Windows 平台，当遇到一个绝对路径组件 (如，`r'\foo'`) 时驱动器号不重置。如果一个组件包含一个驱动器号，则所有前面的组件被丢弃且驱动器号被重置。注意，因为每个驱动器都有一个当前目录，`os.path.join("c:", "foo")` represents a path relative to the current directory on drive `C:` (`c:foo`), not `c:\foo`。
 
 *在版本3.6中发生变化：* *path* 和 *paths* 接受 [path-like object](https://docs.python.org/3.6/glossary.html#term-path-like-object)。
+
+## 14. 文件格式
+本章描述的模块解析各种既不是标记语言也与e-mail无关的其它文件格式。
+
+### 14.1. csv — CSV文件读写
+**源代码：** [Lib/csv.py](https://github.com/python/cpython/tree/3.7/Lib/csv.py)
+
+所谓的 CSV (Comma Separated Values) 格式是表和数据库最常见的导入和导出格式。
+
+csv 模块的 [reader](https://docs.python.org/3/library/csv.html#csv.reader) 和 [writer](https://docs.python.org/3/library/csv.html#csv.writer) 对象读和写序列。程序员也可以使用 [DictReader](https://docs.python.org/3/library/csv.html#csv.DictReader) 和 [DictWriter](https://docs.python.org/3/library/csv.html#csv.DictWriter) 类来读写字典形式中的数据。
+
+#### 14.1.1. 模块内容
+[csv](https://docs.python.org/3/library/csv.html#module-csv) 模块定义了下列函数：
+
+csv.**writer**(_csvfile, dialect='excel', \*\*fmtparams_)  
+Return a writer object responsible for converting the user’s data into delimited strings on the given file-like object. *csvfile* 可以是带有一个 `write()` 方法的任意对象。如果 *csvfile* 是一个文件对象，打开它时必须带有 `newline=''`。（如果没有指定 `newline=''`，新行嵌入引用字段后将不能被正确解释，且在以 `\r\n` 作为行结束符的平台会写入一个额外的 `\r`。总是指定 `newline=''` 应该是安全的，因为 csv 模块执行自己的 ([universal](https://docs.python.org/3/glossary.html#term-universal-newlines)) 新行处理。）
+
+```python
+>>> import csv
+>>> with open('school.csv', 'w', newline='') as csvfile:
+...     writer = csv.writer(csvfile)
+...     writer.writerow(['班级', '姓名', '学号'])
+...     writer.writerow([181, '成龙', 20181801])
+...     writer.writerow([181, '李连杰', 20181802])
+...
+10
+17
+18
+>>>
+```
+
+#### 14.1.4. Writer对象
+`Writer` 对象 ([DictWriter](https://docs.python.org/3/library/csv.html#csv.DictWriter) 实例和 [writer()](https://docs.python.org/3/library/csv.html#csv.writer) 函数返回的对象) 有下列公共方法。
+
+csvwriter.**writerow**(*row*)  
+将 *row* 参数写入到 writer 的文件对象中，并根据当前的 dialect 进行格式化。
+
+*在版本3.5中发生变化：* 支持任意可迭代对象。
 
 #### 16.1.8. 各种各样的系统信息
 **下面的数据值被用于支持路径操作运算。这些是为所有平台定义。**
