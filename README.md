@@ -108,6 +108,7 @@ Python相关文档。
     * [Installation](#installation)
         * [安装IPython内核](#安装ipython内核)
             * [Kernels for Python 2 and 3](#kernels-for-python-2-and-3)
+* [cssselect](#cssselect)
 * [Beautiful Soup](#beautiful-soup)
     * [输出](#输出)
         * [Pretty-printing](#pretty-printing)
@@ -2295,6 +2296,17 @@ The last command installs a [kernel spec](https://jupyter-client.readthedocs.io/
 </i>
 >>>
 ```
+
+# cssselect
+cssselect: 适用于Python的CSS选择器  
+[https://cssselect.readthedocs.io/en/latest/](https://cssselect.readthedocs.io/en/latest/)
+
+*cssselect* 解析 [CSS3 选择器](https://www.w3.org/TR/selectors-3/) 并将它们转换成 [XPath 1.0](https://www.w3.org/TR/xpath/) 表达式。这些表达式可以被用在 [lxml](http://lxml.de/) 或另一个 XPath 引擎中，用于在XML或HTML文档中查找匹配的元素。
+
+在它被提取出来作为一个独立的项目以前，这个模块过去一直作为 `lxml.cssselect` 存在于lxml中。
+
+安装  
+`pip install cssselect`
 
 # lxml
 [https://lxml.de](https://lxml.de)
