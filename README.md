@@ -109,9 +109,9 @@ Python相关文档。
         * [Pretty-printing](#pretty-printing)
 * [lxml](#lxml)
     * [lxml.html](#lxmlhtml)
-        * [解析HTML](#解析HTML)
-            * [解析HTML片段](#解析HTML片段)
-        * [HTML元素方法](#HTML元素方法)
+        * [解析HTML](#解析html)
+            * [解析HTML片段](#解析html片段)
+        * [HTML元素方法](#html元素方法)
 
 [Python 2标准库](https://github.com/godontop/pythondocs/blob/master/python2/README.md)
 
