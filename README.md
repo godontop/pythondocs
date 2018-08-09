@@ -107,6 +107,11 @@ Python相关文档。
 * [Beautiful Soup](#beautiful-soup)
     * [输出](#输出)
         * [Pretty-printing](#pretty-printing)
+* [lxml](#lxml)
+    * [lxml.html](#lxmlhtml)
+        * [解析HTML](#解析HTML)
+            * [解析HTML片段](#解析HTML片段)
+        * [HTML元素方法](#HTML元素方法)
 
 [Python 2标准库](https://github.com/godontop/pythondocs/blob/master/python2/README.md)
 
@@ -2243,5 +2248,48 @@ The last command installs a [kernel spec](https://jupyter-client.readthedocs.io/
 <i>
  example.com
 </i>
+>>>
+```
+
+# lxml
+[https://lxml.de](https://lxml.de)
+
+## lxml.html
+从版本2.0开始，lxml 与一个用于处理 HTML 的独立的 Python 包（lxml.html）一起发布了。它基于 lxml 的 HTML 解析器，但它提供一个特殊的元素API用于 HTML 元素，以及一些用于常见HTML处理任务的工具。
+
+### 解析HTML
+#### 解析HTML片段
+有几个可用于解析HTML的函数：
+
+**fromstring(string):**  
+返回 document_fromstring 或者 fragment_fromstring，基于字符串看起来是否像是一个完整的文档，或者仅仅是一个片段。
+
+### HTML元素方法
+HTML元素除了拥有ElementTree的所有方法，还包含一些额外的方法：
+
+**.text_content():**  
+返回元素及其子元素的内容，且不带标记。
+
+**.cssselect(expr):**  
+使用一个CSS选择器表达式，从这个元素和它的子元素中选择元素。(注意 .xpath(expr) is also available as on all lxml elements.)【该方法返回的是一个由 lxml.html.HtmlElement 类型的元素构成的列表】
+
+```python
+>>> import lxml.html
+>>> from urllib.request import urlopen
+>>> html = urlopen('http://example.webscraping.com/places/default/view/Afghanistan-1').read().decode()
+>>> tree = lxml.html.fromstring(html)
+>>> type(tree)
+<class 'lxml.html.HtmlElement'>
+>>> area = tree.cssselect('table > tr#places_area__row > td.w2p_fw')
+>>> type(area)
+<class 'list'>
+>>> area = tree.cssselect('table > tr#places_area__row > td.w2p_fw')[0]
+>>> type(area)
+<class 'lxml.html.HtmlElement'>
+>>> area = tree.cssselect('table > tr#places_area__row > td.w2p_fw')[0].text_content()
+>>> type(area)
+<class 'lxml.etree._ElementUnicodeResult'>
+>>> print(area)
+647,500 square kilometres
 >>>
 ```
