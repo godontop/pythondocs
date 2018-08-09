@@ -47,7 +47,7 @@ Python相关文档。
     * [14. 文件格式](#14-文件格式)
         * [14.1. csv — CSV文件读写](#141-csv--csv文件读写)
             * [14.1.1. 模块内容](#1411-模块内容)
-                * [14.1.4. Writer对象](#1414-writer对象)
+            * [14.1.4. Writer对象](#1414-writer对象)
         * [16.3. time — 时间访问和转化](#163-time--时间访问和转化)
             * [16.3.1. 函数](#1631-函数)
         * [16.5. getopt — C-风格的命令行选项解析器](#165-getopt--c-风格的命令行选项解析器)
@@ -638,6 +638,9 @@ str.**split**(*sep=None, maxsplit=-1*)
 
 str.**startswith**(*prefix*[, *start*[, *end*]])  
 如果字符串以指定的 *prefix* 开始则返回 `True`，否则返回 `False`。*prefix* can also be a tuple of prefixes to look for. With optional *start*, test string beginning at that position. With optional *end*, stop comparing string at that position.
+
+str.**upper**()  
+返回一个字符串的副本且将所有的 cased characters（Cased characters are those with general category property being one of “Lu” (Letter, uppercase), “Ll” (Letter, lowercase), or “Lt” (Letter, titlecase).）转换为大写字母。 
 
 #### 4.7.2. printf-style 字符串格式化
 **注意：** 这里描述的格式化操作展示了一些导致若干常见错误的怪现象 (例如无法正确地显示元组和字典)。使用更新的[格式化字符串文字](https://docs.python.org/3/reference/lexical_analysis.html#f-strings)，[str.format()](https://docs.python.org/3/library/stdtypes.html#str.format) 接口，或者[模板字符串](https://docs.python.org/3/library/string.html#template-strings)可以帮助避免这些错误。这些替代选择每一个都提供了它们自己的权衡及简单，灵活，和/或可扩展性的好处。
