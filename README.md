@@ -73,6 +73,7 @@ Python相关文档。
     * [3. 数据模型](#3-数据模型)
         * [3.2. 标准类型层次结构](#32-标准类型层次结构)
         * [3.3. 特殊方法名](#33-特殊方法名)
+            * [3.3.1. 基础定制](#331-基础定制)
             * [3.3.6. 仿真可调用对象](#336-仿真可调用对象)
     * [7. 简单语句](#7-简单语句)
         * [7.3. assert语句](#73-assert语句)
@@ -133,7 +134,7 @@ Python解释器内置了许多总是可用的函数和类型。在这里以字�
 |          |          |                  |          |          |
 |          |          |int()             |open()    |          |
 |          |          |isinstance()      |ord()     |          |
-|          |          |                  |pow()     |          |
+|          |          |                  |pow()     |super()   |
 |          |          |                  |print()   |          |
 |          |          |                  |          |type()    |
 |          |          |                  |range()   |          |
@@ -430,6 +431,31 @@ _在版本3.3中发生变化：_ 增加了 *flush* 关键字参数。
 **range**(*stop*)  
 **range**(*start, stop*[*, step*])  
 根据 [Ranges](https://docs.python.org/3/library/stdtypes.html#typesseq-range) 和 [序列类型 — 列表, 元组, range](https://docs.python.org/3/library/stdtypes.html#typesseq) 中的文档，[range](https://docs.python.org/3/library/stdtypes.html#range) 实际上是一个不可变的序列类型，而不是一个函数。
+
+**super**([*type*__[__*, object-or-type*__]]__)  
+*super* 有两种典型的用法。在一个单继承的类层次结构中，*super* 可以被用来引用父类而无需明确地指出它们，从而使代码更易于维护。这种用法与其它程序设计语言中 *super* 的用法十分相似。
+
+```python
+>>> class A:
+...     def __init__(self):
+...         print("Dunder init func in class A.")
+...
+>>> class B(A):
+...     def __init__(self):
+...         print("Dunder init func in class B.")
+...
+>>> b = B()
+Dunder init func in class B.
+>>> class B(A):
+...     def __init__(self):
+...         super().__init__()
+...         print("Dunder init func in class B.")
+...
+>>> b = B()
+Dunder init func in class A.
+Dunder init func in class B.
+>>> 
+```
 
 *class* **type**(*object*)  
 *class* **type**(*name, bases, dict*)  
@@ -1917,6 +1943,42 @@ sys.**version_info**
 特殊的只读属性：[\_\_dict\_\_](https://docs.python.org/3/library/stdtypes.html#object.__dict__) is the module’s namespace as a dictionary object.
 
 ### 3.3. 特殊方法名
+#### 3.3.1. 基础定制
+object.**\_\_init\_\_**(*self*__[__, ...__]__)  
+当实例被创建（通过 [\_\_new\_\_()](https://docs.python.org/3/reference/datamodel.html#object.__new__)）之后调用，但在实例返回调用者之前。参数是传递给类构造函数表达式的那些。如果基类有一个 [\_\_init\_\_()](https://docs.python.org/3/reference/datamodel.html#object.__init__) 方法，则衍生类的 [\_\_init\_\_()](https://docs.python.org/3/reference/datamodel.html#object.__init__) 方法，如果有的话，必须明确地调用它以确保正确地初始化实例的基类部分；例如： `super().__init__([args...])`。
+
+因为在构造对象时 [\_\_new\_\_()](https://docs.python.org/3/reference/datamodel.html#object.__new__) 和 [\_\_init\_\_()](https://docs.python.org/3/reference/datamodel.html#object.__init__) 一起工作 ([\_\_new\_\_()](https://docs.python.org/3/reference/datamodel.html#object.__new__) 创建它，[\_\_init\_\_()](https://docs.python.org/3/reference/datamodel.html#object.__init__) 定制它)，不能通过 [\_\_init\_\_()](https://docs.python.org/3/reference/datamodel.html#object.__init__) 返回非`None`值；这样做会导致在运行时抛出一个 [TypeError](https://docs.python.org/3/library/exceptions.html#TypeError)。
+
+```python
+>>> class TestInt:
+...     def __init__(self):
+...         return 0
+...
+>>> ti = TestInt()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: __init__() should return None, not 'int'
+>>> class TestString:
+...     def __init__(self):
+...         return "string"
+...
+>>> ts = TestString()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: __init__() should return None, not 'str'
+>>> class Test:
+...     def __init__(self):
+...         return None
+...
+>>> t = Test()
+>>> class Test:
+...     def __init__(self):
+...         pass
+...
+>>> t = Test()
+>>>
+```
+
 #### 3.3.6. 仿真可调用对象
 object.**\_\_call\_\_**(*self*__\[__*, args...*__\]__)  
 当实例作为一个函数被“调用”时调用；如果定义了这个方法，则 `x(arg1, arg2, ...)` 是 `x.__call__(arg1, arg2, ...)` 的缩写。
