@@ -38,16 +38,16 @@ Python相关文档。
             * [10.1.1. Itertool函数](#1011-itertool函数)
         * [10.2. functools — 高阶函数和操作可调用对象](#102-functools--高阶函数和操作可调用对象)
         * [11.2. os.path — 通用路径名操作](#112-ospath--通用路径名操作)
+    * [14. 文件格式](#14-文件格式)
+        * [14.1. csv — CSV文件读写](#141-csv--csv文件读写)
+            * [14.1.1. 模块内容](#1411-模块内容)
+            * [14.1.4. Writer对象](#1414-writer对象)
             * [16.1.8. 各种各样的系统信息](#1618-各种各样的系统信息)
             * [16.2.3. 类层次结构](#1623-类层次结构)
                 * [16.2.3.1. I/O 基类](#16231-io-基类)
                 * [16.2.3.2. 原始文件 I/O](#16232-原始文件-io)
                 * [16.2.3.3. 缓冲流](#16233-缓冲流)
                 * [16.2.3.4. 文本 I/O](#16234-文本-io)
-    * [14. 文件格式](#14-文件格式)
-        * [14.1. csv — CSV文件读写](#141-csv--csv文件读写)
-            * [14.1.1. 模块内容](#1411-模块内容)
-            * [14.1.4. Writer对象](#1414-writer对象)
         * [16.3. time — 时间访问和转化](#163-time--时间访问和转化)
             * [16.3.1. 函数](#1631-函数)
         * [16.5. getopt — C-风格的命令行选项解析器](#165-getopt--c-风格的命令行选项解析器)
@@ -1945,7 +1945,7 @@ sys.**version_info**
 ### 3.3. 特殊方法名
 #### 3.3.1. 基础定制
 object.**\_\_init\_\_**(*self*__[__, ...__]__)  
-当实例被创建（通过 [\_\_new\_\_()](https://docs.python.org/3/reference/datamodel.html#object.__new__)）之后调用，但在实例返回调用者之前。参数是传递给类构造函数表达式的那些。如果基类有一个 [\_\_init\_\_()](https://docs.python.org/3/reference/datamodel.html#object.__init__) 方法，则衍生类的 [\_\_init\_\_()](https://docs.python.org/3/reference/datamodel.html#object.__init__) 方法，如果有的话，必须明确地调用它以确保正确地初始化实例的基类部分；例如： `super().__init__([args...])`。
+当实例被创建（通过 [\_\_new\_\_()](https://docs.python.org/3/reference/datamodel.html#object.__new__)）之后调用，但在实例返回调用者之前。参数是传递给类构造函数表达式的那些。如果基类有一个 [\_\_init\_\_()](https://docs.python.org/3/reference/datamodel.html#object.__init__) 方法，衍生类的 [\_\_init\_\_()](https://docs.python.org/3/reference/datamodel.html#object.__init__) 方法，如果有的话，必须明确地调用它以确保正确地初始化实例的基类部分；例如： `super().__init__([args...])`。
 
 因为在构造对象时 [\_\_new\_\_()](https://docs.python.org/3/reference/datamodel.html#object.__new__) 和 [\_\_init\_\_()](https://docs.python.org/3/reference/datamodel.html#object.__init__) 一起工作 ([\_\_new\_\_()](https://docs.python.org/3/reference/datamodel.html#object.__new__) 创建它，[\_\_init\_\_()](https://docs.python.org/3/reference/datamodel.html#object.__init__) 定制它)，不能通过 [\_\_init\_\_()](https://docs.python.org/3/reference/datamodel.html#object.__init__) 返回非`None`值；这样做会导致在运行时抛出一个 [TypeError](https://docs.python.org/3/library/exceptions.html#TypeError)。
 
