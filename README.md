@@ -7,6 +7,7 @@ Python相关文档。
 	* [4. 内置类型](#4-内置类型)
         * [4.2. 布尔运算 — and, or, not](#42-布尔运算--and-or-not)
 		* [4.6. 序列类型 — 列表, 元组, range](#46-序列类型--列表-元组-range)
+            * [4.6.1. 通用序列操作](#461-通用序列操作)
             * [4.6.3. 可变序列类型](#463-可变序列类型)
 			* [4.6.4. 列表](#464-列表)
             * [4.6.6. Ranges](#466-ranges)
@@ -532,6 +533,39 @@ True
 
 ### 4.6. 序列类型 — 列表, 元组, range
 有三种基本的序列类型：列表，元组, 和 range 对象。专门处理[二进制数据](https://docs.python.org/3/library/stdtypes.html#binaryseq)和[文本字符串](https://docs.python.org/3/library/stdtypes.html#textseq)的额外的序列类型在专门的章节中描述。
+
+#### 4.6.1. 通用序列操作
+大多数序列类型（不可变的和可变的）都支持下表中的操作。Python 提供的抽象基类 [collections.abc.Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence) 使自定义序列类型正确地实现这些操作变得容易。
+
+下表列出的序列操作按优先级升序排列。下表中，*s* 和 *t* 是相同类型的序列，*n*, *i*, *j* 和 *k* 是整型数，*x* 是符合由 *s* 所限制的类型及值的一个任意对象。
+
+Operation  |Result                      |Notes
+-----------|----------------------------|------
+`s[i:j]`   |从 *i* 到 *j* 的 *s* 的分片  |(3)(4)
+
+**注意：**  
+1. 
+
+2. 
+
+3. 
+
+4. 从 *i* 到 *j* 的 *s* 的分片的定义就像序列的元素的索引为 *k* 且 `i <= k < j`。如果 *i* 或 *j* 大于 `len(s)`，使用 `len(s)`。如果 *i* 被忽略或者为 `None`，则使用 `0`。如果 *j* 被忽略或者为 `None`，使用 `len(s)`。如果 `i` 大于或等于 `j`，则分片为空。
+
+```python
+>>> s = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+>>> len(s)
+7
+>>> s[8:16]
+[]
+>>> s[len(s):len(s)]
+[]
+>>> s[3:16]
+['d', 'e', 'f', 'g']
+>>> s[3:len(s)]
+['d', 'e', 'f', 'g']
+>>>
+```
 
 #### 4.6.3. 可变序列类型
 可变序列定义了下表中的操作。Python 提供的抽象基类 [collections.abc.MutableSequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.MutableSequence) 使自定义序列类型正确地实现这些操作变得更容易。
