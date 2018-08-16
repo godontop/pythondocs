@@ -1064,6 +1064,17 @@ links = re.findall('<loc>(.*?)</loc>', sitemap.decode())
 
 ```
 
+re.**sub**(*pattern, repl, string, count=0, flags=0*)  
+用 *repl* 替换 *string* 中的 *模式* 并返回替换后的字符串。如果没有找到模式，则不改变 *string* 并直接返回。
+
+```python
+>>> import re
+>>> url = 'http://example.webscraping.com/places/default/view/Australia-1'
+>>> re.sub('[^/0-9a-zA-Z\-. _]', '_', url)
+'http_//example.webscraping.com/places/default/view/Australia-1'
+>>>
+```
+
 re.**purge()**  
 清除正则表达式缓存。
 
