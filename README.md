@@ -2298,6 +2298,55 @@ Found a number 9
 >>>
 ```
 
+## 7. 输入和输出
+有几种方式呈现一个程序的输出；数据可以被以易于人阅读的形式打印出来，或者写入到一个文件中以备将来使用。这章将讨论一些可能性。
+
+### 7.2. 读和写文件
+[open()](https://docs.python.org/3/library/functions.html#open) 返回一个[文件对象](https://docs.python.org/3/glossary.html#term-file-object)，最常见的用法是带两个参数：`open(filename, mode)`。
+
+```python
+>>> f = open('workfile', 'w')
+```
+
+#### 7.2.1. 文件对象的方法
+这节剩下的例子将假设一个名为 `f` 的文件对象已经被创建。
+
+`f.write(string)` 写入 *string* 的内容到文件中，返回写入的字符数。
+
+```python
+>>> f = open('workfile', 'w')
+>>> f.write('This is a test\n')
+15
+```
+
+其它类型的对象在写入他们以前必须被转换成一个字符串 (文本模式) 或者一个字节对象 (二进制模式)：
+
+```python
+>>> value = ('the answer', 42)
+>>> s = str(value)  # convert the tuple to string
+>>> f.write(s)
+18
+>>> f.closed
+False
+>>> f.close()
+>>> f.closed
+True
+>>> with open('workfile', 'r') as f:
+...     f.read()
+...
+"This is a test\n('the answer', 42)"
+>>> f.closed
+True
+>>> with open('workfile', 'r') as f:
+...     print(f.read())
+...
+This is a test
+('the answer', 42)
+>>> f.closed
+True
+>>>
+```
+
 # Python HOWTOs
 ## 如何使用urllib包获取互联网资源
 ### 头信息
