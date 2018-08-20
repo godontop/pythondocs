@@ -39,6 +39,9 @@ Python相关文档。
             * [10.1.1. Itertool函数](#1011-itertool函数)
         * [10.2. functools — 高阶函数和操作可调用对象](#102-functools--高阶函数和操作可调用对象)
         * [11.2. os.path — 通用路径名操作](#112-ospath--通用路径名操作)
+    * [12. 数据持久性](#12-数据持久性)
+        * [12.1. pickle — Python对象序列化](#121-pickle--python对象序列化)
+            * [12.1.3. 模块接口](#1213-模块接口)
     * [14. 文件格式](#14-文件格式)
         * [14.1. csv — CSV文件读写](#141-csv--csv文件读写)
             * [14.1.1. 模块内容](#1411-模块内容)
@@ -1378,6 +1381,29 @@ os.path.**join**(_path, *paths_)
 在 Windows 平台，当遇到一个绝对路径组件 (如，`r'\foo'`) 时驱动器号不重置。如果一个组件包含一个驱动器号，则所有前面的组件被丢弃且驱动器号被重置。注意，因为每个驱动器都有一个当前目录，`os.path.join("c:", "foo")` represents a path relative to the current directory on drive `C:` (`c:foo`), not `c:\foo`。
 
 *在版本3.6中发生变化：* *path* 和 *paths* 接受 [path-like object](https://docs.python.org/3.6/glossary.html#term-path-like-object)。
+
+## 12. 数据持久性
+这章描述的模块支持将 Python 数据以持久性的形式储存到磁盘上。[pickle](https://docs.python.org/3/library/pickle.html#module-pickle) 和 [marshal](https://docs.python.org/3/library/marshal.html#module-marshal) 模块能将许多 Python 数据类型转换成字节流并且之后可以从这些字节流中重新创建那些对象。
+
+### 12.1. pickle — Python对象序列化
+**源代码：** [Lib/pickle.py](https://github.com/python/cpython/tree/3.7/Lib/pickle.py)
+
+[pickle](https://docs.python.org/3/library/pickle.html#module-pickle) 模块为序列化和反序列化一个 Python 对象结构实现了二进制协议。*“Pickling”* 是一个 Python 对象层次结构被转换成一个字节流的过程，而 *“unpickling”* 是反操作，一个字节流 (从一个 [二进制文件](https://docs.python.org/3/glossary.html#term-binary-file) 或 [bytes-like 对象](https://docs.python.org/3/glossary.html#term-bytes-like-object) ) 被转换回一个对象层次结构。Pickling (和 unpickling) 也被称为 “序列化”, “marshalling,” (不要把这个与 [marshal](https://docs.python.org/3/library/marshal.html#module-marshal) 模块混淆) 或 “flattening”; 然而，为避免混淆，这里所使用的术语是 “pickling” 和 “unpickling”。
+
+**警告：** 针对错误的或恶意的结构化数据 [pickle](https://docs.python.org/3/library/pickle.html#module-pickle) 模块是不安全的。永远不要 unpickle 从一个不信任的或未认证的源接收的数据。
+
+#### 12.1.3. 模块接口
+序列化一个对象层次结构，你可以简单地调用 [dumps()](https://docs.python.org/3/library/pickle.html#pickle.dumps) 函数。相似地，反序列化一个数据流，你可以调用 [loads()](https://docs.python.org/3/library/pickle.html#pickle.loads) 函数。然而，如果你想更多地控制序列化和反序列化，你可以分别创建一个 [Pickler](https://docs.python.org/3/library/pickle.html#pickle.Pickler) 或一个 [Unpickler](https://docs.python.org/3/library/pickle.html#pickle.Unpickler) 对象。
+
+[pickle](https://docs.python.org/3/library/pickle.html#module-pickle) 模块提供了下面的函数以使 pickling 过程更加的方便：
+
+pickle.**dumps**(*obj, protocol=None, \*, fix_imports=True*)  
+返回对象的 pickled 表示形式作为一个字节对象，而不是将它写入到一个文件。
+
+参数 *protocol* 和 *fix_imports* 的含义同 [dump()](https://docs.python.org/3/library/pickle.html#pickle.dump) 函数中这两个参数的含义。
+
+pickle.**load**(*file, \*, fix_imports=True, encoding="ASCII", errors="strict"*)  
+从打开的 [文件对象](https://docs.python.org/3/glossary.html#term-file-object) *file* 中读取一个 pickled 对象的表示形式并返回其中指定的复原的对象层次结构。这等同于 `Unpickler(file).load()`。
 
 ## 14. 文件格式
 本章描述的模块解析各种既不是标记语言也与e-mail无关的其它文件格式。
