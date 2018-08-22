@@ -66,7 +66,7 @@ Python相关文档。
         * [21.8. urllib.parse — 将URLs解析为组件](#218-urllibparse--将urls解析为组件)
             * [21.8.1. URL解析](#2181-url解析)
         * [21.9. urllib.error — urllib.request抛出的异常类](#219-urlliberror--urllibrequest抛出的异常类)
-        * [21.10. urllib.robotparser — 解析robots.txt](#2110-urllib-robotparser--解析robotstxt)
+        * [21.10. urllib.robotparser — 解析robots.txt](#2110-urllibrobotparser--解析robotstxt)
         * [21.12. http.client — HTTP协议客户端](#2112-httpclient--http协议客户端)
             * [21.12.2. HTTPResponse对象](#21122-httpresponse对象)
         * [21.21. socketserver — 一个网络服务器框架](#2121-socketserver--一个网络服务器框架)
