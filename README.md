@@ -126,6 +126,8 @@ Python相关文档。
         * [解析HTML](#解析html)
             * [解析HTML片段](#解析html片段)
         * [HTML元素方法](#html元素方法)
+* [Python Codes](#python-codes)
+    * [ssh.py](#sshpy)
 
 [Python 2标准库](https://github.com/godontop/pythondocs/blob/master/python2/README.md)
 
@@ -2571,4 +2573,30 @@ HTML元素除了拥有ElementTree的所有方法，还包含一些额外的方�
 >>> print(area)
 647,500 square kilometres
 >>>
+```
+
+# Python Codes
+Python代码块
+
+## ssh.py
+paramiko——SSH协议的Python实现
+
+```python
+import paramiko
+
+
+def ssh(command):
+    global client
+    client = paramiko.SSHClient()
+    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    client.connect('211.211.211.211', 1999,
+                   username='username', password='password')
+    stdin, stdout, stderr = client.exec_command(command)
+    result = stdout.read().decode() if stdout else stderr.read().decode()
+    return result
+
+
+print(ssh('ls -alh').strip())
+client.close()
+
 ```
