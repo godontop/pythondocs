@@ -1412,6 +1412,9 @@ pickle.**dumps**(*obj, protocol=None, \*, fix_imports=True*)
 pickle.**load**(*file, \*, fix_imports=True, encoding="ASCII", errors="strict"*)  
 从打开的 [文件对象](https://docs.python.org/3/glossary.html#term-file-object) *file* 中读取一个 pickled 对象的表示形式并返回其中指定的复原的对象层次结构。这等同于 `Unpickler(file).load()`。
 
+pickle.**loads**(*bytes_object, \*, fix_imports=True, encoding="ASCII", errors="strict"*)  
+从一个[字节](https://docs.python.org/3/library/stdtypes.html#bytes)对象读取一个 pickled 对象层次结构并返回其中指定的对象层次结构的复原。
+
 ## 13. 数据压缩和归档
 这章描述的模块支持用zlib，gzip，bzip2和lzma算法对数据进行压缩，及创建ZIP和tar格式的归档。另请参见 [shutil](https://docs.python.org/3/library/shutil.html#module-shutil) 模块提供的[归档操作](https://docs.python.org/3/library/shutil.html#archiving-operations)。
 
