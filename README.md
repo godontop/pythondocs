@@ -2631,6 +2631,24 @@ HTML元素除了拥有ElementTree的所有方法，还包含一些额外的方�
 # Python Codes
 Python代码块
 
+## download.py
+最简单的下载函数  
+
+```python
+from urllib.request import urlopen
+
+
+def download_simple(url):  # url(str)
+    """The simplest download function
+    """
+    html = urlopen(url).read().decode()
+    return html
+
+
+print(download_simple('http://example.webscraping.com').strip())
+
+```
+
 ## ssh.py
 paramiko——SSH协议的Python实现
 
