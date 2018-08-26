@@ -42,6 +42,8 @@ Python相关文档。
     * [12. 数据持久性](#12-数据持久性)
         * [12.1. pickle — Python对象序列化](#121-pickle--python对象序列化)
             * [12.1.3. 模块接口](#1213-模块接口)
+    * [13. 数据压缩和归档](#13-数据压缩和归档)
+        * [13.1. zlib — 与gzip兼容的压缩](#131-zlib--与gzip兼容的压缩)
     * [14. 文件格式](#14-文件格式)
         * [14.1. csv — CSV文件读写](#141-csv--csv文件读写)
             * [14.1.1. 模块内容](#1411-模块内容)
@@ -1409,6 +1411,54 @@ pickle.**dumps**(*obj, protocol=None, \*, fix_imports=True*)
 
 pickle.**load**(*file, \*, fix_imports=True, encoding="ASCII", errors="strict"*)  
 从打开的 [文件对象](https://docs.python.org/3/glossary.html#term-file-object) *file* 中读取一个 pickled 对象的表示形式并返回其中指定的复原的对象层次结构。这等同于 `Unpickler(file).load()`。
+
+## 13. 数据压缩和归档
+这章描述的模块支持用zlib，gzip，bzip2和lzma算法对数据进行压缩，及创建ZIP和tar格式的归档。另请参见 [shutil](https://docs.python.org/3/library/shutil.html#module-shutil) 模块提供的[归档操作](https://docs.python.org/3/library/shutil.html#archiving-operations)。
+
+### 13.1. zlib — 与gzip兼容的压缩
+对于要求数据压缩的应用，使用zlib库，这个模块中的函数允许压缩和解压缩。zlib库有它自己的主页 [http://www.zlib.net](http://www.zlib.net/)。Python 模块和版本早于1.1.3的zlib库存在已知的不兼容性；1.1.3 有一个安全隐患，所以我们推荐使用 1.1.4 或更新版本。
+
+zlib.**compress**(*data, level=-1*)  
+压缩 *data* 中的字节，返回一个包含压缩数据的字节对象。*level* 是一个从`0`到`9`的整型数或者`-1`，它控制压缩的级别；`1` (Z_BEST_SPEED) 速度最快但压缩率最低，`9` (Z_BEST_COMPRESSION) 速度最慢但压缩率最高。`0` (Z_NO_COMPRESSION) 是不压缩。默认值是 `-1` (Z_DEFAULT_COMPRESSION)。Z_DEFAULT_COMPRESSION 表示一个默认的在速度和压缩之间的折衷 (当前等同于级别6)。如果出现任何错误则抛出 [error](https://docs.python.org/3/library/zlib.html#zlib.error) 异常。**_data_ 要求是一个bytes-like对象。**
+
+*在版本3.6中发生变化：* *level* 现在可以被用作一个关键字参数。
+
+```python
+>>> from urllib.request import urlopen
+>>> import zlib
+>>> html = urlopen('http://example.webscraping.com').read()
+>>> len(html)
+7902
+>>> html_compressed = zlib.compress(html)
+>>> len(html_compressed)
+2456
+>>> html_decompressed = zlib.decompress(html_compressed)
+>>> len(html_decompressed)
+7902
+>>>
+```
+
+zlib.**decompress**(*data, wbits=MAX_WBITS, bufsize=DEF_BUF_SIZE*)  
+解压 *data* 中的字节，返回一个包含未压缩的数据的字节对象。
+
+**注意：当要压缩的数据足够小的时候，会出现压缩后的数据比压缩前更大的情况。**
+
+```python
+>>> from urllib.request import urlopen
+>>> import zlib
+>>> html = b'http://example.webscraping.commmmmmmmmm'
+>>> len(html)
+39
+>>> html_compressed = zlib.compress(html)
+>>> len(html_compressed)
+39
+>>> html_decompressed = zlib.decompress(html_compressed)
+>>> len(html_decompressed)
+39
+>>>
+```
+
+在上面的例子中，如果html变量的长度小于39，则会出现压缩后的数据比压缩前的数据更大的情况。
 
 ## 14. 文件格式
 本章描述的模块解析各种既不是标记语言也与e-mail无关的其它文件格式。
