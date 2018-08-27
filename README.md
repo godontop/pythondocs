@@ -69,11 +69,12 @@ Python相关文档。
             * [21.8.1. URL解析](#2181-url解析)
         * [21.9. urllib.error — urllib.request抛出的异常类](#219-urlliberror--urllibrequest抛出的异常类)
         * [21.10. urllib.robotparser — 解析robots.txt](#2110-urllibrobotparser--解析robotstxt)
-        * [21.12. http.client — HTTP协议客户端](#2112-httpclient--http协议客户端)
-            * [21.12.2. HTTPResponse对象](#21122-httpresponse对象)
         * [21.21. socketserver — 一个网络服务器框架](#2121-socketserver--一个网络服务器框架)
             * [21.21.2. 服务器对象](#21212-服务器对象)
         * [21.22. http.server — HTTP 服务器](#2122-httpserver--http-服务器)
+    * [22. 互联网协议和支持](#22-互联网协议和支持)
+        * [22.12. http.client — HTTP协议客户端](#2212-httpclient--http协议客户端)
+            * [22.12.2. HTTPResponse对象](#22122-httpresponse对象)
         * [29.1. sys — 系统专用参量和函数](#291-sys--系统专用参量和函数)
 * [Python语言参考](#python语言参考)
     * [3. 数据模型](#3-数据模型)
@@ -1969,36 +1970,6 @@ This class provides methods to read, parse and answer questions about the `robot
 **can_fetch**(*useragent, url*)  
 根据解析的 `robots.txt` 文件中的规则，如果 *useragent* 允许获取 *url* ，则返回 `True`，否则返回 `False`。
 
-### 21.12. http.client — HTTP协议客户端
-**Source code:** [Lib/http/client.py](https://github.com/python/cpython/tree/3.6/Lib/http/client.py)
-
-这个模块定义实现HTTP和HTTPS协议客户端的类。它通常不被直接使用 — 模块 [urllib.request](https://docs.python.org/3.6/library/urllib.request.html#module-urllib.request) 使用它处理HTTP和HTTPS URLs。
-
-**另请参阅：** 更高层次的HTTP客户端接口推荐 [Requests package](http://docs.python-requests.org/)。
-
-**注意：** 如果Python编译了SSL支持 (通过 [ssl](https://docs.python.org/3.6/library/ssl.html#module-ssl) 模块)，HTTPS支持才可用。
-
-这个模块提供了下面的类：
-
-*class* http.client.**HTTPResponse**(*sock, debuglevel=0, method=None, url=None*)  
-Class whose instances are returned upon successful connection. Not instantiated directly by user.
-
-*在版本3.4中发生变化：* *strict* 参量被移除了。HTTP 0.9 风格 “Simple Responses” 不再支持。
-
-#### 21.12.2. HTTPResponse对象
-An [HTTPResponse](https://docs.python.org/3.6/library/http.client.html#http.client.HTTPResponse) instance wraps the HTTP response from the server. It provides access to the request headers and the entity body. The response is an iterable object and can be used in a with statement.
-
-*在版本3.5中发生变化：* 现在实现了 [io.BufferedIOBase](https://docs.python.org/3.6/library/io.html#io.BufferedIOBase) 接口，它的所有的读操作都支持。
-
-HTTPResponse.**read**([*amt*])  
-读取并返回响应正文，或者直到下一个 *amt* 字节。
-
-HTTPResponse.**version**  
-服务器使用的HTTP协议版本。HTTP/1.0 为 10，HTTP/1.1 为 11。
-
-HTTPResponse.**status**  
-服务器返回的状态代码。
-
 ### 21.21. socketserver — 一个网络服务器框架
 **Source code:** [Lib/socketserver.py](https://github.com/python/cpython/tree/3.6/Lib/socketserver.py)
 
@@ -2059,6 +2030,73 @@ SimpleHTTPRequestHandler.extensions_map = {
     '': 'application/octet/stream',
 }
 
+```
+
+## 22. 互联网协议和支持
+这章描述的模块实现了互联网协议和相关技术的支持。它们在Python中全被实现了。大多数这些模块都要求系统相关的模块 [socket](https://docs.python.org/3/library/socket.html#module-socket) 存在，目前大多数流行的平台都支持 [socket](https://docs.python.org/3/library/socket.html#module-socket)。下面是一个概述：
+
+### 22.12. http.client — HTTP协议客户端
+**Source code:** [Lib/http/client.py](https://github.com/python/cpython/tree/3.6/Lib/http/client.py)
+
+这个模块定义实现HTTP和HTTPS协议客户端的类。它通常不被直接使用 — 模块 [urllib.request](https://docs.python.org/3.6/library/urllib.request.html#module-urllib.request) 使用它处理HTTP和HTTPS URLs。
+
+**另请参阅：** 更高层次的HTTP客户端接口推荐 [Requests package](http://docs.python-requests.org/)。
+
+**注意：** 如果Python编译了SSL支持 (通过 [ssl](https://docs.python.org/3.6/library/ssl.html#module-ssl) 模块)，HTTPS支持才可用。
+
+这个模块提供了下面的类：
+
+*class* http.client.**HTTPResponse**(*sock, debuglevel=0, method=None, url=None*)  
+Class whose instances are returned upon successful connection. Not instantiated directly by user.
+
+*在版本3.4中发生变化：* *strict* 参量被移除了。HTTP 0.9 风格 “Simple Responses” 不再支持。
+
+#### 22.12.2. HTTPResponse对象
+An [HTTPResponse](https://docs.python.org/3.6/library/http.client.html#http.client.HTTPResponse) instance wraps the HTTP response from the server. It provides access to the request headers and the entity body. The response is an iterable object and can be used in a with statement.
+
+*在版本3.5中发生变化：* 现在实现了 [io.BufferedIOBase](https://docs.python.org/3.6/library/io.html#io.BufferedIOBase) 接口，它的所有的读操作都支持。
+
+HTTPResponse.**read**([*amt*])  
+读取并返回响应正文，或者直到下一个 *amt* 字节。
+
+HTTPResponse.**version**  
+服务器使用的HTTP协议版本。HTTP/1.0 为 10，HTTP/1.1 为 11。
+
+HTTPResponse.**status**  
+服务器返回的状态代码。
+
+实例属性：
+
+**code**  
+返回类型为int，返回HTTP Response状态代码
+
+```python
+>>> import http.client
+>>> import urllib.error
+>>> from urllib.request import urlopen
+>>> dir(http.client.HTTPResponse)
+['__abstractmethods__', '__class__', '__del__', '__delattr__', '__dict__', '__dir__', '__doc__', '__enter__', '__eq__', '__exit__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__iter__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__next__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '_abc_cache', '_abc_negative_cache', '_abc_negative_cache_version', '_abc_registry', '_checkClosed', '_checkReadable', '_checkSeekable', '_checkWritable', '_check_close', '_close_conn', '_get_chunk_left', '_peek_chunked', '_read1_chunked', '_read_and_discard_trailer', '_read_next_chunk_size', '_read_status', '_readall_chunked', '_readinto_chunked', '_safe_read', '_safe_readinto', 'begin', 'close', 'closed', 'detach', 'fileno', 'flush', 'getcode', 'getheader', 'getheaders', 'geturl', 'info', 'isatty', 'isclosed', 'peek', 'read', 'read1', 'readable', 'readinto', 'readinto1', 'readline', 'readlines', 'seek', 'seekable', 'tell', 'truncate', 'writable', 'write', 'writelines']
+>>> hasattr(http.client.HTTPResponse, 'code')
+False
+>>> type(urlopen('http://example.webscraping.com'))
+<class 'http.client.HTTPResponse'>
+>>> isinstance(urlopen('http://example.webscraping.com'), http.client.HTTPResponse)
+True
+>>> hasattr(urlopen('http://example.webscraping.com'), 'code')
+True
+>>> dir(urlopen('http://example.webscraping.com'))
+['__abstractmethods__', '__class__', '__del__', '__delattr__', '__dict__', '__dir__', '__doc__', '__enter__', '__eq__', '__exit__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__iter__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__next__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '_abc_cache', '_abc_negative_cache', '_abc_negative_cache_version', '_abc_registry', '_checkClosed', '_checkReadable', '_checkSeekable', '_checkWritable', '_check_close', '_close_conn', '_get_chunk_left', '_method', '_peek_chunked', '_read1_chunked', '_read_and_discard_trailer', '_read_next_chunk_size', '_read_status', '_readall_chunked', '_readinto_chunked', '_safe_read', '_safe_readinto', 'begin', 'chunk_left', 'chunked', 'close', 'closed', 'code', 'debuglevel', 'detach', 'fileno', 'flush', 'fp', 'getcode', 'getheader', 'getheaders', 'geturl', 'headers', 'info', 'isatty', 'isclosed', 'length', 'msg', 'peek', 'read', 'read1', 'readable', 'readinto', 'readinto1', 'readline', 'readlines', 'reason', 'seek', 'seekable', 'status', 'tell', 'truncate', 'url', 'version', 'will_close', 'writable', 'write', 'writelines']
+>>> type(urlopen('http://example.webscraping.com').code)
+<class 'int'>
+>>> urlopen('http://example.webscraping.com').code
+200
+>>> try:
+...     print(urlopen('https://python.org/java').code)
+... except urllib.error.HTTPError as e:
+...     print(e.code)
+...
+404
+>>>
 ```
 
 ### 29.1. sys — 系统专用参量和函数
