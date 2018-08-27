@@ -1254,6 +1254,10 @@ date.**isoweekday()**
 
 　　如果 *tz* 不是 `None`，它必须是 [tzinfo](https://docs.python.org/3.6/library/datetime.html#datetime.tzinfo) 子类的一个实例，且当前的日期和时间被转换成 *tz* 的时区。在这种情况下结果等同于 `tz.fromutc(datetime.utcnow().replace(tzinfo=tz))`。参见 [today()](https://docs.python.org/3.6/library/datetime.html#datetime.datetime.today), [utcnow()](https://docs.python.org/3.6/library/datetime.html#datetime.datetime.utcnow)。
 
+*classmethod* datetime.**utcnow()**  
+返回当前的UTC日期和时间，其中 [tzinfo](https://docs.python.org/3/library/datetime.html#datetime.datetime.tzinfo) 为 `None`。这像 [now()](https://docs.python.org/3/library/datetime.html#datetime.datetime.now)，但返回当前的UTC日期和时间，作为一个 naive [datetime](https://docs.python.org/3/library/datetime.html#datetime.datetime) 对象。可以通过调用 `datetime.now(timezone.utc)` 获取一个 aware 当前的 UTC datetime。参见 [now()](https://docs.python.org/3/library/datetime.html#datetime.datetime.now)。
+
+
 支持的运算：
 
 Operation                            |Result
