@@ -1495,11 +1495,35 @@ $ cat club.csv
 >>> import csv
 >>> with open('club.csv', newline='') as csvfile:
 ...     content = csv.reader(csvfile)
+...     for item in content:
+...         print(item)
+...
+['113', '菲比酒吧']
+['114', '哥弟KTV']
+>>>
+```
+
+```python
+>>> import csv
+>>> with open('club.csv', newline='') as csvfile:
+...     content = csv.reader(csvfile)
 ...     for id, name in content:
 ...         print(name)
 ...
 菲比酒吧
 哥弟KTV
+>>>
+```
+
+```python
+>>> _list = ['a', 'b', 'c']
+>>> content = csv.reader(_list)
+>>> for item in content:
+...     print(item)
+...
+['a']
+['b']
+['c']
 >>>
 ```
 
