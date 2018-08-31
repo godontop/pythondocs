@@ -1482,8 +1482,29 @@ csv 模块的 [reader](https://docs.python.org/3/library/csv.html#csv.reader) �
 #### 14.1.1. 模块内容
 [csv](https://docs.python.org/3/library/csv.html#module-csv) 模块定义了下列函数：
 
+csv.**reader**(*csvfile, dialect='excel', \*\*fmtparams*)  
+返回一个将遍历给定的 *csvfile* 文件中的行的 reader 对象。*csvfile* 可以是支持[迭代器](https://docs.python.org/3/glossary.html#term-iterator)协议及每次调用它的 `__next__()` 方法都返回一个字符串的任意对象 — [文件对象](https://docs.python.org/3/glossary.html#term-file-object) 和列表对象都是适合的。如果 *csvfile* 是一个文件对象，打开它时必须带有 `newline=''`。（如果没有指定 `newline=''`，新行嵌入引用字段后将不能被正确解释，且在以 `\r\n` 作为行结束符的平台会写入一个额外的 `\r`。总是指定 `newline=''` 应该是安全的，因为 csv 模块执行自己的 ([universal](https://docs.python.org/3/glossary.html#term-universal-newlines)) 新行处理方法。）
+
+```sh
+$ cat club.csv
+113,菲比酒吧
+114,哥弟KTV
+```
+
+```python
+>>> import csv
+>>> with open('club.csv', newline='') as csvfile:
+...     content = csv.reader(csvfile)
+...     for id, name in content:
+...         print(name)
+...
+菲比酒吧
+哥弟KTV
+>>>
+```
+
 csv.**writer**(_csvfile, dialect='excel', \*\*fmtparams_)  
-Return a writer object responsible for converting the user’s data into delimited strings on the given file-like object. *csvfile* 可以是带有一个 `write()` 方法的任意对象。如果 *csvfile* 是一个文件对象，打开它时必须带有 `newline=''`。（如果没有指定 `newline=''`，新行嵌入引用字段后将不能被正确解释，且在以 `\r\n` 作为行结束符的平台会写入一个额外的 `\r`。总是指定 `newline=''` 应该是安全的，因为 csv 模块执行自己的 ([universal](https://docs.python.org/3/glossary.html#term-universal-newlines)) 新行处理。）
+Return a writer object responsible for converting the user’s data into delimited strings on the given file-like object. *csvfile* 可以是带有一个 `write()` 方法的任意对象。如果 *csvfile* 是一个文件对象，打开它时必须带有 `newline=''`。（如果没有指定 `newline=''`，新行嵌入引用字段后将不能被正确解释，且在以 `\r\n` 作为行结束符的平台会写入一个额外的 `\r`。总是指定 `newline=''` 应该是安全的，因为 csv 模块执行自己的 ([universal](https://docs.python.org/3/glossary.html#term-universal-newlines)) 新行处理方法。）
 
 ```python
 >>> import csv
