@@ -1623,6 +1623,13 @@ Read and return up to *size* bytes. If the argument is omitted, `None`, or negat
 ##### 16.2.3.3. 缓冲流
 缓冲 I/O 流比原始 I/O 流为 I/O 设备提供了一个更高层次的接口。
 
+*class* io.**BytesIO**(**[**_initial_bytes_**]**)  
+使用内存中的一个字节缓冲区实现一个流。它继承 [BufferedIOBase](https://docs.python.org/3/library/io.html#io.BufferedIOBase)。当 [close()](https://docs.python.org/3/library/io.html#io.IOBase.close) 方法被调用时缓冲区被丢弃。
+
+可选参数 *initial_bytes* 是一个包含初始化数据的 [bytes-like 对象](https://docs.python.org/3/glossary.html#term-bytes-like-object)。
+
+除了那些从 [BufferedIOBase](https://docs.python.org/3/library/io.html#io.BufferedIOBase) 和 [IOBase](https://docs.python.org/3/library/io.html#io.IOBase) 继承的方法，[BytesIO](https://docs.python.org/3/library/io.html#io.BytesIO) 提供或重写了这些方法：
+
 *class* io.**BufferedReader**(*raw, buffer_size=DEFAULT_BUFFER_SIZE*)  
 除了那些从 [BufferedIOBase](https://docs.python.org/3.6/library/io.html#io.BufferedIOBase) 和 [IOBase](https://docs.python.org/3.6/library/io.html#io.IOBase) 继承的方法，[BufferedReader](https://docs.python.org/3.6/library/io.html#io.BufferedReader) 还提供或重写了这些方法：
 
@@ -1670,6 +1677,11 @@ Python官方文档里说 `io.BufferedRandom` 继承 `io.BufferedReader` 和 `io.
 
 *class* io.**TextIOWrapper**(*buffer, encoding=None, errors=None, newline=None, line_buffering=False, write_through=False*)  
 A buffered text stream over a [BufferedIOBase](https://docs.python.org/3.6/library/io.html#io.BufferedIOBase) binary stream. 它继承 [TextIOBase](https://docs.python.org/3.6/library/io.html#io.TextIOBase)。
+
+*class* io.**StringIO**(*initial_value='', newline='\n'*)  
+一个用于文本I/O的内存中的流。当 [close()](https://docs.python.org/3/library/io.html#io.IOBase.close) 方法被调用时文本缓冲区被丢弃。
+
+缓冲区的初始值可以通过提供的 *initial_value* 参数继续设置。如果新行转化被启用，newlines will be encoded as if by [write()](https://docs.python.org/3/library/io.html#io.TextIOBase.write)。流被放在缓冲区的起始位置。
 
 ### 16.3. time — 时间访问和转化
 这个模块提供了各种各样的时间相关的函数。相关的功能 (functionality)，请参见 [datetime](https://docs.python.org/3/library/datetime.html#module-datetime) 和 [calendar](https://docs.python.org/3/library/calendar.html#module-calendar) 模块。
