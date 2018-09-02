@@ -44,6 +44,8 @@ Python相关文档。
             * [12.1.3. 模块接口](#1213-模块接口)
     * [13. 数据压缩和归档](#13-数据压缩和归档)
         * [13.1. zlib — 与gzip兼容的压缩](#131-zlib--与gzip兼容的压缩)
+        * [13.5. zipfile — 与ZIP归档一起工作](#135-zipfile--与zip归档一起工作)
+            * [13.5.1. ZipFile对象](#1351-zipfile对象)
     * [14. 文件格式](#14-文件格式)
         * [14.1. csv — CSV文件读写](#141-csv--csv文件读写)
             * [14.1.1. 模块内容](#1411-模块内容)
@@ -1473,6 +1475,83 @@ zlib.**decompress**(*data, wbits=MAX_WBITS, bufsize=DEF_BUF_SIZE*)
 ```
 
 在上面的例子中，如果html变量的长度小于39，则会出现压缩后的数据比压缩前的数据更大的情况。
+
+### 13.5. zipfile — 与ZIP归档一起工作
+**源代码：** [Lib/zipfile.py](https://github.com/python/cpython/tree/3.7/Lib/zipfile.py)
+
+ZIP文件格式是一个普遍的归档和压缩标准。这个模块提供工具创建，读，写，附加，和列出一个ZIP文件。这个模块的任何高级用法都要求理解 [PKZIP Application Note](https://pkware.cachefly.net/webdocs/casestudies/APPNOTE.TXT) 中定义的格式。
+
+#### 13.5.1. ZipFile对象
+*class* zipfile.**ZipFile**(*file, mode='r', compression=ZIP_STORED, allowZip64=True, compresslevel=None*)  
+打开一个ZIP文件，其中 *file* 可以是一个指向一个文件的路径 (一个字符串)，一个 file-like 对象或者一个 [path-like 对象](https://docs.python.org/3/glossary.html#term-path-like-object)。
+
+ZipFile也是一个上下文管理器因而支持 [with](https://docs.python.org/3/reference/compound_stmts.html#with) 语句。在下面的例子中，当 [with](https://docs.python.org/3/reference/compound_stmts.html#with) 语句的套件完成的时候 *myzip* 被关闭——即使出现一个异常：
+
+```python
+from zipfile import ZipFile
+with ZipFile('spam.zip', 'w') as myzip:
+    myzip.write('eggs.txt')
+```
+
+**在上面的代码中，因为本地没有eggs.txt文件，所以抛出了一个 `FileNotFoundError` ，但该代码块依然创建一个名为spam.zip的空的归档文件。**
+
+ZipFile.**close()**  
+关闭归档文件。在退出你的程序前你必须调用 [close()](https://docs.python.org/3/library/zipfile.html#zipfile.ZipFile.close) 否则至关重要的记录将不会被写入。
+
+ZipFile.**namelist()**  
+返回一个归档成员的名称列表。
+
+ZipFile.**open**(*name, mode='r', pwd=None, \*, force_zip64=False*)  
+访问归档的一个成员作为一个二进制 file-like 对象。*name* 可以是归档里面的一个文件的名字或者一个 [ZipInfo](https://docs.python.org/3/library/zipfile.html#zipfile.ZipInfo) 对象。*mode* 参数，如果包含，必须是 `'r'` (默认) 或 `'w'`。*pwd* 是用于解密加密ZIP文件的密码。
+
+[open()](https://docs.python.org/3/library/zipfile.html#zipfile.ZipFile.open) 也是一个上下文管理器因而支持 [with](https://docs.python.org/3/reference/compound_stmts.html#with) 语句：
+
+```sh
+$ cat eggs.txt
+这是一个测试文件
+```
+
+```python
+>>> from zipfile import ZipFile
+>>> with ZipFile('spam.zip') as myzip:
+...     with myzip.open('eggs.txt') as myfile:
+...         print(myfile.read().decode('gb2312'))
+...
+这是一个测试文件
+>>>
+```
+
+ZipFile.**write**(*filename, arcname=None, compress_type=None, compresslevel=None*)  
+将名为 *filename* 的文件写入到归档中，指定归档名 *arcname* (默认，这同 *filename*，但不带驱动器号且移除前导路径分隔符)。如果指定，*compress_type* 将覆盖构造函数为新的条目指定的 *compression* 参数的值。类似地，如果指定 *compresslevel* 的话，将覆盖构造函数中的 *compresslevel* 参数的值。打开归档的模式必须是 `'w'`, `'x'` 或 `'a'`。
+
+**注意：** ZIP文件没有官方的文件名编码。如果你有 unicode 文件名，在将它们传递给 [write()](https://docs.python.org/3/library/zipfile.html#zipfile.ZipFile.write) 你必须用你期望的编码将它们转换成字节字符串。WinZip用CP437编码解释所有文件名，也被称为 DOS Latin。
+
+**注意：** 归档名应该相对于归档根目录，就是说，它们不应该以一个路径分隔符开头。
+
+**注意：** 如果 `arcname` (或 `filename`, 如果没有指定 `arcname`) 包含一个空字节，归档中的文件的名称将在空字节处被截断。
+
+*在版本3.6中发生变化：* 对一个以 `r` 模式创建的ZipFile或一个关闭的ZipFile调用 [write()](https://docs.python.org/3/library/zipfile.html#zipfile.ZipFile.write) 将抛出一个 [ValueError](https://docs.python.org/3/library/exceptions.html#ValueError)。之前，是抛出一个 [RuntimeError](https://docs.python.org/3/library/exceptions.html#RuntimeError)。
+
+```python
+>>> import csv
+>>> from io import BytesIO, StringIO
+>>> from urllib.request import urlopen
+>>> from zipfile import ZipFile
+>>> zipped_data = urlopen('http://s3.amazonaws.com/alexa-static/top-1m.csv.zip').read()
+>>> urls = []
+>>> with ZipFile(BytesIO(zipped_data)) as zf:
+...     csv_filename = zf.namelist()[0]
+...     for rank, website in csv.reader(StringIO(zf.open(csv_filename).read().decode())):
+...         urls.append('http://' + website)
+... 
+>>> len(urls)
+1000000
+>>> urls[0]
+'http://google.com'
+>>> 
+```
+
+**注意：** 下载得到的压缩数据是在使用BytesIO封装之后，才传给ZipFile的。这是因为ZipFile需要一个类似文件的接口，而不是字节。
 
 ## 14. 文件格式
 本章描述的模块解析各种既不是标记语言也与e-mail无关的其它文件格式。
