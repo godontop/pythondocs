@@ -51,6 +51,7 @@ Python相关文档。
             * [14.1.1. 模块内容](#1411-模块内容)
             * [14.1.4. Writer对象](#1414-writer对象)
             * [16.1.8. 各种各样的系统信息](#1618-各种各样的系统信息)
+                * [16.2.2.1. 内存流](#16221-内存流)
             * [16.2.3. 类层次结构](#1623-类层次结构)
                 * [16.2.3.1. I/O 基类](#16231-io-基类)
                 * [16.2.3.2. 原始文件 I/O](#16232-原始文件-io)
@@ -1493,7 +1494,7 @@ with ZipFile('spam.zip', 'w') as myzip:
     myzip.write('eggs.txt')
 ```
 
-**在上面的代码中，因为本地没有eggs.txt文件，所以抛出了一个 `FileNotFoundError` ，但该代码块依然创建一个名为spam.zip的空的归档文件。**
+在上面的代码中，因为本地没有eggs.txt文件，所以抛出了一个 `FileNotFoundError` ，但该代码块依然创建一个名为spam.zip的空的归档文件。
 
 ZipFile.**close()**  
 关闭归档文件。在退出你的程序前你必须调用 [close()](https://docs.python.org/3/library/zipfile.html#zipfile.ZipFile.close) 否则至关重要的记录将不会被写入。
@@ -1643,6 +1644,14 @@ csvwriter.**writerow**(*row*)
 
 os.**sep**  
 操作系统用来分隔路径名组件的字符。POSIX 为 `'/'` 而 Windows 为 `'\\'`。Note that knowing this is not sufficient to be able to parse or concatenate pathnames — 使用 [os.path.split()](https://docs.python.org/3.6/library/os.path.html#os.path.split) 和 [os.path.join()](https://docs.python.org/3.6/library/os.path.html#os.path.join) — 但它偶尔是有用的。Also available via [os.path](https://docs.python.org/3.6/library/os.path.html#module-os.path)。
+
+##### 16.2.2.1. 内存流
+使用一个 [str](https://docs.python.org/3/library/stdtypes.html#str) 或 [bytes-like 对象](https://docs.python.org/3/glossary.html#term-bytes-like-object) 作为一个文件用于读写也是可能的。对字符串来说可以像一个文件以文本模式打开一样使用 [StringIO](https://docs.python.org/3/library/io.html#io.StringIO)。可以像一个文件以二进制模式打开一样使用 [BytesIO](https://docs.python.org/3/library/io.html#io.BytesIO)。两者都提供完整的随机读写的能力。
+
+**另请参见：**
+
+[sys](https://docs.python.org/3/library/sys.html#module-sys)  
+包含标准IO流：[sys.stdin](https://docs.python.org/3/library/sys.html#sys.stdin)，[sys.stdout](https://docs.python.org/3/library/sys.html#sys.stdout)，和 [sys.stderr](https://docs.python.org/3/library/sys.html#sys.stderr)。
 
 #### 16.2.3. 类层次结构
 ![class hierarchy](/image/tpsl_16_2_3_class_hierarchy.png)
