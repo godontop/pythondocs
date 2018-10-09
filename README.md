@@ -2054,32 +2054,6 @@ port        |       |数字端口号，如果存在      |[None](https://docs.py
 
 *在版本3.6中发生变化：* 现在，超出范围的端口号抛出 [ValueError](https://docs.python.org/3.6/library/exceptions.html#ValueError)，而不是返回 [None](https://docs.python.org/3.6/library/constants.html#None)。
 
-urllib.parse.**urljoin**(*base, url, allow_fragments=True*)  
-通过组合一个 "base URL" (*base*) 和另一个 URL (*url*) 来构造一个完整的 ("绝对的") URL。Informally, this uses components of the base URL, in particular the addressing scheme, the network location and (part of) the path, to provide missing components in the relative URL. 例如：
-
-```python
->>> from urllib.parse import urljoin
->>> urljoin('https://docs.python.org/3.6/library/urllib.parse.html', 'urllib.error.html')
-'https://docs.python.org/3.6/library/urllib.error.html'
->>>
-```
-
-The *allow_fragments* argument has the same meaning and default as for [urlparse()](https://docs.python.org/3.6/library/urllib.parse.html#urllib.parse.urlparse).
-
-**注意：** 如果 *url* 是一个绝对 URL (即，以 `//` 或 `scheme://` 开头), 则 *url*’s 主机名和/或方案将出现在结果中。例如：
-
-```python
->>> urljoin('http://www.cwi.nl/%7Eguido/Python.html', '//www.python.org/%7Eguido')
-'http://www.python.org/%7Eguido'
->>> urljoin('http://www.cwi.nl/%7Eguido/Python.html', 'https://www.python.org/%7Eguido')
-'https://www.python.org/%7Eguido'
->>>
-```
-
-If you do not want that behavior, preprocess the *url* with [urlsplit()](https://docs.python.org/3.6/library/urllib.parse.html#urllib.parse.urlsplit) and [urlunsplit()](https://docs.python.org/3.6/library/urllib.parse.html#urllib.parse.urlunsplit), removing possible *scheme* and *netloc* parts.
-
-*在版本3.5中发生变化：* Behaviour updated to match the semantics defined in [RFC 3986](https://tools.ietf.org/html/rfc3986.html).
-
 ### 21.9. urllib.error — urllib.request抛出的异常类
 **Source code:** [Lib/urllib/error.py](https://github.com/python/cpython/tree/3.6/Lib/urllib/error.py)
 
