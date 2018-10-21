@@ -50,7 +50,6 @@ Python相关文档。
         * [14.1. csv — CSV文件读写](#141-csv--csv文件读写)
             * [14.1.1. 模块内容](#1411-模块内容)
             * [14.1.4. Writer对象](#1414-writer对象)
-            * [16.1.8. 各种各样的系统信息](#1618-各种各样的系统信息)
                 * [16.2.2.1. 内存流](#16221-内存流)
             * [16.2.3. 类层次结构](#1623-类层次结构)
                 * [16.2.3.1. I/O 基类](#16231-io-基类)
@@ -1634,14 +1633,6 @@ csvwriter.**writerow**(*row*)
 将 *row* 参数写入到 writer 的文件对象中，并根据当前的 dialect 进行格式化。
 
 *在版本3.5中发生变化：* 支持任意可迭代对象。
-
-#### 16.1.8. 各种各样的系统信息
-**下面的数据值被用于支持路径操作运算。这些是为所有平台定义。**
-
-高层次的路径名操作被定义在 [os.path](https://docs.python.org/3.6/library/os.path.html#module-os.path) 模块中。
-
-os.**sep**  
-操作系统用来分隔路径名组件的字符。POSIX 为 `'/'` 而 Windows 为 `'\\'`。Note that knowing this is not sufficient to be able to parse or concatenate pathnames — 使用 [os.path.split()](https://docs.python.org/3.6/library/os.path.html#os.path.split) 和 [os.path.join()](https://docs.python.org/3.6/library/os.path.html#os.path.join) — 但它偶尔是有用的。Also available via [os.path](https://docs.python.org/3.6/library/os.path.html#module-os.path)。
 
 ##### 16.2.2.1. 内存流
 使用一个 [str](https://docs.python.org/3/library/stdtypes.html#str) 或 [bytes-like 对象](https://docs.python.org/3/glossary.html#term-bytes-like-object) 作为一个文件用于读写也是可能的。对字符串来说可以像一个文件以文本模式打开一样使用 [StringIO](https://docs.python.org/3/library/io.html#io.StringIO)。可以像一个文件以二进制模式打开一样使用 [BytesIO](https://docs.python.org/3/library/io.html#io.BytesIO)。两者都提供完整的随机读写的能力。
