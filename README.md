@@ -38,7 +38,6 @@ Python相关文档。
             * [9.6.3. 用于序列的函数](#963-用于序列的函数)
             * [10.1.1. Itertool函数](#1011-itertool函数)
         * [10.2. functools — 高阶函数和操作可调用对象](#102-functools--高阶函数和操作可调用对象)
-        * [11.2. os.path — 通用路径名操作](#112-ospath--通用路径名操作)
     * [12. 数据持久性](#12-数据持久性)
         * [12.1. pickle — Python对象序列化](#121-pickle--python对象序列化)
             * [12.1.3. 模块接口](#1213-模块接口)
@@ -1375,30 +1374,6 @@ def reduce(function, iterable, initializer=None):
         value = function(value, element)
     return value
 ```
-
-### 11.2. os.path — 通用路径名操作
-**Source code:** [Lib/posixpath.py](https://github.com/python/cpython/tree/3.6/Lib/posixpath.py) (for POSIX), [Lib/ntpath.py](https://github.com/python/cpython/tree/3.6/Lib/ntpath.py) (for Windows NT), and [Lib/macpath.py](https://github.com/python/cpython/tree/3.6/Lib/macpath.py) (for Macintosh)
-
-这个模块实现了一些关于路径名的有用的函数。读或写文件请看 [open()](https://docs.python.org/3.6/library/functions.html#open)，访问文件系统请看 [os](https://docs.python.org/3.6/library/os.html#module-os) 模块。
-
-os.path.**dirname**(*path*)  
-返回路径名 *path* 的目录名。
-
-*在版本3.6中发生变化：* 接受 [path-like object](https://docs.python.org/3.6/glossary.html#term-path-like-object)。
-
-os.path.**exists**(*path*)  
-如果 *path* 指向一个存在的路径或者一个打开的文件描述符则返回 `True`。如果指向损坏的符号链接，则返回 `False`。在一些平台，如果被请求的文件没有被授予执行 [os.stat()](https://docs.python.org/3.6/library/os.html#os.stat) 的权限，则这个函数可能返回 `False`，即使这个 *path* 物理存在。
-
-*在版本3.3中发生变化：* *path* 现在可以是一个整型数：如果它是一个打开的文件描述符则返回 `True`，否则返回 `False`。
-
-*在版本3.6中发生变化：* 接受 [path-like object](https://docs.python.org/3.6/glossary.html#term-path-like-object)。
-
-os.path.**join**(_path, *paths_)  
-智能地连接一个或多个路径组件。返回值是 *path* 和所有 _*paths_ 成员的串联，且除了最后一个部分，每一个非空的部分后面都跟着一个正确的目录分隔符 (`os.sep`)，这意味着如果最后一个部分为空则结果将必定以一个分隔符结尾。如果一个组件是一个绝对路径，则所有前面的组件都被丢弃且连接从绝对路径组件继续。
-
-在 Windows 平台，当遇到一个绝对路径组件 (如，`r'\foo'`) 时驱动器号不重置。如果一个组件包含一个驱动器号，则所有前面的组件被丢弃且驱动器号被重置。注意，因为每个驱动器都有一个当前目录，`os.path.join("c:", "foo")` represents a path relative to the current directory on drive `C:` (`c:foo`), not `c:\foo`。
-
-*在版本3.6中发生变化：* *path* 和 *paths* 接受 [path-like object](https://docs.python.org/3.6/glossary.html#term-path-like-object)。
 
 ## 12. 数据持久性
 这章描述的模块支持将 Python 数据以持久性的形式储存到磁盘上。[pickle](https://docs.python.org/3/library/pickle.html#module-pickle) 和 [marshal](https://docs.python.org/3/library/marshal.html#module-marshal) 模块能将许多 Python 数据类型转换成字节流并且之后可以从这些字节流中重新创建那些对象。
