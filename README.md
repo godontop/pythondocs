@@ -152,7 +152,7 @@ Python解释器内置了许多总是可用的函数和类型。在这里以字�
 |          |          |                  |          |          |
 |          |          |int()             |open()    |          |
 |          |          |isinstance()      |ord()     |          |
-|          |          |                  |pow()     |super()   |
+|          |          |                  |pow()     |          |
 |          |          |                  |print()   |          |
 |          |          |                  |          |type()    |
 |          |          |                  |range()   |          |
@@ -473,31 +473,6 @@ _在版本3.3中发生变化：_ 增加了 *flush* 关键字参数。
 **range**(*stop*)  
 **range**(*start, stop*[*, step*])  
 根据 [Ranges](https://docs.python.org/3/library/stdtypes.html#typesseq-range) 和 [序列类型 — 列表, 元组, range](https://docs.python.org/3/library/stdtypes.html#typesseq) 中的文档，[range](https://docs.python.org/3/library/stdtypes.html#range) 实际上是一个不可变的序列类型，而不是一个函数。
-
-**super**([*type*__[__*, object-or-type*__]]__)  
-*super* 有两种典型的用法。在一个单继承的类层次结构中，*super* 可以被用来引用父类而无需明确地指出它们，从而使代码更易于维护。这种用法与其它程序设计语言中 *super* 的用法十分相似。
-
-```python
->>> class A:
-...     def __init__(self):
-...         print("Dunder init func in class A.")
-...
->>> class B(A):
-...     def __init__(self):
-...         print("Dunder init func in class B.")
-...
->>> b = B()
-Dunder init func in class B.
->>> class B(A):
-...     def __init__(self):
-...         super().__init__()
-...         print("Dunder init func in class B.")
-...
->>> b = B()
-Dunder init func in class A.
-Dunder init func in class B.
->>> 
-```
 
 *class* **type**(*object*)  
 *class* **type**(*name, bases, dict*)  
