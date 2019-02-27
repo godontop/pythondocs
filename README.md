@@ -155,7 +155,6 @@ Python解释器内置了许多总是可用的函数和类型。在这里以字�
 |          |          |                  |pow()     |          |
 |          |          |                  |print()   |          |
 |          |          |                  |          |type()    |
-|          |          |                  |range()   |          |
 |          |          |                  |          |          |
 |          |          |                  |          |          |
 |          |hasattr() |                  |          |          |
@@ -469,10 +468,6 @@ The *file* argument must be an object with a `write(string)` method; if it is no
 输出是否缓冲通常由 *file* 决定，但如果 *flush* 关键字参数是 true, 则流被强制 flushed.
 
 _在版本3.3中发生变化：_ 增加了 *flush* 关键字参数。
-
-**range**(*stop*)  
-**range**(*start, stop*[*, step*])  
-根据 [Ranges](https://docs.python.org/3/library/stdtypes.html#typesseq-range) 和 [序列类型 — 列表, 元组, range](https://docs.python.org/3/library/stdtypes.html#typesseq) 中的文档，[range](https://docs.python.org/3/library/stdtypes.html#range) 实际上是一个不可变的序列类型，而不是一个函数。
 
 *class* **type**(*object*)  
 *class* **type**(*name, bases, dict*)  
