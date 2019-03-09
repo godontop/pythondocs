@@ -113,13 +113,6 @@ Python相关文档。
     * [PEP 453 -- Explicit bootstrapping of pip in Python installations](#pep-453----explicit-bootstrapping-of-pip-in-python-installations)
         * [在Windows下执行脚本](#在windows下执行脚本)
 * [术语表](#术语表)
-* [pip](#pip)
-    * [安装](#安装)
-        * [我需要安装pip吗？](#我需要安装pip吗)
-        * [升级pip](#升级pip)
-    * [参考指南](#参考指南)
-        * [pip install](#pip-install)
-            * [选项](#选项)
 * [IPython](#ipython)
     * [Installation](#installation)
         * [安装IPython内核](#安装ipython内核)
@@ -2566,27 +2559,6 @@ An object exposing a file-oriented API (with methods such as read() or write()) 
 
 **file-like object**  
 [文件对象](https://docs.python.org/3/glossary.html#term-file-object) 的同义词。
-
-# pip
-## 安装
-### 我需要安装pip吗？
-pip is already installed if you are using Python 2 >=2.7.9 or Python 3 >=3.4 downloaded from [python.org](https://www.python.org/) or if you are working in a [Virtual Environment](https://packaging.python.org/tutorials/installing-packages/#creating-and-using-virtual-environments) created by [virtualenv](https://packaging.python.org/key_projects/#virtualenv) or [pyvenv](https://packaging.python.org/key_projects/#venv). Just make sure to [upgrade pip](https://pip.pypa.io/en/latest/installing/#upgrading-pip).
-
-### 升级pip
-On Linux or macOS:  
-`pip install -U pip`
-
-On Windows:  
-`python -m pip install -U pip`
-
-## 参考指南
-### pip install
-#### 选项
--U, --upgrade  
-升级所有指定的包到最新的可用版本。依赖的处理依赖于使用的 upgrade-strategy。
-
---user  
-Install to the Python user install directory for your platform. Typically ~/.local/, or %APPDATA%Python on Windows. (See the Python documentation for site.USER_BASE for full details.)
 
 # IPython
 ## Installation
