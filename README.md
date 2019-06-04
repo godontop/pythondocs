@@ -66,7 +66,6 @@ Python相关文档。
                 * [16.16.2.5. 实用函数](#161625-实用函数)
         * [21.8. urllib.parse — 将URLs解析为组件](#218-urllibparse--将urls解析为组件)
             * [21.8.1. URL解析](#2181-url解析)
-        * [21.9. urllib.error — urllib.request抛出的异常类](#219-urlliberror--urllibrequest抛出的异常类)
         * [21.10. urllib.robotparser — 解析robots.txt](#2110-urllibrobotparser--解析robotstxt)
         * [21.21. socketserver — 一个网络服务器框架](#2121-socketserver--一个网络服务器框架)
             * [21.21.2. 服务器对象](#21212-服务器对象)
@@ -1912,33 +1911,6 @@ port        |       |数字端口号，如果存在      |[None](https://docs.py
 *在版本3.3中发生变化：* The fragment is now parsed for all URL schemes (除非 *allow_fragment* 是 false), in accordance with [RFC 3986](https://tools.ietf.org/html/rfc3986.html). 之前，存在一个支持分片的方案的白名单。
 
 *在版本3.6中发生变化：* 现在，超出范围的端口号抛出 [ValueError](https://docs.python.org/3.6/library/exceptions.html#ValueError)，而不是返回 [None](https://docs.python.org/3.6/library/constants.html#None)。
-
-### 21.9. urllib.error — urllib.request抛出的异常类
-**Source code:** [Lib/urllib/error.py](https://github.com/python/cpython/tree/3.6/Lib/urllib/error.py)
-
-[urllib.error](https://docs.python.org/3.6/library/urllib.error.html#module-urllib.error) 模块为[urllib.request](https://docs.python.org/3.6/library/urllib.request.html#module-urllib.request) 抛出的异常定义了异常类。异常基类是 [URLError](https://docs.python.org/3.6/library/urllib.error.html#urllib.error.URLError).
-
-下列异常通过 [urllib.error](https://docs.python.org/3.6/library/urllib.error.html#module-urllib.error) 适当地抛出：
-
-*exception* urllib.error.**URLError**  
-当处理程序遇到一个问题时，抛出这个异常 (或者衍生的异常)。它是 [OSError](https://docs.python.org/3.6/library/exceptions.html#OSError) 的一个子类。
-
-**reason**  
-这个错误的原因。它可以是一个消息字符串或者另一个异常实例。
-
-*在版本3.3中发生变化：* [URLError](https://docs.python.org/3.6/library/urllib.error.html#urllib.error.URLError) has been made a subclass of [OSError](https://docs.python.org/3.6/library/exceptions.html#OSError) instead of [IOError](https://docs.python.org/3.6/library/exceptions.html#IOError).
-
-```python
->>> import urllib.error
->>> issubclass(urllib.error.ContentTooShortError, urllib.error.URLError)
-True
->>> issubclass(urllib.error.HTTPError, urllib.error.URLError)
-True
->>> issubclass(urllib.error.URLError, OSError)
-True
-```
-
-从Python 3.3开始，[IOError](https://docs.python.org/3.6/library/exceptions.html#IOError) 是 [OSError](https://docs.python.org/3.6/library/exceptions.html#OSError) 的别名。
 
 ### 21.10. urllib.robotparser — 解析robots.txt
 **源代码：** [Lib/urllib/robotparser.py](https://github.com/python/cpython/tree/3.6/Lib/urllib/robotparser.py)
