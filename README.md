@@ -64,8 +64,6 @@ Python相关文档。
             * [16.16.2. ctypes reference](#16162-ctypes-reference)
                 * [16.16.2.1. 查找共享库](#161621-查找共享库)
                 * [16.16.2.5. 实用函数](#161625-实用函数)
-        * [21.8. urllib.parse — 将URLs解析为组件](#218-urllibparse--将urls解析为组件)
-            * [21.8.1. URL解析](#2181-url解析)
         * [21.10. urllib.robotparser — 解析robots.txt](#2110-urllibrobotparser--解析robotstxt)
         * [21.21. socketserver — 一个网络服务器框架](#2121-socketserver--一个网络服务器框架)
             * [21.21.2. 服务器对象](#21212-服务器对象)
@@ -1844,73 +1842,6 @@ ctypes.util.**find_library**(*name*)
 尝试查找一个库并返回一个路径名。*name* 是不带任何前缀像 `lib`，后缀像 `.so`，`.dylib` 或版本号的库名 (this is the form used for the posix linker option -l). 如果不能找到库则返回 `None`。
 
 准确的功能依赖于系统。
-
-### 21.8. urllib.parse — 将URLs解析为组件
-**源代码:** [Lib/urllib/parse.py](https://github.com/python/cpython/tree/3.6/Lib/urllib/parse.py)
-
-This module defines a standard interface to break Uniform Resource Locator (URL) strings up in components (addressing scheme, network location, path etc.), to combine the components back into a URL string, and to convert a “relative URL” to an absolute URL given a “base URL.”
-
-#### 21.8.1. URL解析
-URL解析函数聚焦于将一个URL字符串分成多个组件，或组合URL组件为一个URL字符串。
-
-urllib.parse.**urlparse**(*urlstring, scheme='', allow_fragments=True*)  
-将一个URL解析为六个组件，返回一个6元组。这对应一个URL的常规结构：`scheme://netloc/path;parameters?query#fragment`。每一个元组元素都是一个字符串，也有可能是空的。The components are not broken up in smaller parts (例如，网络位置是一个单字符串), and % escapes are not expanded. 上面显示的分隔符不是结果的一部分，除了*路径*组件中的首部斜线，如果出现则保留。例如：
-
-```python
->>> from urllib.parse import urlparse
->>> o = urlparse('http://www.cwi.nl:80/%7Eguido/Python.html')
->>> o
-ParseResult(scheme='http', netloc='www.cwi.nl:80', path='/%7Eguido/Python.html', params='', query='', fragment='')
->>> o.scheme
-'http'
->>> o.port
-80
->>> o.geturl()
-'http://www.cwi.nl:80/%7Eguido/Python.html'
->>>
-```
-
-根据 [RFC 1808](https://tools.ietf.org/html/rfc1808.html) 中的语法规范，只有当netloc由 '//' 正确引出时，urlparse 才能识别一个netloc。否则输入被假定是一个相对链接从而导致以一个路径组件开始。
-
-```python
->>> from urllib.parse import urlparse
->>> urlparse('//www.cwi.nl:80/%7Eguido/Python.html')
-ParseResult(scheme='', netloc='www.cwi.nl:80', path='/%7Eguido/Python.html', params='', query='', fragment='')
->>> urlparse('www.cwi.nl/%7Eguido/Python.html')
-ParseResult(scheme='', netloc='', path='www.cwi.nl/%7Eguido/Python.html', params='', query='', fragment='')
->>> urlparse('help/Python.html')
-ParseResult(scheme='', netloc='', path='help/Python.html', params='', query='', fragment='')
->>>
-```
-
-*scheme* 参数给定默认的寻址方案，仅用于当URL没有指定寻址方案时。它应该与 *urlstring* 是同种类型 (文本或字节), except that the default value `''` is always allowed, and is automatically converted to `b''` if appropriate.
-
-如果 *allow_fragments* 参数是 false, 则分片标识符不被识别。相反，它们将被解析为 path, parameters 或 query 组件的一部分, 且在返回值中 `fragment` 被设置为空串。
-
-返回值实际上是 [tuple](https://docs.python.org/3.6/library/stdtypes.html#tuple) 的一个子类的一个实例。This class has the following additional read-only convenience attributes:
-
-Attribute   |Index  |Value                  |Value if not present
-------------|-------|-----------------------|--------------------
-scheme      |0      |URL scheme specifier   |*scheme* parameter
-netloc      |1      |网络定位部分             |空串
-path        |2      |Hierarchical path      |空串
-params      |3      |最后一个路径元素的参数    |空串
-query       |4      |Query 组件              |空串
-fragment    |5      |分片标识符               |空串
-username    |       |用户名                  |[None](https://docs.python.org/3.6/library/constants.html#None)
-password    |       |密码                    |[None](https://docs.python.org/3.6/library/constants.html#None)
-hostname    |       |主机名（小写字母）        |[None](https://docs.python.org/3.6/library/constants.html#None)
-port        |       |数字端口号，如果存在      |[None](https://docs.python.org/3.6/library/constants.html#None)
-
-如果在URL中指定了一个无效的端口，则读取端口属性时将抛出一个 [ValueError](https://docs.python.org/3.6/library/exceptions.html#ValueError)。关于结果对象的详细信息请看 [Structured Parse Results](https://docs.python.org/3.6/library/urllib.parse.html#urlparse-result-object) 章节。
-
-`netloc` 属性中不匹配的方括号将抛出一个 [ValueError](https://docs.python.org/3.6/library/exceptions.html#ValueError)。
-
-*在版本3.2中发生变化：* 增加解析IPv6 URL的功能。
-
-*在版本3.3中发生变化：* The fragment is now parsed for all URL schemes (除非 *allow_fragment* 是 false), in accordance with [RFC 3986](https://tools.ietf.org/html/rfc3986.html). 之前，存在一个支持分片的方案的白名单。
-
-*在版本3.6中发生变化：* 现在，超出范围的端口号抛出 [ValueError](https://docs.python.org/3.6/library/exceptions.html#ValueError)，而不是返回 [None](https://docs.python.org/3.6/library/constants.html#None)。
 
 ### 21.10. urllib.robotparser — 解析robots.txt
 **源代码：** [Lib/urllib/robotparser.py](https://github.com/python/cpython/tree/3.6/Lib/urllib/robotparser.py)
