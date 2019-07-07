@@ -1,7 +1,7 @@
 # Python文档
 Python相关文档。  
 
-* [Python 3标准库](#python-3标准库)
+* [Python 3 标准库](#python-3-标准库)
 	* [2. 内置函数](#2-内置函数)
     * [3. 内置常量](#3-内置常量)
 	* [4. 内置类型](#4-内置类型)
@@ -119,8 +119,7 @@ Python相关文档。
 
 [Python 2标准库](https://github.com/godontop/pythondocs/blob/master/python2/README.md)
 
-# Python 3标准库
-Python版本：3.6.4——3.7
+# Python 3 标准库
 ## 2. 内置函数
 Python解释器内置了许多总是可用的函数和类型。在这里以字母顺序列出它们。
 
