@@ -91,11 +91,6 @@ Python相关文档。
         * [安装包](#安装包)
             * [Source Distributions vs Wheels](#source-distributions-vs-wheels)
             * [Requirements files](#requirements-files)
-* [What’s New in Python](#whats-new-in-python)
-    * [What’s New In Python 3.0](#whats-new-in-python-30)
-        * [常见绊脚石](#常见绊脚石)
-            * [文本 Vs. 数据代替 Unicode Vs. 8-bit](#文本-vs-数据代替-unicode-vs-8-bit)
-        * [库变化](#库变化)
 * [PEPs](#peps)
     * [PEP 453 -- Explicit bootstrapping of pip in Python installations](#pep-453----explicit-bootstrapping-of-pip-in-python-installations)
         * [在Windows下执行脚本](#在windows下执行脚本)
@@ -2083,28 +2078,6 @@ If [pip](https://packaging.python.org/key_projects/#pip) does not find a wheel t
 Install a list of requirements specified in a [Requirements File](https://pip.pypa.io/en/latest/user_guide/#requirements-files).
 
 `pip install -r requirements.txt`
-
-# What’s New in Python
-“What’s New in Python” 系列短文将带你了解Python主版本间最重要的变化。当发布一个新版本后对任何想保持更新的人来说它们是 “必读” 的。
-
-## What’s New In Python 3.0
-**作者：** Guido van Rossum
-
-这篇文章解释了Python 3.0中的新特性，与2.6比较。Python 3.0，也被称为 “Python 3000” 或 “Py3K”，它是第一个有意向后不兼容的Python发行版。
-
-### 常见绊脚石
-这节列出了那些最可能使你犯错误的一些变化，如果你正在使用Python 2.5的话。
-
-#### 文本 Vs. 数据代替 Unicode Vs. 8-bit
-你认为你知道的关于二进制数据和 Unicode 的所有事情都已经改变了。
-
-* Python 3.0 使用 *文本* 和 (二进制) *数据* 的概念代替 Unicode 字符串和 8-bit 字符串。所有文本都是 Unicode；然而 *编码的* Unicode 被表示为二进制数据。用于控制文本的类型是 [str](https://docs.python.org/3/library/stdtypes.html#str)，用于控制数据的类型是 [bytes](https://docs.python.org/3/library/stdtypes.html#bytes)。与 2.x 情境最大的不同是在Python 3.0中任何试图混合文本和数据的操作都将抛出 [TypeError](https://docs.python.org/3/library/exceptions.html#TypeError)，然而如果你在Python 2.x 中混合 Unicode 和 8-bit 字符串，它将工作如果 8-bit 字符串仅包含 7-bit (ASCII) 字节，但是如果它包含非ASCII值你将得到 [UnicodeDecodeError](https://docs.python.org/3/library/exceptions.html#UnicodeDecodeError)。这种因值而异的行为这些年来已经导致了许多愁容。  
-* `StringIO` 和 `cStringIO` 模块已经消失了。改为，导入 [io](https://docs.python.org/3/library/io.html#module-io) 模块及为文本和数据分别使用 [io.StringIO](https://docs.python.org/3/library/io.html#io.StringIO) 或 [io.BytesIO](https://docs.python.org/3/library/io.html#io.BytesIO)。
-
-### 库变化
-因为时间的限制，这个文档没有详尽地介绍标准库中非常广泛的变化。[PEP 3108](https://www.python.org/dev/peps/pep-3108) 是库的主要变化的参考文献。这是一个简述的回顾：
-
-* Python 2.x 中一个常见的模式是有一个用纯Python实现的模块版本，与一个可选的实现为一个C扩展的加速版本；例如，[pickle](https://docs.python.org/3/library/pickle.html#module-pickle) 和 `cPickle`。这承担每次使用这些模块时导入加速版本及退回到纯Python版本的责任。在 Python 3.0中，加速版本被认为实现了纯Python的细节。用户应该总是导入标准版本，试图导入加速版本会退回到纯Python版本。[pickle](https://docs.python.org/3/library/pickle.html#module-pickle) / `cPickle` 对受到这种待遇。[profile](https://docs.python.org/3/library/profile.html#module-profile) 模块在3.1的清单上。`StringIO` 模块已经变成了 [io](https://docs.python.org/3/library/io.html#module-io) 模块的一个类。
 
 # PEPs
 ## PEP 453 -- Explicit bootstrapping of pip in Python installations
