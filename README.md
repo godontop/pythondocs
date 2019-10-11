@@ -48,8 +48,6 @@ Python相关文档。
                 * [16.2.3.2. 原始文件 I/O](#16232-原始文件-io)
                 * [16.2.3.3. 缓冲流](#16233-缓冲流)
                 * [16.2.3.4. 文本 I/O](#16234-文本-io)
-        * [16.3. time — 时间访问和转化](#163-time--时间访问和转化)
-            * [16.3.1. 函数](#1631-函数)
         * [16.5. getopt — C-风格的命令行选项解析器](#165-getopt--c-风格的命令行选项解析器)
             * [16.6.2. 日志级别](#1662-日志级别)
             * [16.6.7. LogRecord属性](#1667-logrecord属性)
@@ -1456,27 +1454,6 @@ A buffered text stream over a [BufferedIOBase](https://docs.python.org/3.6/libra
 一个用于文本I/O的内存中的流。当 [close()](https://docs.python.org/3/library/io.html#io.IOBase.close) 方法被调用时文本缓冲区被丢弃。
 
 缓冲区的初始值可以通过提供的 *initial_value* 参数继续设置。如果新行转化被启用，newlines will be encoded as if by [write()](https://docs.python.org/3/library/io.html#io.TextIOBase.write)。流被放在缓冲区的起始位置。
-
-### 16.3. time — 时间访问和转化
-这个模块提供了各种各样的时间相关的函数。相关的功能 (functionality)，请参见 [datetime](https://docs.python.org/3/library/datetime.html#module-datetime) 和 [calendar](https://docs.python.org/3/library/calendar.html#module-calendar) 模块。
-
-按顺序解释一些术语和惯例。
-
-* *epoch* 是时间的起始点，且取决于平台。对于 Unix, epoch 是 1970-1-1, 00:00:00 (UTC). 找出指定平台的 epoch 是什么，看 `time.gmtime(0)`。
-
-* UTC 是 Coordinated Universal Time (以前叫 Greenwich Mean Time, 或 GMT). 首字母缩略词 UTC 不是一个错误而是英语与法语间的一个折衷。
-
-#### 16.3.1. 函数
-time.**gmtime**(\[*secs*\])  
-将一个以 epoch 为起始点以秒为单位的时间表达式转换成一个 UTC 格式的 [struct_time](https://docs.python.org/3/library/time.html#time.struct_time) 且 dst 标志总是为0。如果 *secs* 没有提供或者为 [None](https://docs.python.org/3/library/constants.html#None)，则使用 [time()](https://docs.python.org/3/library/time.html#time.time) 返回的当前时间。小数部分的秒被忽略。[struct_time](https://docs.python.org/3/library/time.html#time.struct_time) 对象的描述请看上面。这个函数的反转请看 [calendar.timegm()](https://docs.python.org/3/library/calendar.html#calendar.timegm)。
-
-time.**sleep**(*secs*)  
-将当前线程按指定的秒数推迟执行。参数可以是一个浮点数以指定一个更精确的睡眠时间。The actual suspension time may be less than that requested because any caught signal will terminate the [sleep()](https://docs.python.org/3.6/library/time.html#time.sleep) following execution of that signal’s catching routine. Also, the suspension time may be longer than requested by an arbitrary amount because of the scheduling of other activity in the system.
-
-*在版本3.5中发生变化：* The function now sleeps at least *secs* even if the sleep is interrupted by a signal, except if the signal handler raises an exception (原理请看 [PEP 475](https://www.python.org/dev/peps/pep-0475))。
-
-time.**time()** → float  
-以 [epoch](https://docs.python.org/3/library/time.html#epoch) 为起始点以秒为单位返回当前时间作为一个浮点数。epoch 明确的日期及 [leap seconds](https://en.wikipedia.org/wiki/Leap_second) 的处理依赖于平台。在 Windows 和 大多数 Unix 系统中，epoch 是 1970-1-1, 00:00:00 (UTC) and leap seconds are not counted towards the time in seconds since the epoch. This is commonly referred to as [Unix time](https://en.wikipedia.org/wiki/Unix_time). 找出指定平台的 epoch 是什么，看 `time.gmtime(0)`。
 
 ### 16.5. getopt — C-风格的命令行选项解析器
 **Source code:** [Lib/getopt.py](https://github.com/python/cpython/tree/3.6/Lib/getopt.py)
