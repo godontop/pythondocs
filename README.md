@@ -84,11 +84,6 @@ Python相关文档。
 * [Python HOWTOs](#python-howtos)
     * [如何使用urllib包获取互联网资源](#如何使用urllib包获取互联网资源)
         * [头信息](#头信息)
-* [Python打包用户指南](#python打包用户指南)
-    * [教程](#教程)
-        * [安装包](#安装包)
-            * [Source Distributions vs Wheels](#source-distributions-vs-wheels)
-            * [Requirements files](#requirements-files)
 * [PEPs](#peps)
     * [PEP 453 -- Explicit bootstrapping of pip in Python installations](#pep-453----explicit-bootstrapping-of-pip-in-python-installations)
         * [在Windows下执行脚本](#在windows下执行脚本)
@@ -2040,21 +2035,6 @@ Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:58.0) Gecko/20100101 Firefox/58
 
 当Request对象没有传递headers参数时，执行结果是：  
 Python-urllib/3.6
-
-# Python打包用户指南 
-## 教程
-### 安装包
-#### Source Distributions vs Wheels
-[pip](https://packaging.python.org/key_projects/#pip) 可以从 [Source Distributions (sdist)](https://packaging.python.org/glossary/#term-source-distribution-or-sdist) 或者 [Wheels](https://packaging.python.org/glossary/#term-wheel) 安装，但如果两者都存在于 PyPI，则pip将优先安装一个兼容的 [wheel](https://packaging.python.org/glossary/#term-wheel)。
-
-[Wheels](https://packaging.python.org/glossary/#term-wheel) are a pre-built [distribution](https://packaging.python.org/glossary/#term-distribution-package) format that provides faster installation compared to [Source Distributions (sdist)](https://packaging.python.org/glossary/#term-source-distribution-or-sdist), 特别是当一个项目包含编译的扩展时。
-
-If [pip](https://packaging.python.org/key_projects/#pip) does not find a wheel to install, it will locally build a wheel and cache it for future installs, instead of rebuilding the source distribution in the future.
-
-#### Requirements files
-Install a list of requirements specified in a [Requirements File](https://pip.pypa.io/en/latest/user_guide/#requirements-files).
-
-`pip install -r requirements.txt`
 
 # PEPs
 ## PEP 453 -- Explicit bootstrapping of pip in Python installations
