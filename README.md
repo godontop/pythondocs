@@ -88,10 +88,6 @@ Python相关文档。
     * [PEP 453 -- Explicit bootstrapping of pip in Python installations](#pep-453----explicit-bootstrapping-of-pip-in-python-installations)
         * [在Windows下执行脚本](#在windows下执行脚本)
 * [术语表](#术语表)
-* [IPython](#ipython)
-    * [Installation](#installation)
-        * [安装IPython内核](#安装ipython内核)
-            * [Kernels for Python 2 and 3](#kernels-for-python-2-and-3)
 * [cssselect](#cssselect)
 * [Beautiful Soup](#beautiful-soup)
     * [输出](#输出)
@@ -2076,28 +2072,6 @@ An object exposing a file-oriented API (with methods such as read() or write()) 
 
 **file-like object**  
 [文件对象](https://docs.python.org/3/glossary.html#term-file-object) 的同义词。
-
-# IPython
-## Installation
-### 安装IPython内核
-#### Kernels for Python 2 and 3
-If you’re running Jupyter on Python 3, you can set up a Python 2 kernel like this:
-
-```
-python2 -m pip install ipykernel
-python2 -m ipykernel install --user
-```
-
-**On Windows:**  
-
-```
-py -2 -m pip install ipykernel
-py -2 -m ipykernel install --user
-```
-
-If you’re running Jupyter on Python 2 and want to set up a Python 3 kernel, follow the same steps, replacing `2` with `3`.
-
-The last command installs a [kernel spec](https://jupyter-client.readthedocs.io/en/latest/kernels.html#kernelspecs) file for the current python installation. Kernel spec 文件是JSON文件，可以被普通文本编辑器浏览和修改。
 
 # Beautiful Soup
 ## 输出
