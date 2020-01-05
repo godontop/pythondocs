@@ -112,8 +112,6 @@ Python解释器内置了许多总是可用的函数和类型。在这里以字�
 |          |          |                  |          |          |
 |          |          |int()             |open()    |          |
 |          |          |isinstance()      |ord()     |          |
-|          |          |                  |pow()     |          |
-|          |          |                  |print()   |          |
 |          |          |                  |          |type()    |
 |          |          |                  |          |          |
 |          |          |                  |          |          |
@@ -412,22 +410,6 @@ True
 >>> u'\u4e2d'
 '中'
 ```
-
-**pow**(*x*, *y*[, *z*])  
-返回 *x* 的 *y* 次方；如果 *z* 出现，则返回 *x* 的 *y* 次方再以 *z* 取模(比`pow(x, y) % z`的计算效率更高).两个参数的形式 `pow(x, y)` 等同于使用幂运算: `x**y`。
-
-The arguments must have numeric types. With mixed operand types, the coercion rules for binary arithmetic operators apply. 对于 [整型数](https://docs.python.org/3.6/library/functions.html#int) 操作数，结果与操作数的类型相同 (强制之后) 除非第二个参数是负的；在那种情况下，所有参数被转换成浮点数并返回一个浮点数结果。例如，`10**2` 返回 `100`，但 `10**-2` 返回 `0.01`。如果第二个参数是负的，第三个参数必须被省略。如果 *z* 出现，*x* 和 *y* 必须是整数类型，且 *y* 必须是非负的。
-
-**print**(_*objects, sep=' ', end='\n', file=sys.stdout, flush=False_)  
-打印 *objects* 到文本流 *file*, separated by *sep* and followed by *end*. 如果出现*sep*, *end*, *file* 和 *flush*, 则必须被作为关键字参数给出。  
-
-所有非关键字参数被转换成字符串就像 [str()](https://docs.python.org/3.6/library/stdtypes.html#str) 做的那样并写入到流，separated by *sep* and followed by *end*。*sep* 和 *end* 都必须是字符串；它们也可以是 `None`，意味着使用默认值（*sep* 的默认值为一个空格，*end* 的默认值为一个换行符）。如果没有给定 *objects*， [print()](https://docs.python.org/3.6/library/functions.html#print) 将仅写入 *end*。  
-
-The *file* argument must be an object with a `write(string)` method; if it is not present or `None`, [sys.stdout](https://docs.python.org/3.6/library/sys.html#sys.stdout) will be used. Since printed arguments are converted to text strings, [print()](https://docs.python.org/3.6/library/functions.html#print) cannot be used with binary mode file objects. For these, use `file.write(...)` instead.
-
-输出是否缓冲通常由 *file* 决定，但如果 *flush* 关键字参数是 true, 则流被强制 flushed.
-
-_在版本3.3中发生变化：_ 增加了 *flush* 关键字参数。
 
 *class* **type**(*object*)  
 *class* **type**(*name, bases, dict*)  
