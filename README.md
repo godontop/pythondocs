@@ -29,7 +29,6 @@ Python相关文档。
         * [9.6. random — 生成伪随机数](#96-random--生成伪随机数)
             * [9.6.2. 用于整型数的函数](#962-用于整型数的函数)
             * [9.6.3. 用于序列的函数](#963-用于序列的函数)
-            * [10.1.1. Itertool函数](#1011-itertool函数)
         * [10.2. functools — 高阶函数和操作可调用对象](#102-functools--高阶函数和操作可调用对象)
     * [12. 数据持久性](#12-数据持久性)
         * [12.1. pickle — Python对象序列化](#121-pickle--python对象序列化)
@@ -1016,27 +1015,6 @@ random.**randint**(*a, b*)
 #### 9.6.3. 用于序列的函数
 random.**choice**(*seq*)  
 从一个非空的序列 *seq* 返回一个随机元素。如果 *seq* 为空，则抛出 [IndexError](https://docs.python.org/3.6/library/exceptions.html#IndexError)。
-
-#### 10.1.1. Itertool函数
-下面的模块函数都构造并返回迭代器。一些提供无限长的流，所以它们应该仅被截断流的函数或循环访问。
-
-itertools.**count**(*start=0, step=1*)  
-创建一个以数字 *start* 开始返回等间隔值的迭代器。经常用来作为 [map()](https://docs.python.org/3.6/library/functions.html#map) 的一个参数来生产连续的数据点。也和 [zip()](https://docs.python.org/3.6/library/functions.html#zip) 一起用来增加序列数。大致等同于：
-
-```python
-def count(start=0, step=1):
-    # count(10) --> 10 11 12 13 14 ...
-    # count(2.5, 0.5) -> 2.5 3.0 3.5 ...
-    n = start
-    while True:
-        yield n
-        n += step
-
-```
-
-当计算浮点数时，有时更高的精准度可以通过代入乘法代码来实现，例如：`(start + step * i for i in count())`。
-
-*在版本3.1中发生变化：* 增加 *step* 参数并允许非整型数参数。
 
 ### 10.2. functools — 高阶函数和操作可调用对象
 **Source code:** [Lib/functools.py](https://github.com/python/cpython/tree/3.6/Lib/functools.py)
