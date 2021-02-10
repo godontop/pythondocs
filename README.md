@@ -106,7 +106,7 @@ Python解释器内置了许多总是可用的函数和类型。在这里以字�
 |          |          |Built-in Functions|          |          |
 |----------|----------|------------------|----------|----------|
 |abs()     |          |                  |          |          |
-|all()     |          |hex()             |          |          |
+|          |          |hex()             |          |          |
 |          |          |id()              |          |          |
 |          |          |int()             |          |          |
 |          |          |isinstance()      |ord()     |          |
@@ -115,30 +115,6 @@ Python解释器内置了许多总是可用的函数和类型。在这里以字�
 
 **abs**(*x*)  
 返回一个数的绝对值。参数可以是一个整型数或者一个浮点数。如果参数是一个复数，its magnitude is returned.
-
-**all**(*iterable*)  
-如果 *iterable* 的所有元素都为真则返回`True` (或者如果iterable为空)。相当于：
-
-```python
-def all(iterable):
-    for element in iterable:
-        if not element:
-            return False
-    return True
-```
-
-用法举例
-```python
->>> a = []
->>> b = [1, 2, 3]
->>> c = [1, 2, None]
->>> print(all(a))
-True
->>> print(all(b))
-True
->>> print(all(c))
-False
-```
 
 **hasattr**(*object, name*)  
 参数是一个对象和一个字符串。如果字符串是对象的某个属性的名称则结果为 `True` ，否则返回 `False` 。(这是通过调用 `getattr(object, name)` 并看它是否抛出一个 [AttributeError](https://docs.python.org/3.6/library/exceptions.html#AttributeError) 来实现的。)
