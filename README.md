@@ -2,10 +2,6 @@
 Python相关文档。  
 
 * [Python 3 标准库](#python-3-标准库)
-    * [3. 内置常量](#3-内置常量)
-    * [5. 内置异常](#5-内置异常)
-        * [5.2. 具体异常](#52-具体异常)
-            * [5.2.1. OS异常](#521-os异常)
         * [8.1. datetime — 基本的日期和时间类型](#81-datetime--基本的日期和时间类型)
             * [8.1.1. 可用类型](#811-可用类型)
             * [8.1.2. timedelta对象](#812-timedelta对象)
@@ -84,47 +80,6 @@ Python相关文档。
 [Python 2标准库](https://github.com/godontop/pythondocs/blob/master/python2/README.md)
 
 # Python 3 标准库
-## 3. 内置常量
-有一小部分常量在命名空间中。它们是：
-
-**False**  
-[bool](https://docs.python.org/3/library/functions.html#bool) 类型的false值。给 `False` 赋值是不合法的且会抛出一个 [SyntaxError](https://docs.python.org/3/library/exceptions.html#SyntaxError)。
-
-**True**  
-[bool](https://docs.python.org/3/library/functions.html#bool) 类型的true值。给 `True` 赋值是不合法的且会抛出一个 [SyntaxError](https://docs.python.org/3/library/exceptions.html#SyntaxError)。
-
-**None**  
-`NoneType` 类型唯一的值。`None` 经常用于表示一个不存在的值，如当默认参数没有传递给函数时。给 `None` 赋值是不合法的且会抛出一个 [SyntaxError](https://docs.python.org/3/library/exceptions.html#SyntaxError)。
-
-**\_\_debug\_\_**  
-如果Python启动时没带 [-O](https://docs.python.org/3/using/cmdline.html#cmdoption-o) 选项则这个常量为真。另请参见 [assert](https://docs.python.org/3/reference/simple_stmts.html#assert) 语句。
-
-**注意：** 名称 [None](https://docs.python.org/3/library/constants.html#None), [False](https://docs.python.org/3/library/constants.html#False), [True](https://docs.python.org/3/library/constants.html#True) 和 [__debug__](https://docs.python.org/3/library/constants.html#__debug__) 不能被再分配 (给它们赋值，哪怕是一个属性名称，也会抛出 [SyntaxError](https://docs.python.org/3/library/exceptions.html#SyntaxError)), 所以它们可以被认为是 “true” 常量。  
-
-## 5. 内置异常
-### 5.2. 具体异常
-下面的异常是经常被抛出的异常。
-
-下面的异常是为了与之前的版本保持兼容；从Python 3.3开始，它们都是 [OSError](https://docs.python.org/3.6/library/exceptions.html#OSError) 的别名。
-
-*exception* **EnvironmentError**
-
-*exception* **IOError**
-
-*exception* **WindowsError**  
-仅Windows下可用。
-
-#### 5.2.1. OS异常
-下面的异常是 [OSError](https://docs.python.org/3.6/library/exceptions.html#OSError) 的子类，they get raised depending on the system error code.
-
-*exception* **ConnectionError**  
-连接相关的问题的一个基类。
-
-子类是 [BrokenPipeError](https://docs.python.org/3.6/library/exceptions.html#BrokenPipeError), [ConnectionAbortedError](https://docs.python.org/3.6/library/exceptions.html#ConnectionAbortedError), [ConnectionRefusedError](https://docs.python.org/3.6/library/exceptions.html#ConnectionRefusedError) 和 [ConnectionResetError](https://docs.python.org/3.6/library/exceptions.html#ConnectionResetError)。
-
-*exception* **ConnectionResetError**  
-[ConnectionError](https://docs.python.org/3.6/library/exceptions.html#ConnectionError) 的一个子类，当一个连接被对方重置时抛出。相当于 errno `ECONNRESET`。
-
 ## 8.1. datetime — 基本的日期和时间类型
 **源代码：** [Lib/datetime.py](https://github.com/python/cpython/tree/3.6/Lib/datetime.py)
 
