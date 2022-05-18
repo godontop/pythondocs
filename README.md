@@ -2,7 +2,6 @@
 Python相关文档。  
 
 * [Python 3 标准库](#python-3-标准库)
-	* [2. 内置函数](#2-内置函数)
     * [3. 内置常量](#3-内置常量)
     * [5. 内置异常](#5-内置异常)
         * [5.2. 具体异常](#52-具体异常)
@@ -85,114 +84,6 @@ Python相关文档。
 [Python 2标准库](https://github.com/godontop/pythondocs/blob/master/python2/README.md)
 
 # Python 3 标准库
-## 2. 内置函数
-Python解释器内置了许多总是可用的函数和类型。在这里以字母顺序列出它们。
-
-|          |          |Built-in Functions|          |          |
-|----------|----------|------------------|----------|----------|
-|abs()     |          |                  |          |          |
-|          |          |hex()             |          |          |
-|          |          |id()              |          |          |
-|          |          |int()             |          |          |
-|          |          |isinstance()      |ord()     |          |
-|          |          |                  |          |type()    |
-|          |hasattr() |                  |          |          |
-
-**abs**(*x*)  
-返回一个数的绝对值。参数可以是一个整型数或者一个浮点数。如果参数是一个复数，its magnitude is returned.
-
-**hasattr**(*object, name*)  
-参数是一个对象和一个字符串。如果字符串是对象的某个属性的名称则结果为 `True` ，否则返回 `False` 。(这是通过调用 `getattr(object, name)` 并看它是否抛出一个 [AttributeError](https://docs.python.org/3.6/library/exceptions.html#AttributeError) 来实现的。)
-
-**hex**(*x*)  
-将一个整型数转换成一个以 "0x" 为前缀的小写字母十六进制字符串。
-
-```python
->>> hex(255)
-'0xff'
->>> hex(-42)
-'-0x2a'
-```
-
-**id**(*object*)  
-返回一个对象的 “身份”。在这个对象的生命周期内这是一个保证唯一和不变的整型数。两个生命周期不重叠的对象可能有相同的 [id()](https://docs.python.org/3/library/functions.html#id) 值。
-
-**CPython 实现细节：** 这是对象在内存中的地址。  
-
-```python
->>> class >>> class A:
-...     def __init__(self):
-...         pass
-...
->>> a = A()
->>> print(a)
-<__main__.A object at 0x000001E4E5391518>
->>> id(a)
-2082609894680
->>> hex(id(a))
-'0x1e4e5391518'
->>> hex(id(a)).upper()
-'0X1E4E5391518'
->>> hex(id(a))[0:2] + hex(id(a))[2:].upper()
-'0x1E4E5391518'
->>>
-```
-
-*class* **int**(*x=0*)  
-*class* **int**(*x, base=10*)  
-返回一个从数字或者字符串 *x* 构建的整数对象，如果没有给定参数则返回0。
-
-如果 *x* 不是一个数字或者指定了 *base*，则 *x* 必须是一个表示一个以 *base* 为基数的[整型文字](https://docs.python.org/3.6/reference/lexical_analysis.html#integers)的字符串，[字节](https://docs.python.org/3.6/library/stdtypes.html#bytes)或[字节数组](https://docs.python.org/3.6/library/stdtypes.html#bytearray)实例。*base* 的默认值是10。允许的值是 0 和 2-36. 
-
-将十六进制转换为十进制：
-
-```python
->>> int('0xff', 16)
-255
->>> int('0xFF', 16)
-255
->>> int('0x9FFF', 16)
-40959
-```
-
-**isinstance**(*object, classinfo*)  
-Return true if the *object* argument is an instance of the *classinfo* argument, or of a (direct, indirect or [virtual](https://docs.python.org/3.6/glossary.html#term-abstract-base-class)) subclass thereof. 如果 *object* 不是一个指定类型的对象，则函数总是返回 false. If *classinfo* is a tuple of type objects (or recursively, other such tuples), return true if *object* is an instance of any of the types. If *classinfo* is not a type or tuple of types and such tuples, a [TypeError](https://docs.python.org/3.6/library/exceptions.html#TypeError) exception is raised.
-<br />  
-
-**ord**(*c*)  
-给定一个表示一个Unicode字符的字符串，返回一个代表该字符的Unicode代码点的整型数。例如， `ord('a')` 返回整型数 `97`，`ord('€')` (欧元符号) 返回 `8364`。这是 [chr()](https://docs.python.org/3.6/library/functions.html#chr) 的逆向操作。
-
-函数 ord(c) 返回的是一个十进制整型数。
-
-```python
->>> ord('a')
-97
->>> ord('€')
-8364
->>> ord('中')
-20013
->>> hex(20013)
-'0x4e2d'
->>> u'\u4e2d'
-'中'
-```
-
-*class* **type**(*object*)  
-*class* **type**(*name, bases, dict*)  
-带一个参数时，返回 *object* 的类型。返回值是一种类型对象并且通常和 [object.\_\_class\_\_](https://docs.python.org/3.6/library/stdtypes.html#instance.__class__) 返回相同的对象。
-
-推荐使用内置函数 [isinstance()](https://docs.python.org/3.6/library/functions.html#isinstance) 测试一个对象的类型, because it takes subclasses into account.
-
-```python
->>> obj = "It's a string."
->>> type(obj)
-<class 'str'>
->>> obj.__class__
-<class 'str'>
->>> isinstance(obj, str)
-True
-```
-
 ## 3. 内置常量
 有一小部分常量在命名空间中。它们是：
 
