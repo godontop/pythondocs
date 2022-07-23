@@ -18,12 +18,6 @@ Python相关文档。
         * [13.1. zlib — 与gzip兼容的压缩](#131-zlib--与gzip兼容的压缩)
         * [13.5. zipfile — 与ZIP归档一起工作](#135-zipfile--与zip归档一起工作)
             * [13.5.1. ZipFile对象](#1351-zipfile对象)
-        * [21.21. socketserver — 一个网络服务器框架](#2121-socketserver--一个网络服务器框架)
-            * [21.21.2. 服务器对象](#21212-服务器对象)
-        * [21.22. http.server — HTTP 服务器](#2122-httpserver--http-服务器)
-    * [22. 互联网协议和支持](#22-互联网协议和支持)
-        * [22.12. http.client — HTTP协议客户端](#2212-httpclient--http协议客户端)
-            * [22.12.2. HTTPResponse对象](#22122-httpresponse对象)
 * [PEPs](#peps)
     * [PEP 453 -- Explicit bootstrapping of pip in Python installations](#pep-453----explicit-bootstrapping-of-pip-in-python-installations)
         * [在Windows下执行脚本](#在windows下执行脚本)
@@ -101,7 +95,7 @@ date.**isoweekday()**
 用一个整数返回星期几，星期一是1，星期天是7. 例如，`date(2002, 12, 4).isoweekday() == 3`，星期三。另请参阅 [weekday()](https://docs.python.org/3.6/library/datetime.html#datetime.date.weekday)，[isocalendar()](https://docs.python.org/3.6/library/datetime.html#datetime.date.isocalendar)。
 
 #### 8.1.4. datetime对象
-一个 [datetime](https://docs.python.org/3.6/library/datetime.html#datetime.datetime) 对象是包含一个 [date](https://docs.python.org/3.6/library/datetime.html#datetime.date) 对象和一个 [time](https://docs.python.org/3.6/library/datetime.html#datetime.time) 对象的所有信息的一个单一对象。与一个 [date](https://docs.python.org/3.6/library/datetime.html#datetime.date) 对象相似，[datetime](https://docs.python.org/3.6/library/datetime.html#datetime.datetime) assumes the current Gregorian calendar extended in both directions; 与一个 time 对象相似，[datetime](https://docs.python.org/3.6/library/datetime.html#datetime.datetime) 假定每一天都精确地含有 3600*24 秒。
+一个 [datetime](https://docs.python.org/3.6/library/datetime.html#datetime.datetime) 对象是包含一个 [date](https://docs.python.org/3.6/library/datetime.html#datetime.date) 对象和一个 [time](https://docs.python.org/3.6/library/datetime.html#datetime.time) 对象的所有信息的一个单一对象。与一个 [date](https://docs.python.org/3.6/library/datetime.html#datetime.date) 对象相似，[datetime](https://docs.python.org/3.6/library/datetime.html#datetime.datetime) assumes the current Gregorian calendar extended in both directions; 与一个 time 对象相似，[datetime](https://docs.python.org/3.6/library/datetime.html#datetime.datetime) 假定每一天都精确地含有 3600\*24 秒。
 
 构造函数：
 
@@ -374,135 +368,6 @@ ZipFile.**write**(*filename, arcname=None, compress_type=None, compresslevel=Non
 ```
 
 **注意：** 下载得到的压缩数据是在使用BytesIO封装之后，才传给ZipFile的。这是因为ZipFile需要一个类似文件的接口，而不是字节。  
-
-### 21.21. socketserver — 一个网络服务器框架
-**Source code:** [Lib/socketserver.py](https://github.com/python/cpython/tree/3.6/Lib/socketserver.py)
-
-[socketserver](https://docs.python.org/3.6/library/socketserver.html#module-socketserver) 模块简化了写网络服务器的任务。
-
-有四个基本的具体的服务器类：
-
-*class* socketserver.**TCPServer**(*server_address, RequestHandlerClass, bind_and_activate=True*)  
-这个类使用在客户端与服务器之间提供连续的数据流的互联网TCP协议，如果 *bind_and_activate* 是 true, 则构造函数自动地尝试调用 [server_bind()](https://docs.python.org/3.6/library/socketserver.html#socketserver.BaseServer.server_bind) 和 [server_activate()](https://docs.python.org/3.6/library/socketserver.html#socketserver.BaseServer.server_activate)。其它参数（parameters）被传递给基类 [BaseServer](https://docs.python.org/3.6/library/socketserver.html#socketserver.BaseServer)。
-
-#### 21.21.2. 服务器对象
-*class* socketserver.**BaseServer**(*server_address, RequestHandlerClass*)  
-这是模块（socketserver）中所有服务器对象的超类。它定义了接口，如下，但大多数方法都没有实现，方法在子类中实现。两个参数（parameters）被分别存储在 [server_address](https://docs.python.org/3.6/library/socketserver.html#socketserver.BaseServer.server_address) 和 [RequestHandlerClass](https://docs.python.org/3.6/library/socketserver.html#socketserver.BaseServer.RequestHandlerClass) 属性中。
-
-**serve_forever**(*poll_interval=0.5*)  
-处理请求直到一个明确的 [shutdown()](https://docs.python.org/3.6/library/socketserver.html#socketserver.BaseServer.shutdown) 请求。每 *poll_interval* 秒投票关闭。忽略 [timeout](https://docs.python.org/3.6/library/socketserver.html#socketserver.BaseServer.timeout) 属性。它也调用 [service_actions()](https://docs.python.org/3.6/library/socketserver.html#socketserver.BaseServer.service_actions)，`service_actions()` 可能被子类或混入类用来给一个给定的服务提供具体的动作。例如，[ForkingMixIn](https://docs.python.org/3.6/library/socketserver.html#socketserver.ForkingMixIn) 类使用 [service_actions()](https://docs.python.org/3.6/library/socketserver.html#socketserver.BaseServer.service_actions) 清理僵尸子进程。
-
-*在3.3版本中发生变化：* 为 `serve_forever` 方法增加 `service_actions` 调用。
-
-**service_actions()**  
-这在 [serve_forever()](https://docs.python.org/3.6/library/socketserver.html#socketserver.BaseServer.serve_forever) 循环中被调用。这个方法可以被子类或混入类重写以便给一个给定的服务执行特定的动作，例如清理动作。
-
-*版本3.3中新增。*
-
-**shutdown()**  
-Tell the [serve_forever()](https://docs.python.org/3.6/library/socketserver.html#socketserver.BaseServer.serve_forever) loop to stop and wait until it does.
-
-**RequestHandlerClass**  
-用户提供的请求处理程序类；每次请求都会创建一个该类的实例。
-
-**server_address**  
-服务器监听的地址。地址格式的变化依赖于协议族；详细信息请看 [socket](https://docs.python.org/3.6/library/socket.html#module-socket) 模块的文档。对于 Internet protocols (IP), 这是一个包含一个给定地址的字符串和一个整型数端口号的元组：`('127.0.0.1', 80)`, 例如。
-
-### 21.22. http.server — HTTP 服务器
-**源代码:** [Lib/http/server.py](https://github.com/python/cpython/tree/3.6/Lib/http/server.py)
-
-这个模块定义实现HTTP服务器（Web服务器）的类。
-
-*class* http.server.**SimpleHTTPRequestHandler**(*request, client_address, server*)  
-这个类为当前目录及其子目录下的文件服务，直接映射目录结构到HTTP请求。
-
-很多工作，例如解析请求，由基类 [BaseHTTPRequestHandler](https://docs.python.org/3.6/library/http.server.html#http.server.BaseHTTPRequestHandler) 完成。这个类实现了 [do_GET()](https://docs.python.org/3.6/library/http.server.html#http.server.SimpleHTTPRequestHandler.do_GET) 和 [do_HEAD()](https://docs.python.org/3.6/library/http.server.html#http.server.SimpleHTTPRequestHandler.do_HEAD) 方法。
-
-下面是定义为 [SimpleHTTPRequestHandler](https://docs.python.org/3.6/library/http.server.html#http.server.SimpleHTTPRequestHandler) 类级别的属性：
-
-**extensions_map**  
-一个映射后缀到MIME类型的字典。默认值由空串表明，且被认为是 `application/octet-stream`。映射不区分大小写，所以应该仅包含小写键。
-
-```python
-from http.server import SimpleHTTPRequestHandler
-
-
-SimpleHTTPRequestHandler.extensions_map = {
-    '.html': 'text/html',
-    '.sh': 'test/x-sh',
-    '.js': 'application/javascript',
-    '.pac': 'application/x-ns-proxy-autoconfig',
-    '': 'application/octet/stream',
-}
-
-```
-
-## 22. 互联网协议和支持
-这章描述的模块实现了互联网协议和相关技术的支持。它们在Python中全被实现了。大多数这些模块都要求系统相关的模块 [socket](https://docs.python.org/3/library/socket.html#module-socket) 存在，目前大多数流行的平台都支持 [socket](https://docs.python.org/3/library/socket.html#module-socket)。下面是一个概述：
-
-### 22.12. http.client — HTTP协议客户端
-**Source code:** [Lib/http/client.py](https://github.com/python/cpython/tree/3.6/Lib/http/client.py)
-
-这个模块定义实现HTTP和HTTPS协议客户端的类。它通常不被直接使用 — 模块 [urllib.request](https://docs.python.org/3.6/library/urllib.request.html#module-urllib.request) 使用它处理HTTP和HTTPS URLs。
-
-**另请参阅：** 更高层次的HTTP客户端接口推荐 [Requests package](http://docs.python-requests.org/)。
-
-**注意：** 如果Python编译了SSL支持 (通过 [ssl](https://docs.python.org/3.6/library/ssl.html#module-ssl) 模块)，HTTPS支持才可用。
-
-这个模块提供了下面的类：
-
-*class* http.client.**HTTPResponse**(*sock, debuglevel=0, method=None, url=None*)  
-Class whose instances are returned upon successful connection. Not instantiated directly by user.
-
-*在版本3.4中发生变化：* *strict* 参量被移除了。HTTP 0.9 风格 “Simple Responses” 不再支持。
-
-#### 22.12.2. HTTPResponse对象
-An [HTTPResponse](https://docs.python.org/3.6/library/http.client.html#http.client.HTTPResponse) instance wraps the HTTP response from the server. It provides access to the request headers and the entity body. The response is an iterable object and can be used in a with statement.
-
-*在版本3.5中发生变化：* 现在实现了 [io.BufferedIOBase](https://docs.python.org/3.6/library/io.html#io.BufferedIOBase) 接口，它的所有的读操作都支持。
-
-HTTPResponse.**read**([*amt*])  
-读取并返回响应正文，或者直到下一个 *amt* 字节。
-
-HTTPResponse.**version**  
-服务器使用的HTTP协议版本。HTTP/1.0 为 10，HTTP/1.1 为 11。
-
-HTTPResponse.**status**  
-服务器返回的状态代码。
-
-实例属性：
-
-**code**  
-返回类型为int，返回HTTP Response状态代码
-
-```python
->>> import http.client
->>> import urllib.error
->>> from urllib.request import urlopen
->>> dir(http.client.HTTPResponse)
-['__abstractmethods__', '__class__', '__del__', '__delattr__', '__dict__', '__dir__', '__doc__', '__enter__', '__eq__', '__exit__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__iter__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__next__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '_abc_cache', '_abc_negative_cache', '_abc_negative_cache_version', '_abc_registry', '_checkClosed', '_checkReadable', '_checkSeekable', '_checkWritable', '_check_close', '_close_conn', '_get_chunk_left', '_peek_chunked', '_read1_chunked', '_read_and_discard_trailer', '_read_next_chunk_size', '_read_status', '_readall_chunked', '_readinto_chunked', '_safe_read', '_safe_readinto', 'begin', 'close', 'closed', 'detach', 'fileno', 'flush', 'getcode', 'getheader', 'getheaders', 'geturl', 'info', 'isatty', 'isclosed', 'peek', 'read', 'read1', 'readable', 'readinto', 'readinto1', 'readline', 'readlines', 'seek', 'seekable', 'tell', 'truncate', 'writable', 'write', 'writelines']
->>> hasattr(http.client.HTTPResponse, 'code')
-False
->>> type(urlopen('http://example.webscraping.com'))
-<class 'http.client.HTTPResponse'>
->>> isinstance(urlopen('http://example.webscraping.com'), http.client.HTTPResponse)
-True
->>> hasattr(urlopen('http://example.webscraping.com'), 'code')
-True
->>> dir(urlopen('http://example.webscraping.com'))
-['__abstractmethods__', '__class__', '__del__', '__delattr__', '__dict__', '__dir__', '__doc__', '__enter__', '__eq__', '__exit__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__iter__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__next__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '_abc_cache', '_abc_negative_cache', '_abc_negative_cache_version', '_abc_registry', '_checkClosed', '_checkReadable', '_checkSeekable', '_checkWritable', '_check_close', '_close_conn', '_get_chunk_left', '_method', '_peek_chunked', '_read1_chunked', '_read_and_discard_trailer', '_read_next_chunk_size', '_read_status', '_readall_chunked', '_readinto_chunked', '_safe_read', '_safe_readinto', 'begin', 'chunk_left', 'chunked', 'close', 'closed', 'code', 'debuglevel', 'detach', 'fileno', 'flush', 'fp', 'getcode', 'getheader', 'getheaders', 'geturl', 'headers', 'info', 'isatty', 'isclosed', 'length', 'msg', 'peek', 'read', 'read1', 'readable', 'readinto', 'readinto1', 'readline', 'readlines', 'reason', 'seek', 'seekable', 'status', 'tell', 'truncate', 'url', 'version', 'will_close', 'writable', 'write', 'writelines']
->>> type(urlopen('http://example.webscraping.com').code)
-<class 'int'>
->>> urlopen('http://example.webscraping.com').code
-200
->>> try:
-...     print(urlopen('https://python.org/java').code)
-... except urllib.error.HTTPError as e:
-...     print(e.code)
-...
-404
->>>
-```
 
 # PEPs
 ## PEP 453 -- Explicit bootstrapping of pip in Python installations
